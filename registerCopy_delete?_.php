@@ -6,33 +6,32 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 session_set_cookie_params(0);
-   
+
 session_start();
 
-require_once ('connDB.php');  //Changed from if statment to here
+require_once('connDB.php');  //Changed from if statment to here
 
 //Load Composer's autoloader
 require 'vendor/autoload.php';
 
-if($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstName = $_POST["firstName"];
     $lastName = $_POST["lastName"];
     $u = $_POST["u"];
     $p = $_POST["p"];
-    $birth_date= $_POST["birth_date"];
+    $birth_date = $_POST["birth_date"];
     $email = $_POST["email"];
     $Address = $_POST["Address"];
     $City = $_POST["City"];
     $State = $_POST["State"];
-    $Country= "USA";
+    $Country = "USA";
     $PostalCode = $_POST["PostalCode"];
 
-  
+
     if (strlen($p) < 7) {
         echo "<div class=echo><h6 id=malign>Password must be more than 6 characters.</h6></div>";
         // return;
-    } 
-    else {
+    } else {
         //here we check for duplicates within the db if y//ou want to create a new account
         $checkDuplicate = "SELECT * FROM userInfo WHERE username='$username' OR email='$email' LIMIT 1";
         $result = mysqli_query($conn, $checkDuplicate);
@@ -48,10 +47,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<div class=echo><h6 id=malign>Email already exists!</h6></div>";
             } //if
         } else {
-    
-  //New code
+
+            //New code
             // if(isset($_SESSION['username'])) {
-                
+
             //     header('Location: verification.html');
             //     exit();
             // } 
@@ -61,17 +60,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             //     $url = "verification.html";
             //     header('Location: verification.html');
 
-                
+
             //     exit();
             // }
 
-    //End of new Code
-    
+            //End of new Code
+
 
             if (isset($_POST["register"])) {
-                
-            //Create an instance; passing `true` enables exceptions
-            $mail = new PHPMailer(true);
+
+                //Create an instance; passing `true` enables exceptions
+                $mail = new PHPMailer(true);
 
 
                 //Server settings
@@ -92,7 +91,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
 
 
-            $body = '<strong>Hello!</strong> Welcome to LittyLit. Here is your verification Code: ' . $verification_code . '</p>';
+                $body = '<strong>Hello!</strong> Welcome to LittyLit. Here is your verification Code: ' . $verification_code . '</p>';
 
 
                 //Content
@@ -101,15 +100,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $mail->addAddress($email);     //Add a recipient
 
-                
-                if($mail->Send()) {
+
+                if ($mail->Send()) {
                     echo "Message has been sent";
-                    
+
 
                     $sql = "INSERT INTO userInfo (firstName, lastName, username, password, birth_date, email, Address, 
                         City, State, Country, PostalCode, userType, promotion, verification_code, email_verified_at, verified) 
-                        VALUES ('". $firstName ."' , '". $lastName ."' , '". $u ."' , '". $p ."' , '". $birth_date ."' , '". $email ."' , '". $Address ."' ,
-                        '". $City ."' , '". $State ."' , '". $Country."' , '". $PostalCode ."' , '". 1 ."' , '". 1 ."' , '". $verification_code ."', NULL, '". 0 ."')";
+                        VALUES ('" . $firstName . "' , '" . $lastName . "' , '" . $u . "' , '" . $p . "' , '" . $birth_date . "' , '" . $email . "' , '" . $Address . "' ,
+                        '" . $City . "' , '" . $State . "' , '" . $Country . "' , '" . $PostalCode . "' , '" . 1 . "' , '" . 1 . "' , '" . $verification_code . "', NULL, '" . 0 . "')";
                     mysqli_query($conn, $sql);
 
                     header("Location: verify.php");
@@ -118,15 +117,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 //Connect to database
-                
-                
+
+
                 $mail->smtpClose();
             }
+        }
     }
 }
-}
 
-    ?>
+?>
 
 <!DOCTYPE html>
 
@@ -141,13 +140,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <body class="d-flex flex-column min-vh-100">
 
 
-    
+
 
     <main>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand pl-4" href="home.html" style="font-size: 60px; color: #3F3D56;">LL</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand pl-4" href="home.php" style="font-size: 60px; color: #3F3D56;">LL</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </nav>
@@ -165,14 +163,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <div class="pt-2 form-group">
                                         <p>First name</p>
                                         <!-- <label for="firstName">First Name</label> -->
-                                        <input type="text" placeholder="First Name" class="form-control" id="firstName" name="firstName" required/>
+                                        <input type="text" placeholder="First Name" class="form-control" id="firstName" name="firstName" required />
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="pl-2 pt-2 form-group">
                                         <p>Last name</p>
                                         <!-- <label for="firstName">First Name</label> -->
-                                        <input type="text" placeholder="Last Name" class="form-control" id="lastName" name="lastName" required/>
+                                        <input type="text" placeholder="Last Name" class="form-control" id="lastName" name="lastName" required />
                                         <!-- <label for="lastName">Last Name</label> -->
                                         <!-- <input type="text" class="form-control" id="lastName" name="lastName"> -->
                                     </div>
@@ -181,14 +179,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="pt-2 row justify-content-center">
                                 <div class="col-8 t-2 form-group">
                                     <!-- <label for="email">Email</label> -->
-                                    <input type="text" placeholder="Email" class="form-control" id="email" name="email" required/>
+                                    <input type="text" placeholder="Email" class="form-control" id="email" name="email" required />
                                     <!-- <input type="email" class="form-control" id="email"> -->
                                 </div>
                             </div>
                             <div class="pt-2 row justify-content-center">
                                 <div class="col-4">
                                     <div class="pt-2 form-group">
-                                        <input type="text" placeholder="username" class="form-control" id="username" name="u" required/>
+                                        <input type="text" placeholder="username" class="form-control" id="username" name="u" required />
 
                                         <!-- <label for="username">Username</label>
                                         <input type="text" class="form-control" id="username" name="username"> -->
@@ -196,7 +194,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </div>
                                 <div class="col-4">
                                     <div class="pl-2 pt-2 form-group">
-                                        <input type="password" placeholder="password" class="form-control" id="password" name="p" required/>
+                                        <input type="password" placeholder="password" class="form-control" id="password" name="p" required />
                                         <!-- <label for="password">Password</label>
                                         <input type="password" class="form-control" id="password" name="password"> -->
                                     </div>
@@ -205,7 +203,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="pt-2 row justify-content-center">
                                 <div class="col-4">
                                     <div class="pt-2 form-group">
-                                        <input type="date" placeholder="Birthday Day (YYYY-MM-DD)" class="form-control" id="birthday" name="birth_date" required/>
+                                        <input type="date" placeholder="Birthday Day (YYYY-MM-DD)" class="form-control" id="birthday" name="birth_date" required />
 
                                         <!-- <label for="username">Birthday</label>
                                         <input type="date" class="form-control" id="username" name="username"> -->
@@ -250,7 +248,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="col-3">
                                     <div class="pl-2 pt-2 form-group">
                                         <input type="text" placeholder="zip" class="form-control" id="zip" name="PostalCode" required>
-<!-- 
+                                        <!-- 
                                         <label for="password">Zip Code</label>
                                         <input type="text" class="form-control" id="zip" name="zip"> -->
                                     </div>
@@ -258,15 +256,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <button class="btn-lg btn-primary mt-3" style="background-color: #C8D8E4; border-width: 0px" type="submit" name="register">
                                 <!-- <a href="reg.php" style="color: #3F3D56"> -->
-                                    Continue
+                                Continue
                                 <!-- </a> -->
                             </button>
-                        </form> 
+                        </form>
                     </div>
                     <div class="row justify-content-center">
                         <h6 class="m-3" style="font-family: Nunito; font-size: 80%;">Already have an account? Click <a href="/login">here</a> to login.</h6>
                         <div class="col-8 text-right">
-                        <!-- <button class="btn-lg btn-primary mt-3"
+                            <!-- <button class="btn-lg btn-primary mt-3"
                             style="background-color: #C8D8E4; border-width: 0px"><a href="reg.php" style="color: #3F3D56">Continue</a>
                         </button> -->
                         </div>
@@ -274,7 +272,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
         </div>
-                        
+
         <footer class="footer pl-4 mt-auto">
             <p>CSCI 4050 Final Project by Andrew Humble, Elodie Collier, Nisha Rajendra, and Manmeet Gill.</p>
         </footer>
@@ -285,4 +283,3 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
-

@@ -11,11 +11,11 @@ if ($conn === false) {
 
 if (!isset($_SESSION['username'])) {
 
-    header("Location: home.html");
+    header("Location: home.php");
     exit();
 } else {
     $username = $_SESSION['username'];
-    $firstName = mysqli_real_escape_string($conn, $_POST['firstName']);
+    $userType = $_SESSION['userType'];
 }
 $getValuesQuery = "SELECT firstName, lastName, password, email, birthday, strAddress, city, state, zip FROM userInfo WHERE username='" . $_SESSION['username'] . "';";
 
@@ -48,7 +48,7 @@ $zip = $row['zip'];
 
 <body>
     <main>
-        <?php include 'elements/admin-header.html'; ?>
+        <?php include 'elements/header.php' ?>
 
         <div class="container-fluid text-center">
             <div class="row h-30 content">

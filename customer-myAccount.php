@@ -15,6 +15,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 } else {
     $username = $_SESSION['username'];
+    $userType = $_SESSION['userType'];
 }
 
 ?>
@@ -35,7 +36,7 @@ if (!isset($_SESSION['username'])) {
 
     <main>
 
-        <?php include 'elements/customer-header.html'; ?>
+        <?php include 'elements/header.php' ?>
         <div class="row">
             <div class="col text-center" style="background-color:#C8D8E4;">
                 <img style="padding: 14%;" src="./images/undraw_click_here_re_y6uq.svg" class="img-fluid" alt="Responsive image">

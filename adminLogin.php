@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav d-lg-flex align-items-center mt-3">
-                    <a class="nav-item h-100 nav-link" href="home.html">
+                    <a class="nav-item h-100 nav-link" href="home.php">
                     </a>
                 </div>
             </div>

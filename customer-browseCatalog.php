@@ -11,30 +11,31 @@ $userType = $_SESSION['userType'];
 
 if (!isset($_SESSION['username'])) {
 
-    header("Location: home.html");
+    header("Location: home.php");
     exit();
 } else {
     $username = $_SESSION['username'];
+    $userType = $_SESSION['userType'];
 }
 
-$getBooksQuery = "SELECT username, title, author, price, imgPath FROM book;";
+$getBooksQuery = "SELECT username, title, author, price, ISBN, imgPath FROM book;";
 $values = $conn->query($getBooksQuery);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $search = $_POST['search'];
     $filter = $_POST['radio'] ?? "";
     if ($search == "") {
-        $getBooksQuery = "SELECT username, title, author, price, imgPath FROM book;";
+        $getBooksQuery = "SELECT username, title, author, price, ISBN, imgPath FROM book;";
         $values = $conn->query($getBooksQuery);
     } else {
         if ($filter == "title") {
-            $getBooksQuery = "SELECT username, title, author, price, imgPath FROM book WHERE title LIKE '%" . $search . "%';";
+            $getBooksQuery = "SELECT username, title, author, price, ISBN, imgPath FROM book WHERE title LIKE '%" . $search . "%';";
         } else if ($filter == "author") {
-            $getBooksQuery = "SELECT username, title, author, price, imgPath FROM book WHERE author LIKE '%" . $search . "%';";
-        } else if ($filter == "isbn") {
-            $getBooksQuery = "SELECT username, title, author, price, imgPath FROM book WHERE isbn='" . $search . "';";
+            $getBooksQuery = "SELECT username, title, author, price, ISBN, imgPath FROM book WHERE author LIKE '%" . $search . "%';";
+        } else if ($filter == "ISBN") {
+            $getBooksQuery = "SELECT username, title, author, price, ISBN, imgPath FROM book WHERE ISBN='" . $search . "';";
         } else if ($filter == "genre") {
-            $getBooksQuery = "SELECT username, title, author, price, imgPath FROM book WHERE genre LIKE '%" . $search . "%';";
+            $getBooksQuery = "SELECT username, title, author, price, ISBN, imgPath FROM book WHERE genre LIKE '%" . $search . "%';";
         }
         $values = $conn->query($getBooksQuery);
     }
@@ -61,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
     <main>
-        <?php include 'elements/customer-header.html'; ?>
+        <?php include 'elements/header.php' ?>
         <div class="container-fluid mt-5">
             <div class="mx-auto text-center" style="width: 400px;">
                 <form method="post">
@@ -91,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label class="form-check-label" for="inlineRadio3">Author</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="radio" id="inlineRadio3" value="isbn" style="box-shadow: none !important;">
+                        <input class="form-check-input" type="radio" name="radio" id="inlineRadio3" value="ISBN" style="box-shadow: none !important;">
                         <label class="form-check-label" for="inlineRadio3">ISBN</label>
                     </div>
                 </form>
@@ -100,8 +101,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="col-sm-12 pt-4">
             <div class="row justify-content-center">
+                <?php
+                if (mysqli_num_rows($values) == 0) {
+                    echo "<div style='padding-top: 5rem;'><h3>No results found for \"" . $search . "\".</h3></div>";
+                }
+                ?>
                 <?php while ($row = mysqli_fetch_array($values)) { ?>
-                    <a href="">
+                    <a href="viewBook.php?selectedBook=<?php echo $row['ISBN'] ?>">
                         <div class="card ml-4 mr-4 mt-4 mb-4">
                             <div class="col-sm-12 justify-content-center">
                                 <div class="row">
@@ -113,8 +119,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <div class="row justify-content-center">
                                             <p class="card-text"><?php echo $row['author'] ?></p>
                                         </div>
-                                        <div class="row pt-1 justify-content-center">
+                                        <div class="row pt-2 justify-content-center">
                                             <h5 class="card-text"><?php echo "$" . number_format($row['price'], 2) ?></h5>
+                                        </div>
+                                        <div class="row pt-1 justify-content-center">
+                                            <p class="card-text" style="font-size: 0rem;"><?php echo $row['ISBN'] ?></h5>
                                         </div>
                                     </div>
                                 </div>

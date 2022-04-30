@@ -18,10 +18,11 @@ if ($conn === false) {
 
 if (!isset($_SESSION['username'])) {
 
-    header("Location: home.html");
+    header("Location: home.php");
     exit();
 } else {
     $username = $_SESSION['username'];
+    $userType = $_SESSION['userType'];
 }
 ###########
 
@@ -71,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submitButton'])) {
 <body>
     <main>
 
-        <?php include 'elements/vendor-header.html'; ?>
+        <?php include 'elements/header.php' ?>
 
         <!-- Page Content -->
         <div class="container-fluid text-center">
