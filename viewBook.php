@@ -36,12 +36,13 @@ if (mysqli_num_rows($cartValues) > 0) {
     $button = "<img src='images/check.svg' alt='My Happy SVG' class='pb-4' />";
 }
 
+$quantity = 1;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $addedBook = $row;
     $quantity = $_POST['quantity'];
 
-    $addToCartQuery = "INSERT INTO cart VALUES ('" . $username . "', '" . $row['title'] . "', '" . $row['author'] . "', " . $row['price'] . ", '" . $row['ISBN'] . "', " . $quantity . ", '" . $row['imgPath'] . "')";
+    $addToCartQuery = "INSERT INTO cart VALUES ('" . $username . "', '" . $row['title'] . "', '" . $row['author'] . "', " . $row['price'] . ", '" . $row['ISBN'] . "', " . $quantity . ", '" . $row['imgPath'] . "', " . $row['stock'] . ")";
     $conn->query($addToCartQuery);
     $button = "<img src='images/check.svg' alt='My Happy SVG' class='pb-4' />";
 }
@@ -91,10 +92,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <button class="AddCart" name="addedBook"><?php echo $button ?></button>
                         <p class="InventoryText mt-2 mr-1"><b>Quantity:</b></p>
                         <select class="form-select" style="border-radius: 0.3rem; border-color: white;" name="quantity">
-                            <?php for ($i = 1; $i <= $row['stock']; $i++) { ?>
-                                <option style="font-weight: bolder;" value="<?php echo $i ?>"> <?php echo $i ?>
-                                </option>
-                            <?php } ?>
+                            <?php for ($i = 1; $i <= $row['stock']; $i++) {
+                                if ($i == $quantity) { ?>
+                                    <option style="font-weight: bolder;" value="<?php echo $i ?>" selected> <?php echo $i ?>
+                                    </option>
+                                <?php } else { ?>
+                                    <option style="font-weight: bolder;" value="<?php echo $i ?>"> <?php echo $i ?>
+                                    </option>
+                            <?php }
+                            } ?>
                         </select><br><br>
                     </form>
                 </div>

@@ -46,7 +46,7 @@ if (!isset($_SESSION['userType'])) {
             <a class='nav-item h-100 nav-link' href='customer-myAccount.php'>
                 <h5>My Account</h5>
             </a>
-            <a class='nav-item h-100 mb-3 nav-link' href='customer-cart.html'><img src='./images/cart.png' height='60px' width='60px'></a>
+            <a class='nav-item h-100 mb-3 nav-link' href='cart.php'><img src='./images/cart.png' height='60px' width='60px'></a>
         </div>
     </div>
 </nav>

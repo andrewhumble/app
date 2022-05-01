@@ -338,3 +338,48 @@ background: #2B6777;
     opacity: 0.8;
   }
 /* End of Order Summary on Side Div */
+
+
+/* Set gray background color and 100% height */
+.sidenav {
+  padding-top: 20px;
+  background-color: #f1f1f1;
+  height: 100%;
+}
+
+.sidenav a {
+  font-size: 20px !important;
+  color: white !important;
+}
+
+.sidenav h5 {
+  font-size: 18px !important;
+  color: white !important;
+}
+
+.sidenav p {
+  font-size: 14px !important;
+  color: lightgrey !important;
+}
+
+.nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.avatarMargin {
+  margin-left: 2.2rem;
+}
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+  .sidenav {
+    height: auto;
+    padding: 15px;
+  }
+}
+
+html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
