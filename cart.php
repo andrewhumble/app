@@ -34,7 +34,6 @@ if ($remove != "") {
     header("Location: cart.php");
 }
 
-
 ?>
 
 <!DOCTYPE>
