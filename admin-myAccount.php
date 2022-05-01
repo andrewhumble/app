@@ -2,6 +2,7 @@
 session_start();
 
 //connect to database
+// hi
 require_once('connDB.php');
 // Check connection
 if ($conn === false) {

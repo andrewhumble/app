@@ -9,6 +9,8 @@ if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+#hellobro
+
 if (!isset($_SESSION['username'])) {
 
     header("Location: home.php");
