@@ -11,6 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $emptyUP = false;
 
     #Hello
+    #bye
 
 
     if (empty($username) || empty($password)) {
