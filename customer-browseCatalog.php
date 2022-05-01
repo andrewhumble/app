@@ -18,10 +18,22 @@ if (!isset($_SESSION['username'])) {
     $userType = $_SESSION['userType'];
 }
 
+$authorSearch = "";
+isset($_POST['authorSearch']) ? $authorSearch = $_POST['authorSearch'] : ($authorSearch = $_GET['authorSearch'] ?? "");
+
 $getBooksQuery = "SELECT username, title, author, price, ISBN, imgPath FROM book;";
+
+$searchPlaceHolder = "Search!";
+
+if ($authorSearch != "") {
+    $getBooksQuery = "SELECT username, title, author, price, ISBN, imgPath FROM book WHERE author LIKE '%" . $authorSearch . "%';";
+    $searchPlaceHolder = $authorSearch;
+}
+
 $values = $conn->query($getBooksQuery);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $searchPlaceHolder = "";
     $search = $_POST['search'];
     $filter = $_POST['radio'] ?? "";
     if ($search == "") {
@@ -70,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="form-group rounded">
                         <div class="row">
                             <div class="col-11">
-                                <input type="search" name="search" id="inputEmail" class="form-control rounded" placeholder="Search!" aria-label="Search" aria-describedby="search-addon" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" />
+                                <input type="search" name="search" id="inputEmail" class="form-control rounded" placeholder="<?php echo $searchPlaceHolder ?>" aria-label="Search" aria-describedby="search-addon" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" />
                             </div>
                             <div class=" col-1" style="align-items: center; display: flex; margin-left: -1rem;">
                                 <button class="input-group-text border-2" style=" border-width: 0rem; background-color: #C8D8E4; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
@@ -116,14 +128,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <div class="row justify-content-center">
                                             <h4 class="card-title text-center" style="font-size: 1.2rem;"><?php echo $row['title'] ?></h4>
                                         </div>
-                                        <div class="row justify-content-center">
+                                        <div class="row justify-content-center" style="margin-top: -0.5rem; font-size: 0.9rem;">
                                             <p class="card-text"><?php echo $row['author'] ?></p>
                                         </div>
-                                        <div class="row pt-2 justify-content-center">
-                                            <h5 class="card-text"><?php echo "$" . number_format($row['price'], 2) ?></h5>
+                                        <div class="row pt-4 justify-content-center">
+                                            <p class="card-text" style="font-size: 1.3rem;"><?php echo "$" . number_format($row['price'], 2) ?></p>
                                         </div>
                                         <div class="row pt-1 justify-content-center">
-                                            <p class="card-text" style="font-size: 0rem;"><?php echo $row['ISBN'] ?></h5>
+                                            <p class="card-text" style="font-size: 0rem;"><?php echo $row['ISBN'] ?></p>
                                         </div>
                                     </div>
                                 </div>
