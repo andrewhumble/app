@@ -71,7 +71,7 @@ $zip = $row['zip'];
                         </div>
                     </div>
                     <hr style="background-color: lightgrey">
-                    <h4 class="sidebar"><a href="#">
+                    <h4 class="sidebar"><a href="vendor-editMyAccount.php">
                             Account Details
                         </a></h4>
                     <h4 class="sidebar"><a href="vendor-logout.php">

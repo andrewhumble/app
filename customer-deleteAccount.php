@@ -110,7 +110,7 @@ if (isset($_POST["submitbutton"])) {
                     <h4 class="sidebar"><a href="customer-editMyAccount.php">
                             Account Details
                         </a></h4>
-                    <h4 class="sidebar"><a href="#">
+                    <h4 class="sidebar"><a href="customer-promotions.php">
                             Promotions
                         </a></h4>
                     <h4 class="sidebar"><a href="customer-logout.php">
