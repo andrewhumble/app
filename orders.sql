@@ -7,4 +7,4 @@ CREATE TABLE orders (id varchar(10) NOT NULL UNIQUE,
                        Address    VARCHAR(120),
                        day_ordered        VARCHAR(100) NOT NULL,
                     
-                       PRIMARY KEY (username));
+                       PRIMARY KEY (order_id));
