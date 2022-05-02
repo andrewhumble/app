@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+if ($_SESSION['userType'] != 1) {
+    header("Location: home.php");
+}
+
 //connect to database
 require_once('connDB.php');
 // Check connection

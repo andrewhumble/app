@@ -5,6 +5,7 @@ session_start();
 
 require('connDB.php');
 //connects to db
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -60,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <main>
-    <?php include 'elements/header.php' ?>
+        <?php include 'elements/header.php' ?>
         <div class="row justify-content-center">
             <div class="col-sm-8" style="background: #C8D8E4; margin: 10%; border-radius: 25px; padding: 3%;">
                 <div class="row justify-content-center">

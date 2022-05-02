@@ -7,6 +7,11 @@ require_once('connDB.php');
 if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
+
+if ($_SESSION['userType'] != 1) {
+    header("Location: home.php");
+}
+
 $userType = $_SESSION['userType'];
 
 if (!isset($_SESSION['username'])) {

@@ -16,6 +16,10 @@ if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+if ($_SESSION['userType'] != 2) {
+    header("Location: home.php");
+}
+
 if (!isset($_SESSION['username'])) {
 
     header("Location: home.php");
@@ -41,7 +45,7 @@ $state = $row['state'];
 $zip = $row['zip'];
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["submitButton"])) {
-    
+
     $firstName = isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : '';
     $lastName = isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : '';
     $email = $_POST['email'] ? htmlspecialchars($_POST['email']) : '';
@@ -54,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["submitButton"])) {
     $conn->query($sql);
 }
 if (isset($_POST["submitbutton"])) {
-    
+
     $firstName = isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : '';
     $lastName = isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : '';
     $email = $_POST['email'] ? htmlspecialchars($_POST['email']) : '';
@@ -63,7 +67,7 @@ if (isset($_POST["submitbutton"])) {
     $city = isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
     $state = $_POST['state'] ? htmlspecialchars($_POST['state']) : '';
     $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
-    $sql = "DELETE FROM userInfo WHERE username='".$_SESSION['username']."' ";
+    $sql = "DELETE FROM userInfo WHERE username='" . $_SESSION['username'] . "' ";
     echo $sql;
     $conn->query($sql);
     $_SESSION = array();
@@ -82,6 +86,7 @@ if (isset($_POST["submitbutton"])) {
     <link href='https://fonts.googleapis.com/css?family=Girassol:400,700,400italic,700italic' rel='stylesheet'>
 </head>
 <html>
+
 <body>
     <main>
         <?php include 'elements/header.php' ?>
@@ -91,8 +96,7 @@ if (isset($_POST["submitbutton"])) {
                     <div class="row align-items-center bottom-margin">
                         <div class="avatarMargin col-1">
                             <div class="row align-items-center d-flex float-right">
-                                <img src="https://cdn-icons-png.flaticon.com/512/147/147142.png" width="45px"
-                                    height="45px" style="vertical-align: middle;">
+                                <img src="https://cdn-icons-png.flaticon.com/512/147/147142.png" width="45px" height="45px" style="vertical-align: middle;">
                             </div>
                         </div>
                         <div class="col-8 pl-2">
@@ -123,9 +127,7 @@ if (isset($_POST["submitbutton"])) {
                         </div>
                         <div class="ml-3 mt-5">
                             <form method="post">
-                                <button
-                                    style="background-color: #C8D8E4; border: 5px solid #C8D8E4; font-family: Nunito; color: #3F3D56;"
-                                    class="btn btn-primary" type="submit" name="submitbutton"><strong>Delete My
+                                <button style="background-color: #C8D8E4; border: 5px solid #C8D8E4; font-family: Nunito; color: #3F3D56;" class="btn btn-primary" type="submit" name="submitbutton"><strong>Delete My
                                         Account</strong></button>
                             </form>
                         </div>

@@ -8,12 +8,16 @@ session_set_cookie_params(0);
 
 session_start();
 
-require_once ('connDB.php');
+require_once('connDB.php');
 // connect to the db
 
 
 //Load Composer's autoloader
 require 'vendor/autoload.php';
+
+if ($_SESSION['userType'] == 3) {
+    header("Location: home.php");
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstName = $_POST['firstName'];
@@ -30,66 +34,66 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $promotion = 0;
 
 
-        //here we check for duplicates within the db if you want to create a new account
-        $checkDuplicate = "SELECT * FROM userInfo WHERE username='$u' OR email='$email' LIMIT 1";
-        $result = mysqli_query($conn, $checkDuplicate);
+    //here we check for duplicates within the db if you want to create a new account
+    $checkDuplicate = "SELECT * FROM userInfo WHERE username='$u' OR email='$email' LIMIT 1";
+    $result = mysqli_query($conn, $checkDuplicate);
 
-        $user = mysqli_fetch_assoc($result);
+    $user = mysqli_fetch_assoc($result);
 
-        if ($user) { // if user exists
-            if ($user['username'] === $u) {
-                echo "<div class=echo><h6 id=malign>Username already exists!</h6></div>";
-            } //if
+    if ($user) { // if user exists
+        if ($user['username'] === $u) {
+            echo "<div class=echo><h6 id=malign>Username already exists!</h6></div>";
+        } //if
 
-            if ($user['email'] === $email) {
-                echo "<div class=echo><h6 id=malign>Email already exists!</h6></div>";
-            } //if
-        } else {
-            echo ("INSIDE ELSE FOR INSERT");
-            if (isset($_POST["register"])) {
-                //Create an instance; passing `true` enables exceptions
-                $mail = new PHPMailer(true);
-
-
-                //Server settings
-                $mail->SMTPDebug = 1;                      //Enable verbose debug output
-                $mail->isSMTP();                                            //Send using SMTP
-                $mail->Host       = "smtp.gmail.com";                     //Set the SMTP server to send through
-                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                $mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
-                $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-                $mail->Username   = "OfficialLittyLit@gmail.com";                     //SMTP username
-                $mail->Password   = "mean1234";                               //SMTP password
-                $mail->Subject = "Test Email";
+        if ($user['email'] === $email) {
+            echo "<div class=echo><h6 id=malign>Email already exists!</h6></div>";
+        } //if
+    } else {
+        echo ("INSIDE ELSE FOR INSERT");
+        if (isset($_POST["register"])) {
+            //Create an instance; passing `true` enables exceptions
+            $mail = new PHPMailer(true);
 
 
+            //Server settings
+            $mail->SMTPDebug = 1;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = "smtp.gmail.com";                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
+            $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            $mail->Username   = "OfficialLittyLit@gmail.com";                     //SMTP username
+            $mail->Password   = "mean1234";                               //SMTP password
+            $mail->Subject = "Test Email";
 
-                $mail->setFrom("OfficialLittyLit@gmail.com");
 
-                $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
 
-                $body = '<strong>Hello!</strong> Welcome to LittyLit. Here is your verification Code: ' . $verification_code . '</p>';
+            $mail->setFrom("OfficialLittyLit@gmail.com");
 
-                $mail->isHTML(true); 
-                $mail->Body    = $body;
+            $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
 
-                $mail->addAddress($email);
+            $body = '<strong>Hello!</strong> Welcome to LittyLit. Here is your verification Code: ' . $verification_code . '</p>';
 
-                if($mail->Send()) {
-                    echo "Message has been sent";
-                    $sql = "INSERT INTO userInfo (firstName, lastName, username, password, email, birthday, strAddress, 
+            $mail->isHTML(true);
+            $mail->Body    = $body;
+
+            $mail->addAddress($email);
+
+            if ($mail->Send()) {
+                echo "Message has been sent";
+                $sql = "INSERT INTO userInfo (firstName, lastName, username, password, email, birthday, strAddress, 
                     city, state, zip, userType, promotion, verification_code, email_verified_at, verified) 
-                    VALUES ('". $firstName ."' , '". $lastName ."' , '". $u ."' , '". $p ."' , '". $email ."' , '". $birthday ."' , '". $strAddress ."' ,
-                    '". $city ."' , '". $state ."' , '". $zip ."' , '". $userType ."' , '". $promotion ."' , '". $verification_code ."', NULL, '". 0 ."')";
-                    mysqli_query($conn, $sql);
-                    header("Location: verify.php");
-                } else {
-                    echo "Error...!";
-                }
-                $mail->smtpClose();
+                    VALUES ('" . $firstName . "' , '" . $lastName . "' , '" . $u . "' , '" . $p . "' , '" . $email . "' , '" . $birthday . "' , '" . $strAddress . "' ,
+                    '" . $city . "' , '" . $state . "' , '" . $zip . "' , '" . $userType . "' , '" . $promotion . "' , '" . $verification_code . "', NULL, '" . 0 . "')";
+                mysqli_query($conn, $sql);
+                header("Location: verify.php");
+            } else {
+                echo "Error...!";
             }
-            }
+            $mail->smtpClose();
+        }
     }
+}
 
 ?>
 <!DOCTYPE html>

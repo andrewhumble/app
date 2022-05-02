@@ -5,6 +5,10 @@ if ($conn == false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+if ($_SESSION['userType'] != 3) {
+    header("Location: home.php");
+}
+
 ############
 session_start();
 
@@ -135,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submitButton'])) {
                                 <div class="col-4">
                                     <div class="pl-2 pt-2 form-group">
                                         <label for="password">Password</label>
-                                        <input type="password" class="form-control" id="password" name="password" value=<?php echo $password ?> required minlength="7"> 
+                                        <input type="password" class="form-control" id="password" name="password" value=<?php echo $password ?> required minlength="7">
                                     </div>
                                 </div>
                             </div>

@@ -7,6 +7,11 @@ require_once('connDB.php');
 if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
+
+if ($_SESSION['userType'] != 1) {
+    header("Location: home.php");
+}
+
 $userType = $_SESSION['userType'];
 
 if (!isset($_SESSION['username'])) {
@@ -47,10 +52,10 @@ if (!isset($_SESSION['username'])) {
                     </div>
                 </div>
                 <div class="row pt-5 justify-content-center">
-                        <div class="col-sm-8 text-center">
-                            <button style="background-color: #2B6777; border: 5px solid #2B6777; box-shadow: 5px 5px 15px #6B7379;" class="btn btn-primary px-3"><a href="home.php" style="font-family: Nunito; font-size: 130%; color: #ffffff">Return to Home Page</a></button>
-                        </div>
+                    <div class="col-sm-8 text-center">
+                        <button style="background-color: #2B6777; border: 5px solid #2B6777; box-shadow: 5px 5px 15px #6B7379;" class="btn btn-primary px-3"><a href="home.php" style="font-family: Nunito; font-size: 130%; color: #ffffff">Return to Home Page</a></button>
                     </div>
+                </div>
             </div>
         </div>
     </main>

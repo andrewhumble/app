@@ -1,5 +1,9 @@
 <?php
 require('connDB.php');
+
+if ($_SESSION['userType'] != 3) {
+    header("Location: home.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -46,8 +50,8 @@ session_start();
 
 if (isset($_POST["submit"])) {
     $_SESSION['user'] = $_POST["Search"];
-   echo $_SESSION['user'];
-    $res = $conn->query("SELECT * FROM userInfo WHERE username='".$_SESSION['user']."'");
+    echo $_SESSION['user'];
+    $res = $conn->query("SELECT * FROM userInfo WHERE username='" . $_SESSION['user'] . "'");
     $results = mysqli_num_rows($res);
     if ($results > 0) {
         while ($row = mysqli_fetch_object($res)) {
