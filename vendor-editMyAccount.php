@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submitButton'])) {
                         </div>
                         <div class="row mr-2">
                             <div class="ml-4 mr-8 col-4">
-                                <a class="text-left" href="#">
+                                <a class="text-left" href="vendor-deleteAccount.php">
                                     <u style="text-decoration-color:#2F2E41">
                                         <h6 class="mt-4 mb-1" style="color: #2F2E41">Delete Account</h6>
                                     </u>
@@ -192,9 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submitButton'])) {
         </div>
         </div>
         </div>
-        <footer class="footer pl-4">
-            <p>CSCI 4050 Final Project by Andrew Humble, Elodie Collier, Nisha Rajendra, and Manmeet Gill.</p>
-        </footer>
+        <?php include 'elements/footer.html' ?>
     </main>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
