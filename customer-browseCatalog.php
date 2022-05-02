@@ -32,6 +32,8 @@ if ($authorSearch != "") {
 
 $values = $conn->query($getBooksQuery);
 
+$option = "title";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $searchPlaceHolder = "";
     $search = $_POST['search'];
@@ -41,12 +43,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $values = $conn->query($getBooksQuery);
     } else {
         if ($filter == "title") {
+            $option = "title";
             $getBooksQuery = "SELECT username, title, author, price, ISBN, imgPath FROM book WHERE title LIKE '%" . $search . "%';";
         } else if ($filter == "author") {
+            $option = "author";
             $getBooksQuery = "SELECT username, title, author, price, ISBN, imgPath FROM book WHERE author LIKE '%" . $search . "%';";
         } else if ($filter == "ISBN") {
+            $option = "ISBN";
             $getBooksQuery = "SELECT username, title, author, price, ISBN, imgPath FROM book WHERE ISBN='" . $search . "';";
         } else if ($filter == "genre") {
+            $option = "genre";
             $getBooksQuery = "SELECT username, title, author, price, ISBN, imgPath FROM book WHERE genre LIKE '%" . $search . "%';";
         }
         $values = $conn->query($getBooksQuery);
@@ -92,19 +98,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="radio" id="inlineRadio1" value="title" style="box-shadow: none !important;" checked>
+                        <input class="form-check-input" type="radio" name="radio" id="inlineRadio1" value="title" style="box-shadow: none !important;" <?php if ($option == "title") {
+                                                                                                                                                            echo "checked";
+                                                                                                                                                        } ?>>
                         <label class=" form-check-label" for="inlineRadio1">Title</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="radio" id="inlineRadio2" value="genre" style="box-shadow: none !important;">
+                        <input class="form-check-input" type="radio" name="radio" id="inlineRadio2" value="genre" style="box-shadow: none !important;" <?php if ($option == "genre") {
+                                                                                                                                                            echo "checked";
+                                                                                                                                                        } ?>>
                         <label class="form-check-label" for="inlineRadio2">Genre</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="radio" id="inlineRadio3" value="author" style="box-shadow: none !important;">
+                        <input class="form-check-input" type="radio" name="radio" id="inlineRadio3" value="author" style="box-shadow: none !important;" <?php if ($option == "author") {
+                                                                                                                                                            echo "checked";
+                                                                                                                                                        } ?>>
                         <label class="form-check-label" for="inlineRadio3">Author</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="radio" id="inlineRadio3" value="ISBN" style="box-shadow: none !important;">
+                        <input class="form-check-input" type="radio" name="radio" id="inlineRadio3" value="ISBN" style="box-shadow: none !important;" <?php if ($option == "ISBN") {
+                                                                                                                                                            echo "checked";
+                                                                                                                                                        } ?>>
                         <label class="form-check-label" for="inlineRadio3">ISBN</label>
                     </div>
                 </form>
