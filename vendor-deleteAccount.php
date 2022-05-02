@@ -101,7 +101,7 @@ if (isset($_POST["submitbutton"])) {
                                     <h5><?php echo $firstName ?></h5>
                                 </div>
                                 <div class="col-12 d-flex float-left">
-                                    <p>Customer </p>
+                                    <p>Vendor </p>
                                 </div>
                             </div>
                         </div>
@@ -109,9 +109,6 @@ if (isset($_POST["submitbutton"])) {
                     <hr style="background-color: lightgrey">
                     <h4 class="sidebar"><a href="customer-editMyAccount.php">
                             Account Details
-                        </a></h4>
-                    <h4 class="sidebar"><a href="#">
-                            Promotions
                         </a></h4>
                     <h4 class="sidebar"><a href="customer-logout.php">
                             Logout
