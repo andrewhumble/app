@@ -106,19 +106,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
 
-            if (isset($_SESSION['username'])) {
+            // if (isset($_SESSION['username'])) {
 
-                header('Location: home.php');
-                exit();
-            } else if (isset($_POST['username'])) {
-                $username = $_POST['username'];
-                $_SESSION['username'] = $username;
-                $url = "verification.php";
-                header('Location: home.php');
+            //     header('Location: home.php');
+            //     exit();
+            // } else if (isset($_POST['username'])) {
+            //     $username = $_POST['username'];
+            //     $_SESSION['username'] = $username;
+            //     $url = "verification.php";
+            //     header('Location: home.php');
 
-                //header(string: 'Location: ' . "cp.php");
-                exit();
-            }
+            //     //header(string: 'Location: ' . "cp.php");
+            //     exit();
+            // }
             }
         }
     }

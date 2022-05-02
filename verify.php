@@ -5,7 +5,7 @@
 if (isset($_POST["verify_email"])) {
     $verification_code = $_POST["verification_code"];
 
-    
+
     require_once('connDB.php');
 
     $sql = "UPDATE userInfo SET email_verified_at = NOW() WHERE verification_code = '" . $verification_code . "'";
