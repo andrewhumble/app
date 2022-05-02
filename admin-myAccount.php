@@ -16,7 +16,6 @@ if (!isset($_SESSION['username'])) {
     exit();
 } else {
     $username = $_SESSION['username'];
-    $userType = $_SESSION['userType'];
 }
 
 ?>

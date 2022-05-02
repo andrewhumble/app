@@ -7,15 +7,16 @@ require_once('connDB.php');
 if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
-$userType = $_SESSION['userType'];
+$userType = 1;
 
 if (!isset($_SESSION['username'])) {
 
     header("Location: home.php");
     exit();
 } else {
+
     $username = $_SESSION['username'];
-    $userType = $_SESSION['userType'];
+    $_SESSION['userType'] = 1;
 }
 
 ?>

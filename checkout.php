@@ -18,8 +18,19 @@ if (!isset($_SESSION['username'])) {
     $userType = $_SESSION['userType'];
 }
 
-$getBooksQuery = "SELECT username, title, author, price, ISBN, quantity, stock, imgPath FROM cart;";
+$getBooksQuery = "SELECT username, title, author, price, ISBN, quantity, stock, imgPath FROM cart WHERE username='$username';";
 $values = $conn->query($getBooksQuery);
+
+$length = mysqli_num_rows($values);
+
+$order = array_fill(0, mysqli_num_rows($values), NULL);
+
+$i = 0;
+while ($row = mysqli_fetch_array($values)) {
+    $order[$i] = $row;
+    $i++;
+}
+
 
 $sumQuery = "SELECT SUM(price*quantity) FROM cart WHERE username='$username';";
 $sumResult = $conn->query($sumQuery);
@@ -57,6 +68,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
+$grandTotal = 0;
+
+if ($promotion != "") {
+    $grandTotal = ((1 - $promo['discount']) * $sum['SUM(price*quantity)']) + $sum['SUM(price*quantity)'] * 0.07;
+} else {
+    $grandTotal = $sum['SUM(price*quantity)'] + $sum['SUM(price*quantity)'] * 0.07;
+}
+
+$_SESSION['grandTotal'] = $grandTotal;
+
+$url = "placeOrder.php?" . http_build_query(array(
+    "order" => $order
+));
+
+$url = $url . "&length=" . $length;
 
 ?>
 
@@ -189,10 +216,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         ?>
                             <h5 style="color: white !important; font-size: 1.1rem;"><?php echo "$" . number_format($sum['SUM(price*quantity)'] * 0.07, 2) ?></h5>
                             <h5 style='color: white !important; font-size: 1.1rem;'><?php echo "-$" . number_format($promo['discount'] * ($sum['SUM(price*quantity)'] + $sum['SUM(price*quantity)'] * 0.07), 2) ?></h5>
-                            <h5 class="pt-4" style="color: white !important; font-size: 1.5rem;"><b><?php echo "$" . number_format((1 - $promo['discount']) * ($sum['SUM(price*quantity)'] + $sum['SUM(price*quantity)'] * 0.07), 2) ?></b></h5>
+                            <h5 class="pt-4" style="color: white !important; font-size: 1.5rem;"><b><?php echo "$" . number_format($grandTotal, 2) ?></b></h5>
                         <?php } else { ?>
                             <h5 style="color: white !important; font-size: 1.1rem;"><?php echo "$" . number_format($sum['SUM(price*quantity)'] * 0.07, 2) ?></h5>
-                            <h5 class="pt-4" style="color: white !important; font-size: 1.5rem;"><b><?php echo "$" . number_format($sum['SUM(price*quantity)'] + $sum['SUM(price*quantity)'] * 0.07, 2) ?></b></h5>
+                            <h5 class="pt-4" style="color: white !important; font-size: 1.5rem;"><b><?php echo "$" . number_format($grandTotal, 2); ?></b></h5>
                         <?php } ?>
                     </div>
                 </div>
@@ -213,11 +240,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="row mt-5 justify-content-center">
                     <?php
                     if (mysqli_num_rows($values) != 0) { ?>
-                        <button onclick="location.href='customer-confirmation.php'" class="btn" style="border-radius: 1rem 1rem; padding: 0rem 5rem; background-color: #C8D8E4">
-                            <p class="pt-3" style="color: #2B6777; font-weight: bold; font-size: 1.2rem;">Place Holder</p>
-                        </button>
+                        <a href=<?php echo $url ?>>
+                            <button class="btn" style="border-radius: 1rem 1rem; padding: 0rem 5rem; background-color: #C8D8E4">
+                                <p class="pt-3" style="color: #2B6777; font-weight: bold; font-size: 1.2rem;">Place Order</p>
+                            </button>
+                        </a>
                     <?php } else { ?>
-                        <button onclick="location.href='customer-confirmation.php'" class="btn" style="border-radius: 1rem 1rem; padding: 0rem 5reml; background-color: #C8D8E4" disabled>
+                        <button onclick="location.href=$url" class="btn" style="border-radius: 1rem 1rem; padding: 0rem 5reml; background-color: #C8D8E4" disabled>
                             <p class="pt-3" style="color: #2B6777; font-weight: bold; font-size: 1.2rem;">Place Order</p>
                         </button>
                     <?php } ?>

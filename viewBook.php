@@ -7,7 +7,7 @@ require_once('connDB.php');
 if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
-$userType = $_SESSION['userType'];
+$userType = 1;
 
 if (!isset($_SESSION['username'])) {
 
@@ -15,7 +15,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 } else {
     $username = $_SESSION['username'];
-    $userType = $_SESSION['userType'];
+    $userType = 1;
 }
 
 isset($_POST['selectedBook']) ? $selectedBook = $_POST['selectedBook'] : $selectedBook = $_GET['selectedBook'];

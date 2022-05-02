@@ -30,7 +30,7 @@
             $username = $_POST['username'];
             $_SESSION['username'] = $username;
             $userType = $_POST['userType'];
-            $_SESSION['userType'] = 1;
+            $_SESSION['userType'] = 2;
             $url = "vendor-myAccount.php";
             header('Location: vendor-myAccount.php');
 
