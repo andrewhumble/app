@@ -53,12 +53,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } //if
         } else {
             echo ("INSIDE ELSE FOR INSERT");
-            //if user name does not exist, we can create a new account and insdert it into the db
-            $query = "INSERT INTO userInfo (firstName, lastName, username, password, email, birthday, strAddress, 
-            city, state, zip, userType, promotion, verification_code, email_verified_at, verified) 
-            VALUES ('". $firstName ."' , '". $lastName ."' , '". $u ."' , '". $p ."' , '". $email ."' , '". $birthday ."' , '". $strAddress ."' ,
-            '". $city ."' , '". $state ."' , '". $zip ."' , '". $userType ."' , '". $promotion ."' , '". $verification_code ."', NULL, '". 0 ."')";
-            mysqli_query($conn, $query);
+            if (isset($_POST["register"])) {
+                //Create an instance; passing `true` enables exceptions
+                $mail = new PHPMailer(true);
+
+
+                //Server settings
+                $mail->SMTPDebug = 1;                      //Enable verbose debug output
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = "smtp.gmail.com";                     //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
+                $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                $mail->Username   = "OfficialLittyLit@gmail.com";                     //SMTP username
+                $mail->Password   = "mean1234";                               //SMTP password
+                $mail->Subject = "Test Email";
+
+
+                //Recipients
+                $mail->setFrom("OfficialLittyLit@gmail.com");
+
+                $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
+
+                $body = '<strong>Hello!</strong> Welcome to LittyLit. Here is your verification Code: ' . $verification_code . '</p>';
+
+
+                //Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->Body    = $body;
+
+                $mail->addAddress($email);     //Add a recipient
+
+                if($mail->Send()) {
+                    echo "Message has been sent";
+                    
+
+                    $sql = "INSERT INTO userInfo (firstName, lastName, username, password, email, birthday, strAddress, 
+                    city, state, zip, userType, promotion, verification_code, email_verified_at, verified) 
+                    VALUES ('". $firstName ."' , '". $lastName ."' , '". $u ."' , '". $p ."' , '". $email ."' , '". $birthday ."' , '". $strAddress ."' ,
+                    '". $city ."' , '". $state ."' , '". $zip ."' , '". $userType ."' , '". $promotion ."' , '". $verification_code ."', NULL, '". 0 ."')";
+                    mysqli_query($conn, $sql);
+
+                    header("Location: verify.php");
+                } else {
+                    echo "Error...!";
+                }
+
+                //Connect to database
+                
+                
+                $mail->smtpClose();
+            }
+
 
             if (isset($_SESSION['username'])) {
 
@@ -73,9 +119,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 //header(string: 'Location: ' . "cp.php");
                 exit();
             }
+            }
         }
     }
-}
+
 
 
 
@@ -94,7 +141,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body class="d-flex flex-column min-vh-100">
     <main>
-        <!-- <?php include 'elements/generic-header.php'; ?> -->
+        <?php include 'elements/generic-header.html'; ?>
         <!-- Page Content -->
         <div class="container-fluid text-center">
             <div class="row h-100 content justify-content-center">
@@ -193,7 +240,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                         </div>
                     </div>
-                    <button class="btn-lg btn-primary mt-3" style="background-color: #C8D8E4; border-width: 0px; color: #3F3D56" type="submit">
+                    <button class="btn-lg btn-primary mt-3" style="background-color: #C8D8E4; border-width: 0px; color: #3F3D56" type="submit" name="register">
                         Continue
                     </button>
                     </form>
