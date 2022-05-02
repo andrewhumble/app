@@ -50,7 +50,7 @@ if (!isset($_SESSION['username'])) {
                         need to.
                     </p>
                     <a href="customer-editMyAccount.php"><button type="button" class="btn btn-light mt-5 mb-4">Account Details</button></a> <br>
-                    <a href="customer-promotions.html"><button type="button" class="btn btn-light mt-4 mb-4">Promotions</button></a> <br>
+                    <a href="customer-promotions.php"><button type="button" class="btn btn-light mt-4 mb-4">Promotions</button></a> <br>
                     <a href="customer-logout.php"><button type="button" class="btn btn-light mt-4 mb-4">Logout</button></a><br>
             </div>
         </div>

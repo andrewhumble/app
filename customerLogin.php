@@ -21,7 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (!$user) {
       echo "<div class=echo><h6>Username or password is incorrect.</h6></div>";
-    } else {
+    } 
+    else {
 
       if (isset($_SESSION['username'])) {
 

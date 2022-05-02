@@ -1,3 +1,48 @@
+<?php
+session_start();
+
+//connect to database
+require_once('connDB.php');
+// Check connection
+if ($conn === false) {
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+$userType = $_SESSION['userType'];
+//ensures someone is logged inbefore allowing them to create a profile
+if (!isset($_SESSION['username']) || $_SESSION['userType'] != 2) {
+
+    header("Location: welcome.html");
+    exit();
+} else {
+    $username = $_SESSION['username'];
+    $userType = $_SESSION['userType'];
+
+    echo $username;
+}
+
+$getBooksQuery = "SELECT username, title, author, genre, price, ISBN, Inventory, image FROM book WHERE username='$username';";
+$values = $conn->query($getBooksQuery);
+
+$length = mysqli_num_rows($values);
+echo $length;
+
+$order = array_fill(0, $length, NULL);
+
+$i = 0;
+while ($row = mysqli_fetch_array($values)) {
+    $order[$i] = $row;
+    $i++;
+}
+echo sizeof($order);
+
+?>
+
+
+
+
+
+
+
 <!DOCTYPE>
 <head>
     <link href="vendor-myBooks.css" rel="stylesheet">
@@ -47,39 +92,31 @@
           <br>
           <br>
 
+         
+
         <div class="row">
+            <?php foreach($order as $o) { ?>
+           
             <div class="center">  
-                <img class="pic" src= "images/Gatsby.png" alt="Place Holder Book" style="width:150px;height:200px;">
-                <h4>The Great Gatsby</h4>
-                <p>F. Scott Fitzgerald</p>
-                <pre>  Inventory: 52                         $5.00</pre>
+            <img  class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($o['image']); ?>"  alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px"/><br>
+
+                <h4><?php echo $o['title']; ?></h4>
+                <p><?php echo $o['author']; ?></p>
+                <pre> Inventory: <?php echo $o['Inventory']; ?>               <?php echo $o['price']; ?></pre>
                 <button onclick="window.location.href='vendor-editBook.php'" class="EditText">Edit</button><br>
                 
           </div>
-          
-            <div class="center">  
-                <img class="pic" src= "images/HarryPotter.png" alt="Place Holder Book" style="width:150px;height:200px;">
-                <h4>Harry Potter and Sorcerer's Stone</h4>
-                <p>J.K. Rowling</p>
-                <pre>  Inventory: 64                         $5.00</pre>
-                <button onclick="window.location.href='vendor-editBook.php'" class="EditText">Edit</button><br>
-                
-            </div>
-
-            <div class="center">  
-                <img class="pic" src= "images/Pride.png" alt="Place Holder Book" style="width:150px;height:200px;">
-                <h4>Pride and Prejudice</h4>
-                <p>Jane Austen</p>
-                <pre>  Inventory: <span style="color: red;">Low</span>                        $5.00</pre>
-                <button onclick="window.location.href='vendor-editBook.php'" class="EditText">Edit</button><br>
-                
-            </div>
+       <?php } ?>
         </div>  
             
     </main>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+
+
+    
 </body>
 
 </html>

@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submitButton'])) {
                     <h4 class="sidebar"><a href="customer-editMyAccount.php">
                             Account Details
                         </a></h4>
-                    <h4 class="sidebar"><a href="#">
+                    <h4 class="sidebar"><a href="customer-promotions.php">
                             Promotions
                         </a></h4>
                     <h4 class="sidebar"><a href="customer-logout.php">

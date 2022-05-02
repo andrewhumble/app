@@ -71,7 +71,7 @@ if (!isset($_SESSION['userType'])) {
     </button>
     <div class='collapse navbar-collapse justify-content-end' id='navbarNavAltMarkup'>
         <div class='navbar-nav d-lg-flex align-items-center mt-3'>
-            <a class='nav-item h-100 nav-link' href='#'>
+            <a class='nav-item h-100 nav-link' href='vendor-myBooks.php'>
                 <h5>My Books</h5>
             </a>
             <a class='nav-item h-100 nav-link' href='vendor-myAccount.php'>
