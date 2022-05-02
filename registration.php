@@ -30,12 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $promotion = 0;
 
 
-    if (empty($firstName) || empty($lastName) || empty($u) || empty($p) || empty($email) || empty($birthday) || empty($strAddress) || empty($city) || empty($state) || empty($zip) || empty($userType)) {
-        echo "<div class=echo><h6 id=malign>Please fill out all the fields.</h6></div>";
-    } else if (strlen($p) < 7) {
-        echo "<div class=echo><h6 id=malign>Password must be more than 6 characters.</h6></div>";
-        // return;
-    } else {
         //here we check for duplicates within the db if you want to create a new account
         $checkDuplicate = "SELECT * FROM userInfo WHERE username='$u' OR email='$email' LIMIT 1";
         $result = mysqli_query($conn, $checkDuplicate);
@@ -69,62 +63,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $mail->Subject = "Test Email";
 
 
-                //Recipients
+
                 $mail->setFrom("OfficialLittyLit@gmail.com");
 
                 $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
 
                 $body = '<strong>Hello!</strong> Welcome to LittyLit. Here is your verification Code: ' . $verification_code . '</p>';
 
-
-                //Content
-                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->isHTML(true); 
                 $mail->Body    = $body;
 
-                $mail->addAddress($email);     //Add a recipient
+                $mail->addAddress($email);
 
                 if($mail->Send()) {
                     echo "Message has been sent";
-                    
-
                     $sql = "INSERT INTO userInfo (firstName, lastName, username, password, email, birthday, strAddress, 
                     city, state, zip, userType, promotion, verification_code, email_verified_at, verified) 
                     VALUES ('". $firstName ."' , '". $lastName ."' , '". $u ."' , '". $p ."' , '". $email ."' , '". $birthday ."' , '". $strAddress ."' ,
                     '". $city ."' , '". $state ."' , '". $zip ."' , '". $userType ."' , '". $promotion ."' , '". $verification_code ."', NULL, '". 0 ."')";
                     mysqli_query($conn, $sql);
-
                     header("Location: verify.php");
                 } else {
                     echo "Error...!";
                 }
-
-                //Connect to database
-                
-                
                 $mail->smtpClose();
             }
-
-
-            // if (isset($_SESSION['username'])) {
-
-            //     header('Location: home.php');
-            //     exit();
-            // } else if (isset($_POST['username'])) {
-            //     $username = $_POST['username'];
-            //     $_SESSION['username'] = $username;
-            //     $url = "verification.php";
-            //     header('Location: home.php');
-
-            //     //header(string: 'Location: ' . "cp.php");
-            //     exit();
-            // }
             }
-        }
     }
-
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -192,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-4">
                             <label for="password">Password</label>
                             <div class="pl-2 pt-2 form-group">
-                                <input type="password" placeholder="Password" class="form-control" id="password" name="p" required>
+                                <input type="password" placeholder="Password" class="form-control" id="password" name="p" required minlength="7">
                             </div>
                         </div>
                     </div>
@@ -235,7 +200,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-3">
                             <div class="pl-2 pt-2 form-group">
                                 <label for="password">Zip Code</label>
-                                <input type="text" placeholder="Zip" class="form-control" id="zip" name="PostalCode" required>
+                                <input type="text" placeholder="Zip" class="form-control" id="zip" name="PostalCode" required minlength="5" minlength="5">
                             </div>
                         </div>
                     </div>

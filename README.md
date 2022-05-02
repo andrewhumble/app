@@ -10,7 +10,7 @@ As LittyLit is built using HTML, CSS (+ Bootstrap), JavaScript, MySQL, and PHP, 
 Once downloading XAMPP, start XAMPP and ensure that the status light of XAMPP turns green. Following the sucessful start of XAMPP, navigate to the 'Services' tab, and start all available stack services. These services should include MySQL, ProFTPD, and Apache. Next, navigate to the 'Networks' tab and enable your localhost network. Finally, navigate to the 'Volumes' tab, click 'Mount,' and then click 'Explore.' This will display several folders on your computer, including one called htdocs. This is the folder where you will need to copy our LittyLit folder into.
 
 ### Databases in PHPMyAdmin
-You’ll need to set up LittyLit's databases prior to running the application. The code below creates and prefills the four Littly databases needed for functionality with information such as LittyLit's user information, all available books for purchase, and much more. Begin by navigating to you localhost’s PHPMyAdmin, and find your SQL execution prompt.
+You’ll need to set up LittyLit's databases prior to running the application. The code below creates and prefills the six Littly databases needed for functionality with information such as LittyLit's user information, all available books for purchase, and much more. Begin by navigating to you localhost’s PHPMyAdmin, and find your SQL execution prompt.
 Enter the following command to create your databases.
 
 ***********
