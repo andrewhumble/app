@@ -28,7 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $zip = $_POST['PostalCode'];
     $userType = $_POST['userType'];
     $promotion = 0;
-    $verification_code = 123456;
 
 
     if (empty($firstName) || empty($lastName) || empty($u) || empty($p) || empty($email) || empty($birthday) || empty($strAddress) || empty($city) || empty($state) || empty($zip) || empty($userType)) {
@@ -246,7 +245,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </form>
                 </div>
                 <div class="row justify-content-center">
-                    <h6 class="m-3" style="font-family: Nunito; font-size: 80%;">Already have an account? Click <a href="/login">here</a> to login.</h6>
+                    <h6 class="m-3" style="font-family: Nunito; font-size: 80%;">Already have an account? Click <a href="login.php">here</a> to login.</h6>
                     <div class="col-8 text-right">
                     </div>
                 </div>

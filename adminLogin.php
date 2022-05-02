@@ -36,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['username'] = $username;
                 $_SESSION['userType'] = 3;
                 $url = "admin-myAccount.php";
+                $_SESSION['userType'] = 3;
                 header('Location: admin-myAccount.php');
 
 

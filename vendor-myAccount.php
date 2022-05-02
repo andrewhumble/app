@@ -45,13 +45,11 @@ if (!isset($_SESSION['username'])) {
                     <p style="color: #ffffff; font-family: Nunito; margin-left: 5%; margin-right: 5%; font-size: 22px;">Shopping with us is easy - all of your personal info
                         saved here for you to reference and manage whenever you
                         need to.</p>
-                    <a href="vendor-editMyAccount.php"><button type="button" class="btn btn-light">Account Details</button></a> <br>
-                    <a href="vendor-logout.php"><button type="button" class="btn btn-light">Logout</button></a><br>
+                    <a href="vendor-editMyAccount.php"><button type="button" class="btn btn-light mt-5 mb-4">Account Details</button></a> <br>
+                    <a href="vendor-logout.php"><button type="button" class="btn btn-light mt-5 mb-4">Logout</button></a><br>
             </div>
         </div>
 
-        <footer class="footer pl-4">
-            <p style="font-family: Nunito;">CSCI 4050 Final Project by Andrew Humble, Elodie Collier, Nisha Rajendra, and Manmeet Gill.</p>
-        </footer>
+        <?php include 'elements/footer.html'; ?>
     </main>
 </body>

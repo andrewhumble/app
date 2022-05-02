@@ -43,19 +43,51 @@ if (isset($_POST["verify_email"])) {
 
     <main>
         <?php include 'elements/header.php' ?>
-        <form method="POST">
+        <!-- <form method="POST">
             <div class="container mt-5">
-                <h1>Welcome to <span>LittyLit</span></h1>
+                <h1 class="m-5" style="font-family: Nunito">Welcome to <span
+                        style="font-family: Girassol">LittyLit</span></h1>
                 <h2>We sent you an email containing a 6-digit verification code. </h2>
-                <!-- <div class="Code"> -->
-
-
-                <input type="text" name="verification_code" class="Code" placeholder="Enter Verification Code" required />
-                <!-- </div> -->
+                <input type="text" name="verification_code" class="Code"
+                    style="border: 2px solid #ffffff; border-radius: 4px;" placeholder="Enter Verification Code"
+                    required />
                 <input type="submit" class="Login" name="verify_email" value="Verify Email">
-
             </div>
-        </form>
+        </form> -->
+
+        
+
+        <div class="row justify-content-center">
+            <div class="col-sm-8" style="background: #C8D8E4; margin: 10%; border-radius: 25px; padding: 3%;">
+                <div class="row justify-content-center">
+                    <div class="col-sm-8">
+                        <h1 style="font-family: Nunito; text-align: center; color: #3F3D56">Welcome to <span
+                                style="font-family: Girassol">LittyLit</span></h1>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-sm-8">
+                        <h6 style="font-family: Nunito; text-align: center; color: #3F3D56">We sent you an email
+                            containing a 6-digit verification code.</h6>
+                    </div>
+                </div>
+
+                <form method="post">
+                    <div class="row justify-content-center pt-4">
+                        <div class="col-sm-4 justify-content-center pt-4">
+                           <input type="text" name="verification_code" class="Code"
+                    style="border: 2px solid #ffffff; border-radius: 4px;" placeholder="Enter Verification Code"
+                    required />
+                        </div>
+                    </div>
+                    <div class="row pt-5 justify-content-center">
+                        <div class="col-sm-8 text-center">
+                             <input type="submit" class="Login" name="verify_email" value="Verify Email">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
     </main>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
