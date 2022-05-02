@@ -18,7 +18,7 @@ if (!isset($_SESSION['username'])) {
     $userType = $_SESSION['userType'];
 }
 
-$getBooksQuery = "SELECT username, title, author, price, ISBN, quantity, stock, imgPath FROM cart;";
+$getBooksQuery = "SELECT username, title, author, price, ISBN, quantity, stock, imgPath FROM cart WHERE username='$username';";
 $values = $conn->query($getBooksQuery);
 
 $sumQuery = "SELECT SUM(price*quantity) FROM cart WHERE username='$username';";
