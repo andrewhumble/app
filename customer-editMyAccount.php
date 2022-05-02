@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submitButton'])) {
                         </div>
                         <div class="row mr-2">
                             <div class="ml-4 mr-8 col-4">
-                                <a class="text-left" href="#">
+                                <a class="text-left" href="customer-deleteAccount.php">
                                     <u style="text-decoration-color:#2F2E41">
                                         <h6 class="mt-4 mb-1" style="color: #2F2E41">Delete Account</h6>
                                     </u>
