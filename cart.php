@@ -107,7 +107,7 @@ if ($remove != "") {
                                     $addToCartQuery = "UPDATE cart SET quantity=$quantity WHERE ISBN='$isbn' AND username='$username';";
                                     $conn->query($addToCartQuery);
 
-                                    header("Location: cart.php");
+                                    # header("Refresh:0");
                                 }
                                 ?>
                             </div>
