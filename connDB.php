@@ -3,7 +3,7 @@
         $servername = "localhost";
         $username = "root";
         $password = "";
-        $dbname = "Litty_lit";
+        $dbname = "LittyLit";
         try {
             $conn = new mysqli($servername, $username, $password, $dbname);
           }
@@ -13,5 +13,3 @@
             echo '<p> Unable to connect to database: ' .$error;
             exit();
           }
-    ?> 
-    

@@ -34,8 +34,6 @@ isset($_POST['order']) ? $order = $_POST['order'] : ($order = $_GET['order'] ?? 
 $postReport = "SELECT title, ISBN, quantity, price, stock FROM cart WHERE username='$username';";
 $values = $conn->query($postReport);
 while ($row = mysqli_fetch_array($values)) {
-    echo $row['ISBN'];
-    echo "<br>";
     $check = "SELECT * FROM report WHERE ISBN='$row[ISBN]'";
     $checkResult = $conn->query($check);
     if (mysqli_num_rows($checkResult) == 0) {
@@ -46,6 +44,8 @@ while ($row = mysqli_fetch_array($values)) {
         $conn->query($update);
     }
 }
+
+
 
 # foreach ($order as $item) {
 #     $postReport = "SELECT title, ISBN, quantity FROM cart WHERE username='$username';";

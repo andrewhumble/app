@@ -8,6 +8,7 @@ require('connDB.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
+
     $emptyUP = false;
 
     #Hello
@@ -27,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
 
             if (isset($_SESSION['username'])) {
-
+                $_SESSION['userType'] = 3;
                 header('Location: admin-myAccount.php');
                 exit();
             } else if (isset($_POST['username'])) {
@@ -36,7 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['username'] = $username;
                 $_SESSION['userType'] = 3;
                 $url = "admin-myAccount.php";
-                $_SESSION['userType'] = 3;
                 header('Location: admin-myAccount.php');
 
 
