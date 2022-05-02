@@ -28,7 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $zip = $_POST['PostalCode'];
     $userType = $_POST['userType'];
     $promotion = 0;
-    $verification_code = 123456;
 
 
     if (empty($firstName) || empty($lastName) || empty($u) || empty($p) || empty($email) || empty($birthday) || empty($strAddress) || empty($city) || empty($state) || empty($zip) || empty($userType)) {
