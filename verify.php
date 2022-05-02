@@ -1,6 +1,8 @@
 <?php
 
-
+if ($_SESSION['userType'] == 3) {
+    header("Location: home.php");
+}
 
 if (isset($_POST["verify_email"])) {
     $verification_code = $_POST["verification_code"];
@@ -55,14 +57,13 @@ if (isset($_POST["verify_email"])) {
             </div>
         </form> -->
 
-        
+
 
         <div class="row justify-content-center">
             <div class="col-sm-8" style="background: #C8D8E4; margin: 10%; border-radius: 25px; padding: 3%;">
                 <div class="row justify-content-center">
                     <div class="col-sm-8">
-                        <h1 style="font-family: Nunito; text-align: center; color: #3F3D56">Welcome to <span
-                                style="font-family: Girassol">LittyLit</span></h1>
+                        <h1 style="font-family: Nunito; text-align: center; color: #3F3D56">Welcome to <span style="font-family: Girassol">LittyLit</span></h1>
                     </div>
                 </div>
                 <div class="row justify-content-center">
@@ -75,14 +76,12 @@ if (isset($_POST["verify_email"])) {
                 <form method="post">
                     <div class="row justify-content-center pt-4">
                         <div class="col-5 justify-text-center justify-content-center pt-4">
-                           <input type="text" name="verification_code" class="Code p-4"
-                    style="border: 2px solid #ffffff; border-radius: 4px; text-align: center; font-size: 150%;" placeholder="- - - - - -"
-                    required />
+                            <input type="text" name="verification_code" class="Code p-4" style="border: 2px solid #ffffff; border-radius: 4px; text-align: center; font-size: 150%;" placeholder="- - - - - -" required />
                         </div>
                     </div>
                     <div class="row pt-5 justify-content-center">
                         <div class="col-sm-8 text-center">
-                             <input style="background-color: #2B6777; border: 5px solid #2B6777; font-family: Nunito; color: #ffffff" type="submit" class="Login p-2 btn btn-primary" name="verify_email" value="Verify Email">
+                            <input style="background-color: #2B6777; border: 5px solid #2B6777; font-family: Nunito; color: #ffffff" type="submit" class="Login p-2 btn btn-primary" name="verify_email" value="Verify Email">
                         </div>
                     </div>
                 </form>

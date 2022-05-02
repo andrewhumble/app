@@ -1,3 +1,9 @@
+<?php
+if ($_SESSION['userType'] != 2) {
+    header("Location: home.php");
+}
+?>
+
 <!DOCTYPE>
 
 <head>
