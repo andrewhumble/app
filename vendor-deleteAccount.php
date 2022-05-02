@@ -107,10 +107,10 @@ if (isset($_POST["submitbutton"])) {
                         </div>
                     </div>
                     <hr style="background-color: lightgrey">
-                    <h4 class="sidebar"><a href="customer-editMyAccount.php">
+                    <h4 class="sidebar"><a href="vendor-editMyAccount.php">
                             Account Details
                         </a></h4>
-                    <h4 class="sidebar"><a href="customer-logout.php">
+                    <h4 class="sidebar"><a href="vendor-logout.php">
                             Logout
                         </a></h4>
                 </div>
