@@ -32,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $username = $_POST['username'];
                 //  $userType = mysqli_real_escape_string($db, $_POST['userType']);
                 $_SESSION['username'] = $username;
+                $_SESSION['userType'] = 3;
                 $url = "admin-myAccount.php";
                 header('Location: admin-myAccount.php');
 
