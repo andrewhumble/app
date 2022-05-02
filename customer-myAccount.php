@@ -11,7 +11,7 @@ $userType = $_SESSION['userType'];
 
 if (!isset($_SESSION['username'])) {
 
-    header("Location: home.html");
+    header("Location: home.php");
     exit();
 } else {
     $username = $_SESSION['username'];

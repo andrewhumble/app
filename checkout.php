@@ -34,13 +34,24 @@ if ($remove != "") {
     header("Location: cart.php");
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $promotion = $_POST['promotion'];
+
+    $promoQuery = "SELECT * FROM promotion WHERE name='$name';";
+    $promoResult = $conn->query($promoQuery);
+    $promo = mysqli_fetch_array($promoResult);
+
+    if (mysqli_fetch) {
+    }
+}
+
 ?>
 
 <!DOCTYPE>
 
 <head>
-    <link href="checkout.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link href="checkout.css" rel="stylesheet">
     <title>Welcome to LittyLit</title>
     <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Girassol' rel='stylesheet'>
@@ -53,81 +64,122 @@ if ($remove != "") {
         <?php include 'elements/header.php' ?>
 
         <div class="row">
-            <div class="ml-4 col-8">
-
-                <div class="shippingDiv">
-                    <div class="row">
-                        <a class="goBackLink" href="">&lt;&lt;Go Back</a>
+            <div class="col-8" style="padding-left: 5rem !important;">
+                <div class="row pt-5">
+                    <a style="text-decoration: underline !important; color: #3F3D56" href="cart.php">
+                        <b class="goback">
+                            << Go Back</b></a>
+                </div>
+                <div class="row pt-4 pl-3">
+                    <h3>Payment Method</h3>
+                </div>
+                <div class="pt-2 row">
+                    <div class="col-12">
+                        <div class="pt-2 form-group">
+                            <label for="firstName">Card Number</label>
+                            <input type="text" placeholder="1111 1111 1111 1111" class="form-control" id="cardNum" name="cardNum" required>
+                        </div>
                     </div>
-                    <div class="row">
-                        <h3>Shipping</h3>
+                </div>
+                <div class="pt-2 row">
+                    <div class="col-4">
+                        <div class="pt-2 form-group">
+                            <label for="firstName">Exp. Date</label>
+                            <input type="text" placeholder="11/24" class="form-control" id="exp" name="exp" required>
+                        </div>
                     </div>
-                    <form class="orderInfoDiv">
-                        <p class="addressLabel">Street Address</p> <br>
-                        <input class="addressInput" type="address" id="email" name="address"><br><br>
-
-                        <p class="cityLabel">City</p>
-                        <p class="stateLabel">State</p>
-                        <p class="zipLabel">Zip Code</p> <br>
-
-                        <input class="cityInput" type="text" id="city" name="city">
-                        <input class="stateInput" type="text" id="state" name="state">
-                        <input class="zipInput" type="text" id="zip" name="zip"> <br><br>
-
-                        <p class="firstNameLabel">First Name</p>
-                        <p class="lastNameLabel">Last Name</p> <br>
-
-                        <input class="nameInput" type="text" id="fname" name="fname">
-                        <input class="nameInput" type="text" id="lname" name="fname"> <br>
-
-                        <p class="emailLabel">Email</p> <br>
-                        <input class="emailInput" type="email" id="email" name="email"><br><br>
-
-                        <hr class="orderLine">
-
-                        <h1 class="paymentMethod">Payment Method</h1>
-                        <input type="radio" id="debit" name="payment">
-                        <label class="radioLabel" for="customer">Debit</label>
-                        <input type="radio" id="credit" name="payment">
-                        <label class="radioLabel" for="customer">Credit</label>
-                        <input type="radio" id="in-store" name="payment">
-                        <label class="radioLabel" for="customer">In-Store</label> <br><br>
-
-                        <p class="emailLabel">Card Number</p> <br>
-                        <input class="emailInput" type="cardNumb" id="cardNumb" name="cardNumb"><br><br>
-
-                        <p class="cvvLabel">CVV</p>
-                        <p class="payZipLabel">Zip Code</p> <br>
-
-                        <input class="nameInput" type="text" id="fname" name="fname">
-                        <input class="nameInput" type="text" id="lname" name="fname"> <br>
-
-                        <h5>*If you have chosen the "Pay at Store" option, you will have up to 5 days to pick up your books at a LittyLit store location.</h5>
-                    </form>
+                    <div class="col-4">
+                        <div class="pt-2 form-group">
+                            <label for="firstName">Security Code</label>
+                            <input type="text" placeholder="111" class="form-control" id="sec" name="sec" required>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="pt-2 form-group">
+                            <label for="firstName">Zip Code</label>
+                            <input type="text" placeholder="11111" class="form-control" id="zip" name="zip" required>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="pt-2 row justify-content-center">
+                    <div class="col-12 t-2 form-group">
+                        <label for="address">Street Address</label>
+                        <input type="text" placeholder="Street Address" class="form-control" id="strAddress" name="strAddress" required>
+                    </div>
+                </div>
+                <div class="pt-2 mb-4 row justify-content-center">
+                    <div class="col-5">
+                        <div class="pt-2 form-group">
+                            <label for="city">City</label>
+                            <input type="text" placeholder="City" class="form-control" id="city" name="city" required>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="pt-2 form-group">
+                            <label for="state">State</label>
+                            <input type="text" placeholder="GA" class="form-control" id="state" name="state" required>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="pl-2 pt-2 form-group">
+                            <label for="password">Zip Code</label>
+                            <input type="text" placeholder="Zip" class="form-control" id="zip" name="zip" required>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="col-3 pl-4" style="margin-left: 5rem; background-color: #2B6777; height: 30%;">
+                <div class="row mt-4 justify-content-center">
+                    <h3 style="color: white !important">Order Summary</h3>
+                </div>
+                <hr style="background-color: lightgrey" />
 
-            <div class="col-3">
-                <div class="orderSumDiv">
-                    <h2>Order Summary</h2>
-                    <h3>Subtotal:</h3>
-                    <h3 class="subtotal">$10.00</h3> <br>
-                    <h3>Tax:</h3>
-                    <h3 class="tax">$0.70</h3> <br>
-                    <h3>Promotion:</h3>
-                    <h3 class="promo">-$5.35</h3> <br>
-                    <h3>Total:</h3>
-                    <h3 class="total">$5.35</h3>
-                    <hr class="promoLine">
-                    <form class="promotionForm" action="">
-                        <label for="pCode">Promotional Code</label><br>
-                        <input class="promoSubmit" type="text" name="pCode"><br>
-                        <input type="submit" value="PLACE ORDER"><br>
-                    </form>
+                <div class="row mt-4 ml-3">
+                    <div class='col text-left'>
+                        <h5 style="color: white !important; font-size: 1.1rem;">Subtotal:</h5>
+                        <?php if ($promotion != "") {
+                            echo "<h5 style='color: white !important; font-size: 1.1rem;'>Promotion:</h5>";
+                        } ?>
+                        <h5 style="color: white !important; font-size: 1.1rem;">Tax:</h5>
+                        <h5 class="pt-4" style="color: white !important; font-size: 1.3rem;">Total:</h5>
+                    </div>
+                    <div class='col text-right'>
+                        <h5 style="color: white !important; font-size: 1.1rem;"><?php echo "$" . number_format($sum['SUM(price*quantity)'], 2) ?></h5>
+                        <h5 style="color: white !important; font-size: 1.1rem;"><?php echo "$" . number_format($sum['SUM(price*quantity)'] * 0.07, 2) ?></h5>
+                        <h5 class="pt-4" style="color: white !important; font-size: 1.5rem;"><b><?php echo "$" . number_format($sum['SUM(price*quantity)'] + $sum['SUM(price*quantity)'] * 0.07, 2) ?></b></h5>
+                    </div>
+                </div>
+                <hr style="background-color: lightgrey" />
+
+                <div class="row ml-3 mr-3">
+                    <h5 style="color: white !important; font-size: 1rem;"><b>Promotional Code</b></h5>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" style="background-color: lightgrey; border-color: lightgrey;" type="button">Button</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-5 justify-content-center">
+                    <?php
+                    if (mysqli_num_rows($values) != 0) { ?>
+                        <button onclick="location.href='checkout.php'" class="btn" style="border-radius: 1rem 1rem; padding: 0rem 5rem; background-color: #C8D8E4">
+                            <p class="pt-3" style="color: #2B6777; font-weight: bold; font-size: 1.2rem;">Place Holder</p>
+                        </button>
+                    <?php } else { ?>
+                        <button onclick="location.href='checkout.php'" class="btn" style="border-radius: 1rem 1rem; padding: 0rem 5reml; background-color: #C8D8E4" disabled>
+                            <p class="pt-3" style="color: #2B6777; font-weight: bold; font-size: 1.2rem;">Place Holder</p>
+                        </button>
+                    <?php } ?>
+                </div>
+                <div class="row justify-content-center mt-4">
                 </div>
             </div>
         </div>
 
+        <?php include 'elements/footer.html' ?>
     </main>
 </body>
 

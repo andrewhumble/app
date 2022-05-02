@@ -106,6 +106,8 @@ if ($remove != "") {
 
                                     $addToCartQuery = "UPDATE cart SET quantity=$quantity WHERE ISBN='$isbn' AND username='$username';";
                                     $conn->query($addToCartQuery);
+
+                                    header("Location: cart.php");
                                 }
                                 ?>
                             </div>
@@ -132,11 +134,11 @@ if ($remove != "") {
                 <div class="row mt-4 justify-content-center">
                     <?php
                     if (mysqli_num_rows($values) != 0) { ?>
-                        <button class="btn" style="border-radius: 1rem 1rem; padding: 0.7rem 5rem">
+                        <button onclick="location.href='checkout.php'" class="btn" style="border-radius: 1rem 1rem; padding: 0.7rem 5rem">
                             <p style="color: #2B6777; font-weight: bold; font-size: 1.2rem;">Checkout</p>
                         </button>
                     <?php } else { ?>
-                        <button class="btn" style="border-radius: 1rem 1rem; padding: 0.7rem 5rem" disabled>
+                        <button onclick="location.href='checkout.php'" class="btn" style="border-radius: 1rem 1rem; padding: 0.7rem 5rem" disabled>
                             <p style="color: #2B6777; font-weight: bold; font-size: 1.2rem;">Checkout</p>
                         </button>
                     <?php } ?>
