@@ -16,7 +16,6 @@ if (!isset($_SESSION['username'])) {
     exit();
 } else {
     $username = $_SESSION['username'];
-    $userType = $_SESSION['userType'];
 }
 
 ?>
@@ -46,8 +45,8 @@ if (!isset($_SESSION['username'])) {
                     <p style="color: #ffffff; font-family: Nunito; margin-left: 5%; margin-right: 5%; font-size: 22px;">Shopping with us is easy - all of your personal info
                         saved here for you to reference and manage whenever you
                         need to.</p>
-                    <a href="admin-editMyAccount.php"><button type="button" class="btn btn-light">Account Details</button></a> <br>
-                    <a href="admin-logout.php"><button type="button" class="btn btn-light">Logout</button></a><br>
+                    <a href="admin-editMyAccount.php"><button type="button" class="btn btn-light mt-4 mb-4">Account Details</button></a> <br>
+                    <a href="admin-logout.php"><button type="button" class="btn btn-light mt-4 mb-4">Logout</button></a><br>
             </div>
         </div>
 

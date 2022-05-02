@@ -1,5 +1,5 @@
-CREATE TABLE userInfo (firstName varchar(10) NOT NULL UNIQUE,
-                       lastName varchar(15) NOT NULL,
+CREATE TABLE userInfo (firstName varchar(30) NOT NULL,
+                       lastName varchar(30) NOT NULL,
                        username VARCHAR(30) NOT NULL ,
                        password VARCHAR(30) NOT NULL , 
                        email VARCHAR(320) NOT NULL , 

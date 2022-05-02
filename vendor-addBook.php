@@ -5,6 +5,22 @@ session_start();
 
 require ('connDB.php');
 
+if ($conn === false) {
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+$userType = $_SESSION['userType'];
+
+if (!isset($_SESSION['username']) || $_SESSION['userType'] != 2) {
+
+    header("Location: welcome.html");
+    exit();
+} else {
+    $username = $_SESSION['username'];
+    $userType = $_SESSION['userType'];
+
+    echo $username;
+}
+
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST["title"];
@@ -24,7 +40,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             // Get file info 
             $fileName = basename($_FILES["image"]["name"]); 
             $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
-            $folder = "images/".$filename;
+            // $folder = "images/".$filename;
             echo "HELLUR";
             // Allow certain file formats 
             $allowTypes = array('jpg','png','jpeg','gif'); 
@@ -33,10 +49,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $imgContent = addslashes(file_get_contents($image)); 
              
                 // Insert image content into database 
-                $insert = $conn->query("INSERT into book (id, title, author, genre, price, isbn, Inventory, image, created) VALUES ('23', '$title', '$author', '$genre', '$price', '$isbn', '$inventory', '$imgContent', NOW())");  
+                $insert = $conn->query("INSERT into book (username, title, author, genre, price, isbn, Inventory, image, created) VALUES ('$username', '$title', '$author', '$genre', '$price', '$isbn', '$inventory', '$imgContent', NOW())");  
                  
                 if($insert){ 
                     $status = 'success'; 
+                    echo $status;
                     $statusMsg = "File uploaded successfully."; 
                     $result = $conn->query("SELECT image FROM book WHERE isbn='$isbn'"); 
                 }else{ 
@@ -82,10 +99,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav d-lg-flex align-items-center mt-3">
-                    <a class="nav-item h-100 nav-link" href="#">
+                    <a class="nav-item h-100 nav-link" href="vendor-myBooks.php">
                         <h5>My Books</h5>
                     </a>
-                    <a class="nav-item h-100 nav-link" href="#">
+                    <a class="nav-item h-100 nav-link" href="vendor-myAccount.php">
                         <h5>My Account</h5>
                     </a>
                 </div>
