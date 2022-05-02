@@ -23,7 +23,7 @@ $values = $conn->query($getBooksQuery);
 
 $length = mysqli_num_rows($values);
 
-$order = array_fill(0, mysqli_num_rows($values), NULL);
+$order = array_fill(0, mysqli_num_rows($values) + 1, NULL);
 
 $i = 0;
 while ($row = mysqli_fetch_array($values)) {
@@ -71,7 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $grandTotal = 0;
 
+$index = count($order) - 1;
+
+$promoAmt = 0;
 if ($promotion != "") {
+    $promoAmt = $promo['discount'];
     $grandTotal = ((1 - $promo['discount']) * $sum['SUM(price*quantity)']) + $sum['SUM(price*quantity)'] * 0.07;
 } else {
     $grandTotal = $sum['SUM(price*quantity)'] + $sum['SUM(price*quantity)'] * 0.07;
@@ -83,7 +87,7 @@ $url = "placeOrder.php?" . http_build_query(array(
     "order" => $order
 ));
 
-$url = $url . "&length=" . $length;
+$url = $url . "&length=" . $length . "&promoAmt=" . $promoAmt;
 
 ?>
 
