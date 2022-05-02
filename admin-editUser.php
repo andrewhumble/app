@@ -1,4 +1,5 @@
 <?php
+
 require_once('connDB.php');
 // Check connection
 if ($conn == false) {
@@ -21,12 +22,12 @@ if (!isset($_SESSION['username'])) {
     header("Location: home.php");
     exit();
 } else {
-    $username = $_SESSION['username'];
+    $username = $_SESSION['user'];
     $userType = $_SESSION['userType'];
 }
 ###########
 
-$getValuesQuery = "SELECT firstName, lastName, email, birthday, strAddress, city, state, zip FROM userInfo WHERE username='" . $_SESSION['username'] . "';";
+$getValuesQuery = "SELECT firstName, lastName, email, birthday, strAddress, city, state, zip FROM userInfo WHERE username='" . $_SESSION['user'] . "';";
 
 $values = $conn->query($getValuesQuery);
 $row = $values->fetch_assoc();
@@ -52,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["submitButton"])) {
     $city = isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
     $state = $_POST['state'] ? htmlspecialchars($_POST['state']) : '';
     $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
-    $sql = "UPDATE userInfo SET firstName=\"$firstName\",lastName=\"$lastName\", email='$email', birthday='$birthday', strAddress=\"$strAddress\", city=\"$city\", state='$state', zip='$zip' WHERE username='" . $_SESSION['username'] . "'";
+    $sql = "UPDATE userInfo SET firstName=\"$firstName\",lastName=\"$lastName\", email='$email', birthday='$birthday', strAddress=\"$strAddress\", city=\"$city\", state='$state', zip='$zip' WHERE username='" . $_SESSION['user'] . "'";
     $conn->query($sql);
 }
 if (isset($_POST["submitbutton"])) {
@@ -66,7 +67,7 @@ if (isset($_POST["submitbutton"])) {
     $city = isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
     $state = $_POST['state'] ? htmlspecialchars($_POST['state']) : '';
     $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
-    $sql = "DELETE FROM userInfo WHERE username='".$_SESSION['username']."' ";
+    $sql = "DELETE FROM userInfo WHERE username='".$_SESSION['user']."' ";
     $conn->query($sql);
     
 }
@@ -95,16 +96,16 @@ if (isset($_POST["submitbutton"])) {
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav d-lg-flex align-items-center mt-3">
-                    <a class="nav-item h-100 nav-link" href="#">
+                    <a class="nav-item h-100 nav-link" href="search_order.php">
                         <h5>Search Orders</h5>
                     </a>
-                    <a class="nav-item h-100 nav-link" href="#">
+                    <a class="nav-item h-100 nav-link" href="search_user.php">
                         <h5>Search Users</h5>
                     </a>
                     <a class="nav-item h-100 nav-link" href="#">
                         <h5>Search Books</h5>
                     </a>
-                    <a class="nav-item h-100 nav-link" href="#">
+                    <a class="nav-item h-100 nav-link" href="admin-myAccount.php">
                         <h5>My Account</h5>
                     </a>
                     <a class="nav-item h-100 nav-link" href="#">
