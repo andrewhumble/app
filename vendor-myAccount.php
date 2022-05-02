@@ -9,9 +9,9 @@ if ($conn === false) {
 }
 $userType = $_SESSION['userType'];
 //ensures someone is logged inbefore allowing them to create a profile
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['username']) || $_SESSION['userType'] != 2) {
 
-    header("Location: home.php");
+    header("Location: welcome.html");
     exit();
 } else {
     $username = $_SESSION['username'];
