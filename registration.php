@@ -1,40 +1,50 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 session_set_cookie_params(0);
 
 session_start();
 
-require('connDB.php');
+require_once ('connDB.php');
 // connect to the db
+
+
+//Load Composer's autoloader
+require 'vendor/autoload.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $u = $_POST['u'];
+    $p = $_POST['p'];
     $email = $_POST['email'];
     $birthday = $_POST['birthday'];
-    $strAddress = $_POST['strAddress'];
-    $city = $_POST['city'];
-    $state = $_POST['state'];
-    $zip = $_POST['zip'];
+    $strAddress = $_POST['Address'];
+    $city = $_POST['City'];
+    $state = $_POST['State'];
+    $zip = $_POST['PostalCode'];
     $userType = $_POST['userType'];
     $promotion = 0;
-    $verification = 0;
+    $verification_code = 123456;
 
 
-    if (empty($firstName) || empty($lastName) || empty($username) || empty($password) || empty($email) || empty($birthday) || empty($strAddress) || empty($city) || empty($state) || empty($zip) || empty($userType)) {
+    if (empty($firstName) || empty($lastName) || empty($u) || empty($p) || empty($email) || empty($birthday) || empty($strAddress) || empty($city) || empty($state) || empty($zip) || empty($userType)) {
         echo "<div class=echo><h6 id=malign>Please fill out all the fields.</h6></div>";
-    } else if (strlen($password) < 7) {
+    } else if (strlen($p) < 7) {
         echo "<div class=echo><h6 id=malign>Password must be more than 6 characters.</h6></div>";
         // return;
     } else {
         //here we check for duplicates within the db if you want to create a new account
-        $checkDuplicate = "SELECT * FROM userInfo WHERE username='$username' OR email='$email' LIMIT 1";
+        $checkDuplicate = "SELECT * FROM userInfo WHERE username='$u' OR email='$email' LIMIT 1";
         $result = mysqli_query($conn, $checkDuplicate);
 
         $user = mysqli_fetch_assoc($result);
 
         if ($user) { // if user exists
-            if ($user['username'] === $username) {
+            if ($user['username'] === $u) {
                 echo "<div class=echo><h6 id=malign>Username already exists!</h6></div>";
             } //if
 
@@ -44,8 +54,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo ("INSIDE ELSE FOR INSERT");
             //if user name does not exist, we can create a new account and insdert it into the db
-            $query = "INSERT INTO userInfo VALUES('$firstName', '$lastName', '$username', '$password', '$email', '$birthday', '$strAddress','$city', '$state', '$zip','$userType','$promotion','$verification')";
+            $query = "INSERT INTO userInfo (firstName, lastName, username, password, email, birthday, strAddress, 
+            city, state, zip, userType, promotion, verification_code, email_verified_at, verified) 
+            VALUES ('". $firstName ."' , '". $lastName ."' , '". $u ."' , '". $p ."' , '". $email ."' , '". $birthday ."' , '". $strAddress ."' ,
+            '". $city ."' , '". $state ."' , '". $zip ."' , '". $userType ."' , '". $promotion ."' , '". $verification_code ."', NULL, '". 0 ."')";
             mysqli_query($conn, $query);
+
             if (isset($_SESSION['username'])) {
 
                 header('Location: home.php');
@@ -80,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body class="d-flex flex-column min-vh-100">
     <main>
-        <?php include 'elements/generic-header.php'; ?>
+        <!-- <?php include 'elements/generic-header.php'; ?> -->
         <!-- Page Content -->
         <div class="container-fluid text-center">
             <div class="row h-100 content justify-content-center">
@@ -126,13 +140,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-4">
                             <div class="pt-2 form-group">
                                 <label for="username">Username</label>
-                                <input type="text" placeholder="Username" class="form-control" id="username" name="username" required>
+                                <input type="text" placeholder="Username" class="form-control" id="username" name="u" required>
                             </div>
                         </div>
                         <div class="col-4">
                             <label for="password">Password</label>
                             <div class="pl-2 pt-2 form-group">
-                                <input type="password" placeholder="Password" class="form-control" id="password" name="password" required>
+                                <input type="password" placeholder="Password" class="form-control" id="password" name="p" required>
                             </div>
                         </div>
                     </div>
@@ -156,26 +170,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="pt-2 row justify-content-center">
                         <div class="col-8 t-2 form-group">
                             <label for="address">Street Address</label>
-                            <input type="text" placeholder="Street Address" class="form-control" id="strAddress" name="strAddress" required>
+                            <input type="text" placeholder="Street Address" class="form-control" id="strAddress" name="Address" required>
                         </div>
                     </div>
                     <div class="pt-2 mb-4 row justify-content-center">
                         <div class="col-3">
                             <div class="pt-2 form-group">
                                 <label for="city">City</label>
-                                <input type="text" placeholder="City" class="form-control" id="city" name="city" required>
+                                <input type="text" placeholder="City" class="form-control" id="city" name="City" required>
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="pt-2 form-group">
                                 <label for="state">State</label>
-                                <input type="text" placeholder="GA" class="form-control" id="state" name="state" required>
+                                <input type="text" placeholder="GA" class="form-control" id="state" name="State" required>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="pl-2 pt-2 form-group">
                                 <label for="password">Zip Code</label>
-                                <input type="text" placeholder="Zip" class="form-control" id="zip" name="zip" required>
+                                <input type="text" placeholder="Zip" class="form-control" id="zip" name="PostalCode" required>
                             </div>
                         </div>
                     </div>

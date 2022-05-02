@@ -38,7 +38,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 if($insert){ 
                     $status = 'success'; 
                     $statusMsg = "File uploaded successfully."; 
-                    // $result = $conn->query("SELECT image FROM book WHERE isbn='12345'"); 
+                    $result = $conn->query("SELECT image FROM book WHERE isbn='$isbn'"); 
                 }else{ 
                     $statusMsg = "File upload failed, please try again."; 
                 }  
@@ -48,36 +48,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         }else{ 
             $statusMsg = 'Please select an image file to upload.'; 
         } 
-    // if(!empty($_FILES["image"]["name"])) { 
-
-        // Get file info 
-    //     $fileName = basename($_FILES["image"]["name"]); 
-    //     $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
-         
-    //     // Allow certain file formats 
-    //     $allowTypes = array('jpg','png','jpeg','gif'); 
-    //     if(in_array($fileType, $allowTypes)){ 
-    //         $image = $_FILES['image']['tmp_name']; 
-    //         $imgContent = addslashes(file_get_contents($image)); 
-         
-    //         // Insert image content into database 
-    //         echo ($conn->query("INSERT into book (id, title, author, genre, price, isbn, Inventory, image, created) VALUES ('23', '$title', '$author', '$genre', '$price', '$isbn', $inventory, '$imgContent', NOW())"));  
-             
-    //         if($insert){ 
-    //             $status = 'success'; 
-    //             $statusMsg = "File uploaded successfully."; 
-    //             echo $statusMsg;
-    //         }else{ 
-    //             $statusMsg = "File upload failed, please try again."; 
-    //             echo $statusMsg;
-    //         }  
-    //     }else{ 
-    //         $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
-    //     } 
-    // }else{ 
-    //     $statusMsg = 'Please select an image file to upload.'; 
-    //     echo $statusMsg;
-    // } 
 
     }
 }
@@ -128,12 +98,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
           <form method="post" action="vendor-addBook.php" method="post" enctype="multipart/form-data">
               <div class="row"> 
                   <div class=col-lg-3>
-                    <img class="pic" src='$folder'  alt="" style="width:210px;height:350px;">
-                    <!-- <a href="#" class="Cover"><b>Change Cover</b></a> -->
+                    <img class="pic" src='#'  alt="" style="width:210px;height:350px;">
                     <label>Select Image File:</label>
                     <input type="file" name="image">
-
+                    <!-- <a href="#" class="Cover"><b>Change Cover</b></a> -->
+                    
                   </div>
+
                   
                   <div class=col-lg-3 id="QMiddle">
                         <p><b>Book Title</b></p><br>
