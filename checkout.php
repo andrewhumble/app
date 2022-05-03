@@ -53,27 +53,6 @@ if ($remove != "") {
 $promotion = "";
 $method = "card";
 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-
-    if (isset($_POST['radio'])) {
-        $method = $_POST['radio'];
-    }
-
-    if (isset($_POST['promotion'])) {
-        $promotion = $_POST['promotion'];
-
-        $promoQuery = "SELECT * FROM promotions WHERE name='$promotion';";
-        $promoResult = $conn->query($promoQuery);
-        $promo = mysqli_fetch_array($promoResult);
-
-        if (mysqli_num_rows($promoResult) != 0) {
-            $promotion = $promo['discount'];
-        }
-    }
-}
-
 $grandTotal = 0;
 
 $index = count($order) - 1;
@@ -93,6 +72,30 @@ $url = "placeOrder.php?" . http_build_query(array(
 ));
 
 $url = $url . "&length=" . $length . "&promoAmt=" . $promoAmt;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+
+    if (isset($_POST['radio'])) {
+        $method = $_POST['radio'];
+    }
+
+    if (isset($_POST['promotion'])) {
+        $promotion = $_POST['promotion'];
+
+        $promoQuery = "SELECT * FROM promotions WHERE name='$promotion';";
+        $promoResult = $conn->query($promoQuery);
+        $promo = mysqli_fetch_array($promoResult);
+
+        if (mysqli_num_rows($promoResult) != 0) {
+            $promotion = $promo['discount'];
+        }
+    }
+
+    if (isset($_POST['location'])) {
+        header("Location: placeOrder.php?" . $url);
+    }
+}
 
 ?>
 
@@ -251,12 +254,12 @@ $url = $url . "&length=" . $length . "&promoAmt=" . $promoAmt;
                         <?php
                         if (mysqli_num_rows($values) != 0) { ?>
                             <a href=<?php echo $url ?>>
-                                <button class="btn" style="border-radius: 1rem 1rem; padding: 0rem 5rem; background-color: #C8D8E4">
+                                <button name="location" class="btn" style="border-radius: 1rem 1rem; padding: 0rem 5rem; background-color: #C8D8E4">
                                     <p class="pt-3" style="color: #2B6777; font-weight: bold; font-size: 1.2rem;">Place Order</p>
                                 </button>
                             </a>
                         <?php } else { ?>
-                            <button onclick="location.href=$url" class="btn" style="border-radius: 1rem 1rem; padding: 0rem 5reml; background-color: #C8D8E4" disabled>
+                            <button name="location" class="btn" style="border-radius: 1rem 1rem; padding: 0rem 5reml; background-color: #C8D8E4" disabled>
                                 <p class="pt-3" style="color: #2B6777; font-weight: bold; font-size: 1.2rem;">Place Order</p>
                             </button>
                         <?php } ?>
