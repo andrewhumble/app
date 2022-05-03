@@ -8,7 +8,6 @@ if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 $userType = $_SESSION['userType'];
-//ensures someone is logged inbefore allowing them to create a profile
 if (!isset($_SESSION['username']) || $_SESSION['userType'] != 3) {
 
     header("Location: welcome.html");
@@ -16,12 +15,7 @@ if (!isset($_SESSION['username']) || $_SESSION['userType'] != 3) {
 } else {
     $isbn = $_SESSION['is'];
     $userType = $_SESSION['userType'];
-
-    // $titles = $_SESSION['title'];
-    // echo $titles;
 }
-
-//isset($_POST['selectedBook']) ? $selectedBook = $_POST['selectedBook'] : $selectedBook = $_GET['selectedBook'];
 
 
 
@@ -45,11 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["submitButton"])) {
     $price = isset($_POST['price']) ? htmlspecialchars($_POST['price']) : '';
     $inventory = isset($_POST['inventory']) ? htmlspecialchars($_POST['inventory']) : '';
     if (!empty($_FILES["image"]["name"])) {
-        // Get file info 
         $fileName = basename($_FILES["image"]["name"]);
         $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
-        // $folder = "images/".$filename;
-        // Allow certain file formats 
         $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
         if (in_array($fileType, $allowTypes)) {
             $image = $_FILES['image']['tmp_name'];
@@ -79,12 +70,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["submitButton"])) {
 
 
 <!DOCTYPE>
+
 <head>
     <link href="admin-editBook.css" rel="stylesheet">
     <title>Welcome to LittyLit</title>
     <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Girassol' rel='stylesheet'>
 </head>
+
 <body>
 
     <main>

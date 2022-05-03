@@ -2,53 +2,6 @@ body {
     background: white;
     margin: 0;
 }
-/* NAVBAR */
-.navbar {
-  margin-bottom: 0;
-  border-radius: 0;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.nav-item h5 {
-  font-size: 22px;
-  font-weight: 400;
-  padding-right: 2rem;
-}
-
-.nav-item h5:hover, .nav-item a:hover {
-  color: grey !important;
-}
-
-.nowrap {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.avatarMargin {
-  margin-left: 2.2rem;
-}
-
-a.navbar-brand {
-  font-family: Girassol;
-}
-
-a.nav-item {
-  font-family: Nunito;
-}
-
-.row-bottom-margin {
-  margin-bottom: -10px;
-}
-
-.navbar .navbar-nav {
-  float: none;
-  vertical-align: middle;
-}
-
-.navbar .navbar-collapse {
-  text-align: center;
-}
 
 h3 {
   font-family: Nunito !important;
@@ -90,9 +43,6 @@ strong {
     text-decoration-line: underline;
     color: #3F3D56;
   }
-  /* End of Go Back link */
-
- /* Search Users Div */
 
  #Search {
   text-align: center;
@@ -113,7 +63,7 @@ font-size: 24px;
 
 }
 
-#inputEmail::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+#inputEmail::placeholder { 
 color: #3F3D56;
 opacity: 1;
 font-family: "Nunito";
@@ -155,13 +105,6 @@ font-family: Nunito;
 color: #3F3D56;
 font-size: 100%;
 }
-
-/* End of Search Users Div */
-  
-
-  
-
-  /* Div Background Details */
   .center {
     margin-left: 400px;
     margin-top: 20px;
@@ -209,10 +152,7 @@ font-size: 100%;
     line-height: 3;
     font-size: 15px;
   }
-/* End of Div Details */
 
-
-/* Div Pics */
 .picLeft {
     text-align: center;
 }
@@ -234,10 +174,6 @@ font-size: 100%;
     color: #3F3D56;
 }
 
-/* End of Div Pics */
-
-
-/* Questions in Middle */
 .QMiddle {
     
     margin-bottom: 20px;
@@ -289,7 +225,6 @@ p {
     margin-bottom: 30px;
     border-radius: 7px;
     border: 2px solid white;
-    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
     margin-right: 50px;
     font-size: 12px; 
     color: #3F3D56;
@@ -298,18 +233,9 @@ p {
 
 }
 
-/* End of Questions in Middle */
-
-
-
-
-/* Overall Div */
 .Overall {
     display: flex;
 }
-/* End of Overall Div */
-
-/* Edit Button */
 
 .EditText {
     margin-top: 5px;
@@ -330,4 +256,4 @@ p {
     color: #FFFFFF;
 }
 
-/* End of Edit Button */
+

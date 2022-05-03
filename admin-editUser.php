@@ -2,7 +2,6 @@
 session_start();
 
 //connect to database
-// hi
 require_once('connDB.php');
 // Check connection
 if ($conn === false) {
@@ -13,7 +12,6 @@ if ($_SESSION['userType'] != 3) {
     header("Location: home.php");
 }
 
-//ensures someone is logged inbefore allowing them to create a profile
 if (!isset($_SESSION['username'])) {
 
     header("Location: home.php");
@@ -22,13 +20,12 @@ if (!isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
 }
 
-############
+
 session_start();
 
 //connect to database
 require_once('connDB.php');
 
-// Check connection
 if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
@@ -41,7 +38,6 @@ if (!isset($_SESSION['username'])) {
     $username = $_SESSION['user'];
     $userType = $_SESSION['userType'];
 }
-###########
 
 $getValuesQuery = "SELECT firstName, lastName, email, birthday, strAddress, city, state, zip FROM userInfo WHERE username='" . $_SESSION['user'] . "';";
 
@@ -50,7 +46,7 @@ $row = $values->fetch_assoc();
 
 $firstName = isset($row['firstName']) ? htmlspecialchars($row['firstName']) : '';
 $lastName = isset($row['lastName']) ? htmlspecialchars($row['lastName']) : '';
-//$password = $row['password'];
+
 $email = $row['email'];
 $birthday = $row['birthday'];
 $strAddress = isset($row['strAddress']) ? htmlspecialchars($row['strAddress']) : '';
@@ -62,7 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["submitButton"])) {
 
     $firstName = isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : '';
     $lastName = isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : '';
-    //$password = $_POST['password'];
     $email = $_POST['email'] ? htmlspecialchars($_POST['email']) : '';
     $birthday = $_POST['birthday'] ? htmlspecialchars($_POST['birthday']) : '';
     $strAddress = isset($_POST['strAddress']) ? htmlspecialchars($_POST['strAddress']) : '';
@@ -77,14 +72,17 @@ if (isset($_POST["submitbutton"])) {
 
     $firstName = isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : '';
     $lastName = isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : '';
-    //$password = $_POST['password'];
     $email = $_POST['email'] ? htmlspecialchars($_POST['email']) : '';
     $birthday = $_POST['birthday'] ? htmlspecialchars($_POST['birthday']) : '';
     $strAddress = isset($_POST['strAddress']) ? htmlspecialchars($_POST['strAddress']) : '';
     $city = isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
     $state = $_POST['state'] ? htmlspecialchars($_POST['state']) : '';
     $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
+    $sql = "DELETE FROM book WHERE username='" . $_SESSION['user'] . "' ";
+    echo $sql;
+    $conn->query($sql);
     $sql = "DELETE FROM userInfo WHERE username='" . $_SESSION['user'] . "' ";
+    echo $sql;
     $conn->query($sql);
     header("Location: admin-searchUsers.php");
     
@@ -175,7 +173,7 @@ if (isset($_POST["submitbutton"])) {
                             <div class="col-6">
                                 <button
                                     style="background-color: transparent; color: black; text-decoration: underline; border: 0px;"
-                                    name="submitbutton" type="submit" class="btn btn-primary pr-6">Delete Order</button>
+                                    name="submitbutton" type="submit" class="btn btn-primary pr-6">Delete User</button>
                             </div>
                             <div class="col-6 justify-content-center">
                                 <button style="background-color: #2B6777; border: 0px;" name="submitButton"

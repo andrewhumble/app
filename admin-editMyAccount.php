@@ -4,14 +4,10 @@ require_once('connDB.php');
 if ($conn == false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
-
-############
 session_start();
 
-//connect to database
 require_once('connDB.php');
 
-// Check connection
 if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
@@ -24,7 +20,6 @@ if (!isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
     $userType = $_SESSION['userType'];
 }
-###########
 
 $getValuesQuery = "SELECT firstName, lastName, password, email, birthday, strAddress, city, state, zip FROM userInfo WHERE username='" . $_SESSION['username'] . "';";
 
@@ -151,7 +146,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submitButton'])) {
         </div>
         </div>
         </div>
-
         <?php include 'elements/footer.html'; ?>
     </main>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

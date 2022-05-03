@@ -3,53 +3,6 @@ body {
     margin: 0;
 }
 
-/* NAVBAR */
-.navbar {
-  margin-bottom: 0;
-  border-radius: 0;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.nav-item h5 {
-  font-size: 22px;
-  font-weight: 400;
-  padding-right: 2rem;
-}
-
-.nav-item h5:hover, .nav-item a:hover {
-  color: grey !important;
-}
-
-.nowrap {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.avatarMargin {
-  margin-left: 2.2rem;
-}
-
-a.navbar-brand {
-  font-family: Girassol;
-}
-
-a.nav-item {
-  font-family: Nunito;
-}
-
-.row-bottom-margin {
-  margin-bottom: -10px;
-}
-
-.navbar .navbar-nav {
-  float: none;
-  vertical-align: middle;
-}
-
-.navbar .navbar-collapse {
-  text-align: center;
-}
 
 h3 {
   font-family: Nunito !important;
@@ -137,20 +90,9 @@ strong {
     font-size: 100%;
 }
 
-  /* End of Search Users Div */
-
- 
-
-
-  
-
-  /* Div Background Details */
   .container {
     margin-left: 70px;
     margin-top: 20px;
-    /* width: 1300px;
-    height: 175px; */
-    /* display: flex; */
     background: #C8D8E4;
     box-shadow: 3px 4px 4px 2px rgba(0, 0, 0, 0.4);
     border-radius: 5px;
@@ -180,16 +122,6 @@ strong {
     color: #3F3D56;
   }
 
-/* End of Div Details */
-
-
-
-
-
-
-/* Order Summary on Side Div */
-
-
 #EditText {
     float: right;
     width: 90px;
@@ -212,12 +144,6 @@ strong {
 .Checkout:hover {
     opacity: 0.8;
   }
-/* End of Order Summary on Side Div */
-
-
-/* 991 */
-
-
 
 @media only screen and (max-width: 991px) {
   #left h1 {
