@@ -60,8 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["submitButton"])) {
     $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
     $day_ordered = $_POST['day_ordered'] ? htmlspecialchars($_POST['day_ordered']) : '';
     $sql = "UPDATE orders SET firstName=\"$firstName\",lastName=\"$lastName\", username=\"$username\", order_id = '$order_id', confirmation_id='$confirmation_id', street=\"$street\", city=\"$city\", state=\"$state\", zip=\"$zip\", day_ordered='$day_ordered' WHERE order_id='" . $_SESSION['order'] . "'";
-    echo $sql;
+    // echo $sql;
     $conn->query($sql);
+    header("Location: admin-searchOrders.php");
 }
 if (isset($_POST["submitbutton"])) {
     
@@ -80,7 +81,7 @@ if (isset($_POST["submitbutton"])) {
     //$zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
     $sql = "DELETE FROM orders WHERE order_id='".$_SESSION['order']."' ";
     $conn->query($sql);
-    header("Location: search_order.php");
+    header("Location: admin-searchOrders.php");
     
 }
 
@@ -100,106 +101,77 @@ if (isset($_POST["submitbutton"])) {
 
 <body>
     <main>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand pl-4" href="#" style="font-size: 60px; color: #3F3D56">LittyLit</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-                <div class="navbar-nav d-lg-flex align-items-center mt-3">
-                    <a class="nav-item h-100 nav-link" href="search_order.php">
-                        <h5>Search Orders</h5>
-                    </a>
-                    <a class="nav-item h-100 nav-link" href="search_user.php">
-                        <h5>Search Users</h5>
-                    </a>
-                    <a class="nav-item h-100 nav-link" href="view.php">
-                        <h5>Search Books</h5>
-                    </a>
-                    <a class="nav-item h-100 nav-link" href="admin-myAccount.php">
-                        <h5>My Account</h5>
-                    </a>
-                    <a class="nav-item h-100 nav-link" href="admin-reports.php">
-                        <h5>Reports</h5>
-                    </a>
-                </div>
-            </div>
-        </nav>
-
+    <?php include 'elements/header.php' ?>
         <div class="container-fluid text-center">
-            <div class="row h-30 content">
+            <div class="row h-30 justify-content-center">
             <form method="post">
-                <div class="col-sm-9 pt-4 mx-auto">
-                    <div class="row">
+                <div class="col-9 pt-4 mx-auto justify-content-center">
+                    <div class="row justify-content-center">
                         <h1>Order #<?php echo $order_id ?> Information</h1>
                     </div>
-                    <div class="row mt-4">
+                    <div class="row mt-4 justify-content-center">
                         <div class="col-sm-6">
                             <label class="float-left">First Name</label>
-                            <input type="text" name = 'firstName' class="form-control" value="<?php echo $firstName ?>">
+                            <input style="font-family: Nunito" type="text" name = 'firstName' class="form-control" value="<?php echo $firstName ?>">
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 justify-content-center">
                             <label class="float-left">Last Name</label>
-                            <input type="text" name = 'lastName' class="form-control" value="<?php echo $lastName ?>">
+                            <input style="font-family: Nunito" type="text" name = 'lastName' class="form-control" value="<?php echo $lastName ?>">
                         </div>
                     </div>
-                    <div class="row mt-4">
+                    <div class="row mt-4 justify-content-center">
                         <div class="col-sm-12">
                             <label class="float-left">Username</label>
-                            <input type="text" name = 'username' class="form-control" value="<?php echo $username ?>">
+                            <input style="font-family: Nunito" type="text" name = 'username' class="form-control" value="<?php echo $username ?>">
                         </div>
                     </div>
-                    <div class="row mt-4">
+                    <div class="row mt-4 justify-content-center">
                         <div class="col-sm-4">
                             <label class="float-left">Order ID</label>
-                            <input type="text" name = 'order_id' class="form-control" value="<?php echo $order_id ?>">
+                            <input style="font-family: Nunito" type="text" name = 'order_id' class="form-control" value="<?php echo $order_id ?>">
                         </div>
                         <div class="col-sm-4">
                             <label class="float-left">Confirmation Number</label>
-                            <input type="text" name = 'confirmation_id' class="form-control" value="<?php echo $confirmation_id ?>">
+                            <input style="font-family: Nunito" type="text" name = 'confirmation_id' class="form-control" value="<?php echo $confirmation_id ?>">
                         </div>
                         <div class="col-sm-4">
                             <label class="float-left">Date Ordered</label>
-                            <input type="text" name = 'day_ordered' class="form-control" value="<?php echo $day_ordered ?>">
+                            <input style="font-family: Nunito" type="text" name = 'day_ordered' class="form-control" value="<?php echo $day_ordered ?>">
                         </div>
                     </div>
-                    <div class="row mt-4">
+                    <div class="row mt-4 justify-content-center">
                         <div class="col-sm-12">
                             <label class="float-left">Shipping Address</label>
-                            <input type="text" name = 'street' class="form-control" value="<?php echo $street ?>">
+                            <input style="font-family: Nunito" type="text" name = 'street' class="form-control" value="<?php echo $street ?>">
                         </div>
                     </div>
-                    <div class="row mt-4">
+                    <div class="row mt-4 justify-content-center">
                         <div class="col-sm-5">
                             <label class="float-left">City</label>
-                            <input type="text" name='city' class="form-control" value="<?php echo $city ?>">
+                            <input style="font-family: Nunito" type="text" name='city' class="form-control" value="<?php echo $city ?>">
                         </div>
                         <div class="col-sm-2">
                             <label class="float-left">State</label>
-                            <input type="text" name='state' class="form-control" value="<?php echo $state ?>">
+                            <input style="font-family: Nunito" type="text" name='state' class="form-control" value="<?php echo $state ?>">
                         </div>
                         <div class="col-sm-5">
                             <label class="float-left">Zip Code</label>
-                            <input type="text" name='zip' class="form-control" value="<?php echo $zip ?>">
+                            <input style="font-family: Nunito" type="text" name='zip' class="form-control" value="<?php echo $zip ?>">
                         </div>
                     </div>
-                    <div class="row mt-5">
-                        <div class="col-sm-6">
-                        <button name="submitbutton" type="submit" class="btn btn-primary pr-6">Delete Order</button>
+                    <div class="row mt-5 justify-content-center">
+                        <div class="col-6">
+                        <button style="background-color: transparent; color: black; text-decoration: underline; border: 0px;" name="submitbutton" type="submit" class="btn btn-primary pr-6">Delete Order</button>
                         </div>
-                        <div class="col-sm-6">
-                        <button name="submitButton" type="submit" class="btn btn-primary pr-6">Save Changes</button>
+                        <div class="col-6 justify-content-center">
+                        <button style="background-color: #2B6777; border: 0px;" name="submitButton" type="submit" class="btn btn-primary pr-6">Save Changes</button>
                         </div>
                     </div>
                 </form>
                 </div>
             </div>
         </div>
-
-        <footer class="footer pl-4">
-            <p>CSCI 4050 Final Project by Andrew Humble, Elodie Collier, Nisha Rajendra, and Manmeet Gill.</p>
-        </footer>
+        <?php include 'elements/footer.html'; ?>
     </main>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -207,5 +179,3 @@ if (isset($_POST["submitbutton"])) {
 </body>
 
 </html>
-
-/Applications/XAMPP/xamppfiles/htdocs/LittyLit/app/admin-editOrder.php

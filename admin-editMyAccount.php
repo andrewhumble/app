@@ -5,7 +5,6 @@ if ($conn == false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-
 ############
 session_start();
 
@@ -140,43 +139,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submitButton'])) {
                                     </div>
                                 </div>
                             </div>
-                            <!-- <hr style="background-color: lightgrey">
-                            <div class="pt-2 row">
-                                <div class="col-8 t-2 form-group">
-                                    <label for="strAddress">Street Address</label>
-                                    <input type="text" class="form-control" id="strAddress" name="strAddress" value="">
-                                </div>
-                            </div>
-                            <div class="pt-2 mb-4 row">
-                                <div class="col-3">
-                                    <div class="pt-2 form-group">
-                                        <label for="city">City</label>
-                                        <input type="text" class="form-control" id="city" name="city" value="">
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="pt-2 form-group">
-                                        <label for="state">State</label>
-                                        <input type="state" class="form-control" id="state" name="state" value=<>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="pl-2 pt-2 form-group">
-                                        <label for="password">Zip Code</label>
-                                        <input type="text" class="form-control" id="zip" name="zip" value=>
-                                    </div>
-                                </div>
-                            </div> -->
-
                         </div>
                         <div class="row mr-2">
-                            <!-- <div class="ml-4 mr-8 col-4">
-                                <a class="text-left" href="admin-deleteAccount.php">
-                                    <u style="text-decoration-color:#2F2E41">
-                                        <h6 class="mt-4 mb-1" style="color: #2F2E41">Delete Account</h6>
-                                    </u>
-                                </a>
-                            </div> -->
                             <div class="col-8 pr-6 mt-2 text-right">
                                 <button name="submitButton" type="submit" class="btn btn-primary pr-6">Save Changes</button>
                             </div>
