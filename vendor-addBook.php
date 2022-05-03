@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
             echo "The file " . htmlspecialchars(basename($_FILES["image"]["name"])) . " has been uploaded.";
-            $insert = "INSERT into book (username, title, author, price, genre, ISBN, stock, image) VALUES ('mg', '$title', '$author', '$price', '$genre', '$isbn', '$stock', '$target_file')";
+            $insert = "INSERT into book (username, title, author, price, genre, ISBN, stock, imgPath) VALUES ('$username', '$title', '$author', '$price', '$genre', '$isbn', '$stock', '$target_file')";
             $conn->query($insert);
             echo $insert;
         } else {
