@@ -1,9 +1,26 @@
 <?php
-require('connDB.php');
+session_start();
+
+//connect to database
+// hi
+require_once('connDB.php');
+// Check connection
+if ($conn === false) {
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
 
 if ($_SESSION['userType'] != 3) {
     header("Location: home.php");
 }
+
+if (!isset($_SESSION['username'])) {
+
+    header("Location: home.php");
+    exit();
+} else {
+    $username = $_SESSION['username'];
+}
+
 ?>
 
 
@@ -107,8 +124,9 @@ if ($_SESSION['userType'] != 3) {
 
     if (isset($_POST["submit"])) {
         $_SESSION['is'] = $_POST["Search"];
-        $val = $conn->query("SELECT image FROM `book` WHERE isbn= '" . $_SESSION['is'] . "'");
-        $res = $conn->query("SELECT * FROM `book` WHERE isbn = '" . $_SESSION['is'] . "'");
+        $val = $conn->query("SELECT imgPath FROM `book` WHERE ISBN= '" . $_SESSION['is'] . "'");
+        $res = $conn->query("SELECT * FROM `book` WHERE ISBN = '" . $_SESSION['is'] . "'");
+        
         $results = mysqli_num_rows($res);
         if ($results > 0) {
             while ($row = mysqli_fetch_object($res)) {
@@ -122,14 +140,14 @@ if ($_SESSION['userType'] != 3) {
                         <!-- Uploading image -->
                         <?php if ($val->num_rows > 0) { ?>
                             <?php while ($blah = $val->fetch_assoc()) { ?>
-                                <img id="pic" src="<?php echo $row['imgPath'] ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
+                                <img id="pic" src="<?php echo $blah['imgPath'] ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
                             <?php } ?>
                         <?php } else { ?>
                             <p class="status error">Image(s) not found...</p> <?php } ?>
                         <!-- <img class="pic" src= "images/Gatsby.png" alt="Place Holder Book" style="width:150px;height:200px;"> -->
                         <h4 id="work"><?php echo $row->title; ?></h4>
                         <p id="auth"><?php echo $row->author; ?></p><br>
-                        <pre id="change">  Inventory: <?php echo $row->inventory; ?>           <?php echo $row->price; ?></pre>
+                        <pre id="change">  Inventory: <?php echo $row->stock; ?>           $<?php echo $row->price; ?></pre>
                         <!-- <p id="change"><?php echo $row->price; ?></p><br> -->
                         <button onclick="window.location.href='admin-editBook.php'" class="EditText">Edit</button><br>
 
