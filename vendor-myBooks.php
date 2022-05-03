@@ -26,8 +26,6 @@ if (!isset($_SESSION['username']) || $_SESSION['userType'] != 2) {
 $getBooksQuery = "SELECT username, title, author, price, genre, ISBN, stock, imgPath FROM book WHERE username='$username';";
 $values = $conn->query($getBooksQuery);
 
-echo $getBooksQuery;
-
 $length = mysqli_num_rows($values);
 // echo $length;
 
@@ -38,7 +36,6 @@ while ($row = mysqli_fetch_array($values)) {
     $order[$i] = $row;
     $i++;
 }
-echo sizeof($order);
 ?>
 
 <!DOCTYPE>
@@ -90,10 +87,10 @@ echo sizeof($order);
                     <a href="vendor-editBook.php?selectedBook=<?php echo $o['ISBN'] ?>" class="EditText">Edit</a>
                     <!-- <button onclick="window.location.href='vendor-editBook.php'" class="EditText">Edit</button><br> -->
 
-                
 
-            <?php } ?>
-        </div>
+
+                <?php } ?>
+                </div>
 
 
 

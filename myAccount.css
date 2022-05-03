@@ -19,3 +19,8 @@ button {
   font-size: 130% !important;
   box-shadow: 5px 10px 18px #15424E !important;
 }
+
+html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
