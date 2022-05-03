@@ -99,31 +99,31 @@ echo sizeof($order);
         <br>
 
 
-         
+
         <div class="row">
-            <?php foreach($order as $o) { ?>
-           
-            <div class="center">  
-            <img  class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($o['image']); ?>"  alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px"/><br>
+            <?php foreach ($order as $o) { ?>
 
-                <h4><?php echo $o['title']; ?></h4>
-   
- 
-                <!-- <?php $_SESSION['title'] = $o['title']; ?> -->
-                
+                <div class="center">
+                    <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($o['image']); ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
 
-                <p><?php echo $o['author']; ?></p>
-                <?php $_SESSION['author'] = $o['author']; ?>
-                
-                <pre> Inventory: <?php echo $o['Inventory']; ?>               <?php echo $o['price']; ?></pre>
-                <a href="vendor-editBook.php?selectedBook=<?php echo $o['ISBN'] ?>" class="EditText" >Edit</a>
-                <!-- <button onclick="window.location.href='vendor-editBook.php'" class="EditText">Edit</button><br> -->
-                
-          </div>
-       <?php } ?>
-      
-        </div>  
-            
+                    <h4><?php echo $o['title']; ?></h4>
+
+
+                    <!-- <?php $_SESSION['title'] = $o['title']; ?> -->
+
+
+                    <p><?php echo $o['author']; ?></p>
+                    <?php $_SESSION['author'] = $o['author']; ?>
+
+                    <pre> Inventory: <?php echo $o['stock']; ?>               <?php echo $o['price']; ?></pre>
+                    <a href="vendor-editBook.php?selectedBook=<?php echo $o['ISBN'] ?>" class="EditText">Edit</a>
+                    <!-- <button onclick="window.location.href='vendor-editBook.php'" class="EditText">Edit</button><br> -->
+
+                </div>
+            <?php } ?>
+
+        </div>
+
     </main>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>

@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["save"])) {
     // $city = isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
     // $state = $_POST['state'] ? htmlspecialchars($_POST['state']) : '';
     // $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
-    $sql = "UPDATE book SET title='$title', author='$author', genre='$genre', price='$price', stock='$inventory' WHERE ISBN ='$selectedBook'";
+    $sql = "UPDATE book SET title='$title', author='$author', price='$price', genre='$genre', stock='$inventory' WHERE ISBN ='$selectedBook'";
     echo $sql;
     $conn->query($sql);
 
@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["save"])) {
                     </div>
                     <div class=col-lg-3 id="QEnd">
                         <p><b>Inventory:</b></p>
-                        <input class="Inventory" type="text" id="btitle" name="inventory" value="<?php echo $row['Inventory'] ?>"><br><br>
+                        <input class="Inventory" type="text" id="btitle" name="inventory" value="<?php echo $row['stock'] ?>"><br><br>
 
                         <!-- <select class="Inventory">  
                                 <option style="font-weight: bolder;" value = "Number" selected> 100   
