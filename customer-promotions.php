@@ -27,7 +27,6 @@ if (!isset($_SESSION['username'])) {
 } else {
     $username = $_SESSION['username'];
     $userType = $_SESSION['userType'];
-    $promotion = $_SESSION['promotion'];
 }
 
 $getValuesQuery = "SELECT firstName, lastName, password, email, birthday, strAddress, city, state, zip FROM userInfo WHERE username='" . $_SESSION['username'] . "';";

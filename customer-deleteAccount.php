@@ -121,7 +121,7 @@ if (isset($_POST["submitbutton"])) {
                             Logout
                         </a></h4>
                 </div>
-                <div class="row">
+                <div class="row pl-4">
                     <div class="col-sm-10 text-left">
                         <div class="ml-3 mt-5">
                             <h1 style="font-family: Nunito; color: #3F3D56">Hi <?php echo $firstName ?>, we are sorry to
