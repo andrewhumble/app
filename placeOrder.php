@@ -123,7 +123,7 @@ foreach ($order as $o) {
     $quantity = $quantity + $o['quantity'];
 }
 
-$total = $quantity * $val['price'];
+$total = ($quantity * $val['price']) + ($quantity * $val['price'] * 0.07);
 
 $mail = new PHPMailer(true);
 
