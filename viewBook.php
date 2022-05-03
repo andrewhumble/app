@@ -7,6 +7,11 @@ require_once('connDB.php');
 if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
+
+if ($_SESSION['userType'] != 1) {
+    header("Location: home.php");
+}
+
 $userType = 1;
 
 if (!isset($_SESSION['username'])) {
@@ -54,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <link href="viewBook.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <title>Welcome to LittyLit</title>
+    <title>LittyLit</title>
     <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Girassol' rel='stylesheet'>
 </head>

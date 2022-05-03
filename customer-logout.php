@@ -9,7 +9,9 @@ if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-#hellobro
+if ($_SESSION['userType'] != 1) {
+    header("Location: home.php");
+}
 
 if (!isset($_SESSION['username'])) {
 
@@ -80,7 +82,7 @@ $zip = $row['zip'];
                     <h4 class="sidebar"><a href="customer-editMyAccount.php">
                             Account Details
                         </a></h4>
-                    <h4 class="sidebar"><a href="#">
+                    <h4 class="sidebar"><a href="customer-promotions.php">
                             Promotions
                         </a></h4>
                     <h4 class="sidebar"><a href="customer-logout.php">

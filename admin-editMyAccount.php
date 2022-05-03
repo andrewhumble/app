@@ -5,6 +5,10 @@ if ($conn == false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+if ($_SESSION['userType'] != 3) {
+    header("Location: home.php");
+}
+
 ############
 session_start();
 
@@ -109,20 +113,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submitButton'])) {
                                 <div class="col-4">
                                     <div class="pt-2 form-group">
                                         <label for="firstName">First Name</label>
-                                        <input type="text" class="form-control" id="firstName" name="firstName" value="<?php echo $firstName ?>">
+                                        <input type="text" class="form-control" id="firstName" name="firstName" value="<?php echo $firstName ?>" required>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="pl-2 pt-2 form-group">
                                         <label for="lastName">Last Name</label>
-                                        <input type="text" class="form-control" id="lastName" name="lastName" value="<?php echo $lastName ?>">
+                                        <input type="text" class="form-control" id="lastName" name="lastName" value="<?php echo $lastName ?>" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="pt-2 row">
                                 <div class="col-8 t-2 form-group">
                                     <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" value=<?php echo $email ?>>
+                                    <input type="email" class="form-control" id="email" name="email" value=<?php echo $email ?> required>
                                 </div>
                             </div>
                             <div class="pt-2 row">
@@ -135,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submitButton'])) {
                                 <div class="col-4">
                                     <div class="pl-2 pt-2 form-group">
                                         <label for="password">Password</label>
-                                        <input type="password" class="form-control" id="password" name="password" value=<?php echo $password ?>>
+                                        <input type="password" class="form-control" id="password" name="password" value=<?php echo $password ?> required minlength="7">
                                     </div>
                                 </div>
                             </div>
@@ -143,26 +147,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submitButton'])) {
                             <div class="pt-2 row">
                                 <div class="col-8 t-2 form-group">
                                     <label for="strAddress">Street Address</label>
-                                    <input type="text" class="form-control" id="strAddress" name="strAddress" value="<?php echo $strAddress ?>">
+                                    <input type="text" class="form-control" id="strAddress" name="strAddress" value="">
                                 </div>
                             </div>
                             <div class="pt-2 mb-4 row">
                                 <div class="col-3">
                                     <div class="pt-2 form-group">
                                         <label for="city">City</label>
-                                        <input type="text" class="form-control" id="city" name="city" value="<?php echo $city ?>">
+                                        <input type="text" class="form-control" id="city" name="city" value="">
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <div class="pt-2 form-group">
                                         <label for="state">State</label>
-                                        <input type="state" class="form-control" id="state" name="state" value=<?php echo $state ?>>
+                                        <input type="state" class="form-control" id="state" name="state" value=<>
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="pl-2 pt-2 form-group">
                                         <label for="password">Zip Code</label>
-                                        <input type="text" class="form-control" id="zip" name="zip" value=<?php echo $zip ?>>
+                                        <input type="text" class="form-control" id="zip" name="zip" value=>
                                     </div>
                                 </div>
                             </div> -->

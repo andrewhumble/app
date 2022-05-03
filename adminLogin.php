@@ -5,9 +5,11 @@ session_start();
 
 require('connDB.php');
 //connects to db
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
+
     $emptyUP = false;
 
     #Hello
@@ -27,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
 
             if (isset($_SESSION['username'])) {
-
+                $_SESSION['userType'] = 3;
                 header('Location: admin-myAccount.php');
                 exit();
             } else if (isset($_POST['username'])) {
@@ -36,7 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['username'] = $username;
                 $_SESSION['userType'] = 3;
                 $url = "admin-myAccount.php";
-                $_SESSION['userType'] = 3;
                 header('Location: admin-myAccount.php');
 
 
@@ -53,25 +54,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <link href="admin-login.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <title>Welcome to LittyLit</title>
+    <title>LittyLit</title>
     <link href='https://fonts.googleapis.com/css?family=Nunito:400,700,400italic,700italic' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Girassol:400,700,400italic,700italic' rel='stylesheet'>
 </head>
 
 <body>
     <main>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand pl-4" href="#" style="font-size: 60px; color: #3F3D56; font-family: Girassol;">LittyLit</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-                <div class="navbar-nav d-lg-flex align-items-center mt-3">
-                    <a class="nav-item h-100 nav-link" href="home.php">
-                    </a>
-                </div>
-            </div>
-        </nav>
+        <?php include 'elements/header.php' ?>
         <div class="row justify-content-center">
             <div class="col-sm-8" style="background: #C8D8E4; margin: 10%; border-radius: 25px; padding: 3%;">
                 <div class="row justify-content-center">

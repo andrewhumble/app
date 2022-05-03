@@ -7,6 +7,11 @@ require_once('connDB.php');
 if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
+
+if ($_SESSION['userType'] != 2) {
+    header("Location: home.php");
+}
+
 $userType = $_SESSION['userType'];
 //ensures someone is logged inbefore allowing them to create a profile
 if (!isset($_SESSION['username']) || $_SESSION['userType'] != 2) {
@@ -20,7 +25,7 @@ if (!isset($_SESSION['username']) || $_SESSION['userType'] != 2) {
     echo $username;
 }
 
-$getBooksQuery = "SELECT username, title, author, genre, price, ISBN, Inventory, image FROM book WHERE username='$username';";
+$getBooksQuery = "SELECT username, title, author, price, genre, ISBN, stock, image FROM book WHERE username='$username';";
 $values = $conn->query($getBooksQuery);
 
 $length = mysqli_num_rows($values);
@@ -44,20 +49,21 @@ echo sizeof($order);
 
 
 <!DOCTYPE>
+
 <head>
     <link href="vendor-myBooks.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <title>Welcome to LittyLit</title>
+    <title>LittyLit</title>
     <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Girassol' rel='stylesheet'>
 </head>
+
 <body>
 
     <main>
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand pl-4" href="#" style="font-size: 60px; color: #3F3D56">LittyLit</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
@@ -82,15 +88,16 @@ echo sizeof($order);
                 </div>
 
             </div>
-            
+
         </div>
-          <!-- <div class="Search" style="width:1300px; height:100px; background-color: chocolate;">
+        <!-- <div class="Search" style="width:1300px; height:100px; background-color: chocolate;">
             <h1>My Books</h1>
             <button onclick="window.location.href='#'" class="AddText">Add Book</button><br>
           </div> -->
-          <br>
-          <br>
-          <br>
+        <br>
+        <br>
+        <br>
+
 
          
         <div class="row">
@@ -124,7 +131,7 @@ echo sizeof($order);
 
 
 
-    
+
 </body>
 
 </html>

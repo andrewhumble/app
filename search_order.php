@@ -1,5 +1,9 @@
 <?php
 require('connDB.php');
+
+if ($_SESSION['userType'] != 3) {
+    header("Location: home.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -7,7 +11,7 @@ require('connDB.php');
 <head>
     <link href="admin-searchUsers.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <title>Welcome to LittyLit</title>
+    <title>LittyLit</title>
     <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Girassol' rel='stylesheet'>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type='text/css'>

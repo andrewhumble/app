@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+if ($_SESSION['userType'] != 1) {
+    header("Location: home.php");
+}
+
 //connect to database
 require_once('connDB.php');
 // Check connection
@@ -18,7 +22,7 @@ if (!isset($_SESSION['username'])) {
     $userType = $_SESSION['userType'];
 }
 
-$getBooksQuery = "SELECT username, title, author, price, ISBN, quantity, stock, imgPath FROM cart;";
+$getBooksQuery = "SELECT username, title, author, price, ISBN, quantity, stock, imgPath FROM cart WHERE username='$username';";
 $values = $conn->query($getBooksQuery);
 
 $sumQuery = "SELECT SUM(price*quantity) FROM cart WHERE username='$username';";
@@ -41,7 +45,7 @@ if ($remove != "") {
 <head>
     <link href="cart.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <title>Welcome to LittyLit</title>
+    <title>LittyLit</title>
     <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Girassol' rel='stylesheet'>
 </head>

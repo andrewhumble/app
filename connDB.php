@@ -13,5 +13,3 @@
             echo '<p> Unable to connect to database: ' .$error;
             exit();
           }
-    ?> 
-    
