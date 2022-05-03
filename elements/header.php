@@ -106,7 +106,7 @@ if (!isset($_SESSION['userType'])) {
             <a class='nav-item h-100 nav-link' href='admin-searchUsers.php'>
                 <h5>Search Users</h5>
             </a>
-            <a class='nav-item h-100 nav-link' href='view.php'>
+            <a class='nav-item h-100 nav-link' href='admin-searchBooks.php'>
                 <h5>Search Books</h5>
             </a>
             <a class='nav-item h-100 nav-link' href='admin-myAccount.php'>

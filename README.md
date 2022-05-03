@@ -1,6 +1,6 @@
 ## The Entry Point
 
-To begin navigating and using LittyLit, a user should enter the website through the welcome.html page. Excluding the administrator login page, user login page, and registration page, all pages require a user to be logged in prior to accessing page content. A user is redirected to welcome.html in the event that an attepted visit to a page determines the user to not be logged in. This file can be accessed by accessing localhost:8080/LittyLit/app/welcome.html. Because our code uses PHP and MySQL via XAMPP, XAMPP should be downloaded for website functionality.
+To begin navigating and using LittyLit, a user should enter the website through the welcome.html page. Excluding the administrator login page, user login page, and registration page, all pages require a user to be logged in prior to accessing page content. A user is redirected to welcome.html in the event that an attepted visit to a page determines the user to not be logged in. This file can be accessed by searching localhost:8080/LittyLit/app/welcome.html. Because our code uses PHP and MySQL via XAMPP, XAMPP should be downloaded for website functionality.
 
 ## Starting LittyLit
 ### Downloading XAMPP
@@ -9,9 +9,15 @@ As LittyLit is built using HTML, CSS (+ Bootstrap), JavaScript, MySQL, and PHP, 
 ### Managing XAMPP Servers
 Once downloading XAMPP, start XAMPP and ensure that the status light of XAMPP turns green. Following the sucessful start of XAMPP, navigate to the 'Services' tab, and start all available stack services. These services should include MySQL, ProFTPD, and Apache. Next, navigate to the 'Networks' tab and enable your localhost network. Finally, navigate to the 'Volumes' tab, click 'Mount,' and then click 'Explore.' This will display several folders on your computer, including one called htdocs. This is the folder where you will need to copy our LittyLit folder into.
 
+## Permissions for Uploading Images
+To handle adding books as a vendor to the database, ensure that your file permissions are properly set from the Images folder. In order to do this, navigate to your Images folder and run the following command:
+
+`chmod 777 .`
+
 ### Databases in PHPMyAdmin
 You’ll need to set up LittyLit's databases prior to running the application. The code below creates and prefills the six Littly databases needed for functionality with information such as LittyLit's user information, all available books for purchase, and much more. Begin by navigating to you localhost’s PHPMyAdmin, and find your SQL execution prompt.
 Enter the following command to create empty versions of the six databases.
+
 
 ```sql
 CREATE TABLE `userInfo` (
@@ -111,23 +117,23 @@ INSERT INTO `userInfo` (`firstName`, `lastName`, `username`, `password`, `email`
 ```
 
 ```sql
-INSERT INTO `userInfo` (`firstName`, `lastName`, `username`, `password`, `email`, `birthday`, `strAddress`, `city`, `state`, `zip`, `userType`, `promotion`, `verification`) VALUES ('Bojack', 'Horseman', 'bojack', 'bojack123', 'bojack@gmail.com', '2/29/01', '2222 Athens Ave', 'Athens', 'GA', '30604', '3', '0', '1');
+INSERT INTO `userInfo` (`firstName`, `lastName`, `username`, `password`, `email`, `birthday`, `strAddress`, `city`, `state`, `zip`, `userType`, `promotion`, `verification`) VALUES ('Nisha', 'Rajendran', 'nisha', 'nisha123', 'nisha@gmail.com', '2000-01-01', '2222 Athens Ave', 'Athens', 'GA', '30604', '3', '0', '1');
 ```
 
 ```sql
-INSERT INTO `userInfo` (`firstName`, `lastName`, `username`, `password`, `email`, `birthday`, `strAddress`, `city`, `state`, `zip`, `userType`, `promotion`, `verification`) VALUES ('Maggie', 'McSwain', 'mcswagger', 'maggie123', 'mcswagger@gmail.com', '2000-09-22', '100 Maple Street', 'Athens', 'GA', '30548', '2', '0', '0');
+INSERT INTO `userInfo` (`firstName`, `lastName`, `username`, `password`, `email`, `birthday`, `strAddress`, `city`, `state`, `zip`, `userType`, `promotion`, `verification`) VALUES ('Manmeet', 'Gill', 'meet', 'meet123', 'meet@gmail.com', '2000-09-22', '100 Maple Street', 'Athens', 'GA', '30548', '2', '0', '0');
 ```
 
 ```sql
-INSERT INTO `book` (`username`, `title`, `author`, `price`, `genre`, `ISBN`, `stock`, `imgPath`, `description`) VALUES ('mcswagger', 'Harry Potter', 'J.K. Rowling', '10', 'Fiction', '111111', '56', './images/HarryPotter.png', 'An orphaned boy enrolls in a school of wizardry, where he learns the truth about himself, his family and the terrible evil that haunts the magical world.');
+INSERT INTO `book` (`username`, `title`, `author`, `price`, `genre`, `ISBN`, `stock`, `imgPath`, `description`) VALUES ('meet', 'Harry Potter', 'J.K. Rowling', '10', 'Fiction', '111111', '56', './images/HarryPotter.png', 'An orphaned boy enrolls in a school of wizardry, where he learns the truth about himself, his family and the terrible evil that haunts the magical world.');
 ```
 
 ```sql
-INSERT INTO `book` (`username`, `title`, `author`, `price`, `genre`, `ISBN`, `stock`, `imgPath`, `description`) VALUES ('mcswagger', 'The Great Gatsby', 'F. Scott Fitzgerald', '5', 'fiction', '122222', '9', './images/Gatsby.png', 'A writer and wall street trader, Nick, finds himself drawn to the past and lifestyle of his millionaire neighbor, Jay Gatsby.');
+INSERT INTO `book` (`username`, `title`, `author`, `price`, `genre`, `ISBN`, `stock`, `imgPath`, `description`) VALUES ('meet', 'The Great Gatsby', 'F. Scott Fitzgerald', '5', 'fiction', '122222', '9', './images/Gatsby.png', 'A writer and wall street trader, Nick, finds himself drawn to the past and lifestyle of his millionaire neighbor, Jay Gatsby.');
 ```
 
 ```sql
-INSERT INTO `book` (`username`, `title`, `author`, `price`, `genre`, `ISBN`, `stock`, `imgPath`, `description`) VALUES ('mcswagger', 'Lord of the Rings', 'J.R. Tolkein', '20', 'Fantasy', '732632', '3', './images/LordRing1.png', 'A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron.');
+INSERT INTO `book` (`username`, `title`, `author`, `price`, `genre`, `ISBN`, `stock`, `imgPath`, `description`) VALUES ('meet', 'Lord of the Rings', 'J.R. Tolkein', '20', 'Fantasy', '732632', '3', './images/LordRing1.png', 'A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron.');
 ```
 
 ```sql
