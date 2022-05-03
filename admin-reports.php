@@ -65,6 +65,17 @@ while ($row = mysqli_fetch_array($promoResults)) {
     $lossInPromos = $lossInPromos + $row['revenue'];
 }
 
+$allBooksQuery = "SELECT * FROM book;";
+$allBooksResults = $conn->query($allBooksQuery);
+while ($row = mysqli_fetch_array($allBooksResults)) {
+    $checkExistQuery = "SELECT * FROM report WHERE ISBN='$row[ISBN]';";
+    $checkExistResults = $conn->query($checkExistQuery);
+    if (mysqli_num_rows($checkExistResults) == 0) {
+        $insertQuery = "INSERT INTO report (vendor, title, ISBN, sold, cost, stock, revenue) VALUES ('$row[username]', '$row[title]', '$row[ISBN]', '0', '$row[price]', '$row[stock]', '0');";
+        $conn->query($insertQuery);
+    }
+}
+
 ?>
 
 <!DOCTYPE>
