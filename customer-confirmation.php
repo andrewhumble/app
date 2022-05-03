@@ -57,6 +57,9 @@ if (!isset($_SESSION['username'])) {
 
 
 // $total = $quantity*$val['price'];
+// $completeAdd = '' . $val['street'] . ', ' .  $val['city'] . ' ' . $val['state'] . ' ' . $val['zip'];
+
+// echo $completeAdd;
 
 
 
