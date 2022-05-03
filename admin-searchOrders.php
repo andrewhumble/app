@@ -59,11 +59,9 @@ if (!isset($_SESSION['username'])) {
 </html>
 <?php
 
-session_start();
-
 if (isset($_POST["submit"])) {
     $_SESSION['order'] = $_POST["Search"];
-    $res = $conn->query("SELECT * FROM orders WHERE order_id='".$_SESSION['order']."'");
+    $res = $conn->query("SELECT * FROM orders WHERE order_id='" . $_SESSION['order'] . "'");
     $results = mysqli_num_rows($res);
     if ($results > 0) {
         while ($row = mysqli_fetch_object($res)) {

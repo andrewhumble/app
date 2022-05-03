@@ -122,7 +122,7 @@ if (!isset($_SESSION['username'])) {
 
 </html>
 
-    <!-- <form method="post">
+<!-- <form method="post">
         <div class="container-fluid mt-5" id="Search">
             <div class="mx-auto text-center" style="width: 400px;">
                 <h1 id="header">Search Books</h1><br>
@@ -136,7 +136,7 @@ if (!isset($_SESSION['username'])) {
         </div>
     </form> -->
 
-    <!-- <div class="container">
+<!-- <div class="container">
     <h1> Retrive</h1>
     <?php if ($result->num_rows > 0) { ?> 
     <div class="gallery"> 
@@ -153,54 +153,54 @@ if (!isset($_SESSION['username'])) {
 
 
 
-    <?php
+<?php
 
 
 
-    if (isset($_POST["submit"])) {
-        $_SESSION['is'] = $_POST["Search"];
-        $val = $conn->query("SELECT imgPath FROM `book` WHERE ISBN= '" . $_SESSION['is'] . "'");
-        $res = $conn->query("SELECT * FROM `book` WHERE ISBN = '" . $_SESSION['is'] . "'");
-        
-        $results = mysqli_num_rows($res);
-        if ($results > 0) {
-            while ($row = mysqli_fetch_object($res)) {
-    ?>
+if (isset($_POST["submit"])) {
+    $_SESSION['is'] = $_POST["Search"];
+    $val = $conn->query("SELECT imgPath FROM `book` WHERE ISBN= '" . $_SESSION['is'] . "'");
+    $res = $conn->query("SELECT * FROM `book` WHERE ISBN = '" . $_SESSION['is'] . "'");
 
-
-
-                <div class="container">
-                    <div class="center">
-
-                        <!-- Uploading image -->
-                        <?php if ($val->num_rows > 0) { ?>
-                            <?php while ($blah = $val->fetch_assoc()) { ?>
-                                <img id="pic" src="<?php echo $blah['imgPath'] ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
-                            <?php } ?>
-                        <?php } else { ?>
-                            <p class="status error">Image(s) not found...</p> <?php } ?>
-                        <!-- <img class="pic" src= "images/Gatsby.png" alt="Place Holder Book" style="width:150px;height:200px;"> -->
-                        <h4 id="work"><?php echo $row->title; ?></h4>
-                        <p id="auth"><?php echo $row->author; ?></p><br>
-                        <pre id="change">  Inventory: <?php echo $row->stock; ?>           $<?php echo $row->price; ?></pre>
-                        <!-- <p id="change"><?php echo $row->price; ?></p><br> -->
-                        <button onclick="window.location.href='admin-editBook.php'" class="EditText">Edit</button><br>
-
-                    </div>
-
-        <?php
-            }
-        } else {
-            echo "Name Does not exist";
-        }
-    }
-
-
-                
-
+    $results = mysqli_num_rows($res);
+    if ($results > 0) {
+        while ($row = mysqli_fetch_object($res)) {
 ?>
 
 
-<!-- </body>
+
+            <div class="container">
+                <div class="center">
+
+                    <!-- Uploading image -->
+                    <?php if ($val->num_rows > 0) { ?>
+                        <?php while ($blah = $val->fetch_assoc()) { ?>
+                            <img id="pic" src="<?php echo $blah['imgPath'] ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
+                        <?php } ?>
+                    <?php } else { ?>
+                        <p class="status error">Image(s) not found...</p> <?php } ?>
+                    <!-- <img class="pic" src= "images/Gatsby.png" alt="Place Holder Book" style="width:150px;height:200px;"> -->
+                    <h4 id="work"><?php echo $row->title; ?></h4>
+                    <p id="auth"><?php echo $row->author; ?></p><br>
+                    <pre id="change">  Inventory: <?php echo $row->stock; ?>           $<?php echo $row->price; ?></pre>
+                    <!-- <p id="change"><?php echo $row->price; ?></p><br> -->
+                    <button onclick="window.location.href='admin-editBook.php'" class="EditText">Edit</button><br>
+
+                </div>
+
+    <?php
+        }
+    } else {
+        echo "Name Does not exist";
+    }
+}
+
+
+
+
+    ?>
+
+
+    <!-- </body>
 
 </html> -->
