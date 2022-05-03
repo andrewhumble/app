@@ -21,15 +21,12 @@ if (!isset($_SESSION['username']) || $_SESSION['userType'] != 2) {
 } else {
     $username = $_SESSION['username'];
     $userType = $_SESSION['userType'];
-
-    echo $username;
 }
 
-$getBooksQuery = "SELECT username, title, author, price, genre, ISBN, stock, image FROM book WHERE username='$username';";
+$getBooksQuery = "SELECT username, title, author, price, genre, ISBN, stock, imgPath FROM book WHERE username='$username';";
 $values = $conn->query($getBooksQuery);
 
 $length = mysqli_num_rows($values);
-echo $length;
 
 $order = array_fill(0, $length, NULL);
 
@@ -38,7 +35,6 @@ while ($row = mysqli_fetch_array($values)) {
     $order[$i] = $row;
     $i++;
 }
-echo sizeof($order);
 
 ?>
 
@@ -104,7 +100,7 @@ echo sizeof($order);
             <?php foreach ($order as $o) { ?>
 
                 <div class="center">
-                    <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($o['image']); ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
+                    <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($o['imgPath']); ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
 
                     <h4><?php echo $o['title']; ?></h4>
 
