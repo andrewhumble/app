@@ -151,14 +151,6 @@ if ($remove != "") {
             </div>
         </div>
 
-        <!-- <div class="order">
-            <h1>Order Summary</h1>
-            <p>Subtotal: <span>$10.00</span></p>
-            <button onclick="window.location.href='#'" class="Checkout">CHECKOUT</button><br>
-            <p style="margin-left: 65px;">Apply promotional codes in the next step!</p>
-        </div>
-        </div> -->
-
         <?php include 'elements/footer.html' ?>
 
     </main>

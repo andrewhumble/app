@@ -6,13 +6,9 @@ if ($conn == false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-############
 session_start();
-
-//connect to database
 require_once('connDB.php');
 
-// Check connection
 if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
@@ -25,16 +21,14 @@ if (!isset($_SESSION['username'])) {
     $order_id = $_SESSION['order'];
     $userType = $_SESSION['userType'];
 }
-###########
+
 
 $getValuesQuery = "SELECT firstName, lastName, username, order_id, confirmation_id, street, city, state, zip, day_ordered FROM orders WHERE order_id='" . $_SESSION['order'] . "';";
 
 $values = $conn->query($getValuesQuery);
 $row = mysqli_fetch_array($values);
-//$id = $row['id'];
 $firstName = isset($row['firstName']) ? htmlspecialchars($row['firstName']) : '';
 $lastName = isset($row['lastName']) ? htmlspecialchars($row['lastName']) : '';
-//$password = $row['password'];
 $username = isset($row['username']) ? htmlspecialchars($row['username']) : '';
 $order_id = isset($row['order_id']) ? htmlspecialchars($row['order_id']) : '';
 $confirmation_id = isset($row['confirmation_id']) ? htmlspecialchars($row['confirmation_id']) : '';
@@ -44,13 +38,10 @@ $state = isset($row['state']) ? htmlspecialchars($row['state']) : '';
 $zip = isset($row['zip']) ? htmlspecialchars($row['zip']) : '';
 $day_ordered = isset($row['day_ordered']) ? htmlspecialchars($row['day_ordered']) : '';
 
-//echo $getValuesQuery;
-
 if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["submitButton"])) {
     
     $firstName = isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : '';
     $lastName = isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : '';
-    //$password = $_POST['password'];
     $username = $_POST['username'] ? htmlspecialchars($_POST['username']) : '';
     $order_id = $_POST['order_id'] ? htmlspecialchars($_POST['order_id']) : '';
     $confirmation_id = isset($_POST['confirmation_id']) ? htmlspecialchars($_POST['confirmation_id']) : '';
@@ -60,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["submitButton"])) {
     $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
     $day_ordered = $_POST['day_ordered'] ? htmlspecialchars($_POST['day_ordered']) : '';
     $sql = "UPDATE orders SET firstName=\"$firstName\",lastName=\"$lastName\", username=\"$username\", order_id = '$order_id', confirmation_id='$confirmation_id', street=\"$street\", city=\"$city\", state=\"$state\", zip=\"$zip\", day_ordered='$day_ordered' WHERE order_id='" . $_SESSION['order'] . "'";
-    // echo $sql;
     $conn->query($sql);
     header("Location: admin-searchOrders.php");
 }
@@ -68,7 +58,6 @@ if (isset($_POST["submitbutton"])) {
     
     $firstName = isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : '';
     $lastName = isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : '';
-    //$password = $_POST['password'];
     $username = $_POST['username'] ? htmlspecialchars($_POST['username']) : '';
     $order_id = $_POST['order_id'] ? htmlspecialchars($_POST['order_id']) : '';
     $confirmation_id = isset($_POST['confirmation_id']) ? htmlspecialchars($_POST['confirmation_id']) : '';
@@ -77,8 +66,7 @@ if (isset($_POST["submitbutton"])) {
     $state = isset($_POST['state']) ? htmlspecialchars($_POST['state']) : '';
     $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
     $day_ordered = $_POST['day_ordered'] ? htmlspecialchars($_POST['day_ordered']) : '';
-    
-    //$zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
+
     $sql = "DELETE FROM orders WHERE order_id='".$_SESSION['order']."' ";
     $conn->query($sql);
     header("Location: admin-searchOrders.php");

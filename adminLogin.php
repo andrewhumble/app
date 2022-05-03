@@ -12,10 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $emptyUP = false;
 
-    #Hello
-    #bye
-
-
     if (empty($username) || empty($password)) {
         echo "<div class=echo><h6>Please fill out all fields.</h6></div>";
     } else {
@@ -34,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             } else if (isset($_POST['username'])) {
                 $username = $_POST['username'];
-                //  $userType = mysqli_real_escape_string($db, $_POST['userType']);
                 $_SESSION['username'] = $username;
                 $_SESSION['userType'] = 3;
                 $url = "admin-myAccount.php";

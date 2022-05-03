@@ -78,11 +78,11 @@ $copiesSold = mysqli_fetch_array($valuesTotal);
                 <div class="row justify-content-center pt-3">
                     <?php if ($showLow == 0) { ?>
                         <form method="post">
-                            <button type="submit" value="placeholder" name="lowInv" class="VLI">View Low Inventory</button>
+                            <button style="font-family: Nunito; background-color: #2B6777; border: 0px" type="submit" value="placeholder" name="lowInv" class="VLI btn btn-primary pr-6">View Low Inventory</button>
                         </form>
                     <?php } else { ?>
                         <form method="post">
-                            <button type="submit" value="placeholder" name="all" class="VLI">View All Inventory</button>
+                            <button style="font-family: Nunito; background-color: #2B6777; border: 0px" type="submit" value="placeholder" name="all" class="VLI btn btn-primary pr-6">View All Inventory</button>
                         </form>
                     <?php } ?>
                 </div>

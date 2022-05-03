@@ -1,19 +1,14 @@
 <?php
 session_start();
-
 //connect to database
-// hi
 require_once('connDB.php');
 // Check connection
 if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
-
 if ($_SESSION['userType'] != 3) {
     header("Location: home.php");
 }
-
-//ensures someone is logged inbefore allowing them to create a profile
 if (!isset($_SESSION['username'])) {
 
     header("Location: home.php");
@@ -21,7 +16,6 @@ if (!isset($_SESSION['username'])) {
 } else {
     $username = $_SESSION['username'];
 }
-
 ?>
 
 <!DOCTYPE>
