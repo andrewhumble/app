@@ -54,13 +54,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $imgContent = addslashes(file_get_contents($image));
 
                 // Insert image content into database 
-                $insert = $conn->query("INSERT into book (username, title, author, price, genre, isbn, stock, image) VALUES ('$username', '$title', '$author', '$price', '$genre', '$isbn', '$stock', '$imgContent')");
+                $insert = $conn->query("INSERT into book (username, title, author, price, genre, ISBN, stock, image) VALUES ('$username', '$title', '$author', '$price', '$genre', '$isbn', '$stock', '$imgContent')");
 
                 if ($insert) {
                     $status = 'success';
                     echo $status;
                     $statusMsg = "File uploaded successfully.";
-                    $result = $conn->query("SELECT image FROM book WHERE isbn='$isbn'");
+                    $result = $conn->query("SELECT image FROM book WHERE ISBN='$isbn'");
                 } else {
                     $statusMsg = "File upload failed, please try again.";
                 }
