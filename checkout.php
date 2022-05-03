@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 //connect to database
 require_once('connDB.php');
 // Check connection
@@ -25,7 +26,7 @@ if (!isset($_SESSION['username'])) {
     $userType = $_SESSION['userType'];
 }
 
-$getValuesQuery = "SELECT firstName, lastName, password, email, birthday, strAddress, city, state, zip FROM userInfo WHERE username='" . $_SESSION['username'] . "';";
+$getValuesQuery = "SELECT firstName, lastName, username, password, email, birthday, strAddress, city, state, zip FROM userInfo WHERE username='" . $_SESSION['username'] . "';";
 
 $values = $conn->query($getValuesQuery);
 $row = $values->fetch_assoc();
@@ -109,8 +110,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $url = $urlO . "&length=" . $length . "&promoAmt=" . $promoVal;
     }
 
+    
+
     if (isset($_POST['location'])) {
-        header("Location: placeOrder.php?" . $url);
+            header("Location: placeOrder.php?" . $url);   
     }
 } else {
 }
