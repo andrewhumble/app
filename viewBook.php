@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $addedBook = $row;
     $quantity = $_POST['quantity'];
 
-    $addToCartQuery = "INSERT INTO cart VALUES ('" . $username . "', '" . $row['title'] . "', '" . $row['author'] . "', " . $row['price'] . ", '" . $row['ISBN'] . "', " . $quantity . ", " . $row['imgPath'] . ", " . $row['stock'] . ")";
+    $addToCartQuery = "INSERT INTO cart VALUES ('" . $username . "', '" . $row['title'] . "', '" . $row['author'] . "', " . $row['price'] . ", '" . $row['ISBN'] . "', " . $quantity . ", '" . $row['imgPath'] . "', " . $row['stock'] . ")";
     $conn->query($addToCartQuery);
     $button = "<img src='images/check.svg' alt='My Happy SVG' class='pb-4' />";
 }

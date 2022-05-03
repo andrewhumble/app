@@ -131,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <div class="col-sm-12 pt-4">
-            <div class="c">
+            <div class="row justify-content-center">
                 <?php
                 if (mysqli_num_rows($values) == 0) {
                     echo "<div style='padding-top: 5rem;'><h3>No results found for \"" . $search . "\".</h3></div>";
@@ -142,8 +142,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="card ml-4 mr-4 mt-4 mb-4">
                             <div class="col-sm-12 justify-content-center">
                                 <div class="row">
-                                    <img class="card-img-top mx-auto mt-5" src="<?php echo $row['imgPath'] ?>" alt="Place Holder Book" style="height: 10rem; width: 8rem; display:block">
                                     <div class="card-body ml-1">
+                                        <img class="card-img-top mx-auto mt-3 mb-4" src="<?php echo $row['imgPath'] ?>" alt="Place Holder Book" style="height: 10rem; width: 8rem; display:block">
                                         <div class="row justify-content-center">
                                             <h4 class="card-title text-center" style="font-size: 1.2rem;"><?php echo $row['title'] ?></h4>
                                         </div>

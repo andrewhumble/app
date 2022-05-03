@@ -23,13 +23,11 @@ if (!isset($_SESSION['username']) || $_SESSION['userType'] != 2) {
 
 isset($_POST['selectedBook']) ? $selectedBook = $_POST['selectedBook'] : $selectedBook = $_GET['selectedBook'];
 
-echo $selectedBook;
 
 $getBooksQuery = "SELECT username, title, author, price, genre, ISBN, stock, imgPath FROM book WHERE ISBN='$selectedBook';";
+
 $values = $conn->query($getBooksQuery);
 $row = mysqli_fetch_array($values);
-
-echo $row['title'];
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["save"])) {
     $title = isset($_POST['title']) ? htmlspecialchars($_POST['title']) : '';
@@ -37,22 +35,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["save"])) {
     $genre = isset($_POST['genre']) ? htmlspecialchars($_POST['genre']) : '';
     $price = isset($_POST['price']) ? htmlspecialchars($_POST['price']) : '';
     $inventory = isset($_POST['inventory']) ? htmlspecialchars($_POST['inventory']) : '';
-    if (!empty($_FILES["image"]["name"])) {
-        // Get file info 
-        $fileName = basename($_FILES["image"]["name"]);
-        $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
-        // $folder = "images/".$filename;
-        // Allow certain file formats 
-        $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
-        if (in_array($fileType, $allowTypes)) {
-            $image = $_FILES['image']['tmp_name'];
-            $imgContent = addslashes(file_get_contents($image));
-            $sql = "UPDATE book SET imgPath='$imgContent' WHERE ISBN ='$selectedBook'";
-            $conn->query($sql);
-        }
-    } else {
-        echo "hi";
-    }
+    $image = isset($_POST['image']) ? htmlspecialchars($_POST['image']) : '';
+
+    $target_dir = "images/";
+    $target_file = $target_dir . basename($image);
+
+    $sql = "UPDATE book SET imgPath='$target_file' WHERE ISBN ='$selectedBook'";
+    $conn->query($sql);
+
     //$password = $_POST['password'];
     // $email = $_POST['email'] ? htmlspecialchars($_POST['email']) : '';
     // $birthday = $_POST['birthday'] ? htmlspecialchars($_POST['birthday']) : '';
@@ -113,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["save"])) {
             <form method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class=col-lg-3>
-                        <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['imgPath']); ?>" alt="Place Holder Book" style="width:210px;height:350px;">
+                        <img class="pic" src="<?php echo $row['imgPath'] ?>" alt="Place Holder Book" style="width:210px;height:350px;">
                         <input type="file" name="image">
                         <!-- <input type="file" name="image" value="Change Cover"> -->
                         <!-- <a href="#" class="Cover"><b>Change Cover</b></a> -->
