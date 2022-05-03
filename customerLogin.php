@@ -4,6 +4,10 @@ if (!isset($_SESSION)) {
   session_start();
 }
 
+if ($_SESSION['userType'] != 1) {
+  header("Location: home.php");
+}
+
 require('connDB.php');
 //connects to db
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -21,8 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (!$user) {
       echo "<div class=echo><h6>Username or password is incorrect.</h6></div>";
-    } 
-    else {
+    } else {
 
       if (isset($_SESSION['username'])) {
 

@@ -28,10 +28,10 @@
 
 
 
-<?php 
+<?php
 // Include the database configuration file  
 
- 
+
 // Get image data from database 
 
 ?>
@@ -43,18 +43,20 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
-<link href="admin-searchBooks.css" rel="stylesheet">
+    <link href="admin-searchBooks.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <title>Welcome to LittyLit</title>
+    <title>LittyLit</title>
     <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Girassol' rel='stylesheet'>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
-<title>Store and retrieve image</title>
-<style>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type='text/css'>
+    <title>Store and retrieve image</title>
+    <style>
         <?php include "admin-searchBooks.css" ?>
-</style>
+    </style>
 </head>
+
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -74,7 +76,7 @@
                     <a class="nav-item h-100 nav-link" href="view.php">
                         <h5>Search Books</h5>
                     </a>
-                    <a class="nav-item h-100 nav-link" href="admin-myAccount">
+                    <a class="nav-item h-100 nav-link" href="admin-myAccount.php">
                         <h5>My Account</h5>
                     </a>
                     <a class="nav-item h-100 nav-link" href="admin-reports.php">
@@ -82,32 +84,33 @@
                     </a>
                 </div>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-<form method="post">
-        <div class="container-fluid mt-5" id = "Search">
+    <form method="post">
+        <div class="container-fluid mt-5" id="Search">
             <div class="mx-auto text-center" style="width: 400px;">
                 <h1 id="header">Search Books</h1><br>
                 <div class="input-group rounded">
-                    
+
                     <input type="text" id="inputEmail" class="form-control rounded" placeholder="ISBN" name="Search" />
                     <input type="submit" name="submit">
-                  </div>
-                  <p id="para">Search by ISBN</p>
-              </div>
+                </div>
+                <p id="para">Search by ISBN</p>
+            </div>
         </div>
- </form>
+    </form>
 
  
 <!-- <div class="container">
     <h1> Retrive</h1>
-    <?php if($result->num_rows > 0){ ?> 
+    <?php if ($result->num_rows > 0) { ?> 
     <div class="gallery"> 
-        <?php while($row = $result->fetch_assoc()){ ?> 
+        <?php while ($row = $result->fetch_assoc()) { ?> 
             <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']); ?>" /> 
         <?php } ?> 
     </div> 
-<?php }else{ ?> 
+<?php } else { ?> 
     <p class="status error">Image(s) not found...</p> 
 <?php } ?>
 </div>
@@ -116,7 +119,7 @@
 
 
 
-<?php
+    <?php
 
 
 if (isset($_POST["submit"])) {
@@ -145,7 +148,7 @@ if (isset($_POST["submit"])) {
                 <p id="auth"><?php echo $row->author; ?></p><br>
                 <pre id="change">  Inventory: <?php echo $row->inventory; ?>           <?php echo $row->price; ?></pre>
                 <!-- <p id="change"><?php echo $row->price; ?></p><br> -->
-                <button onclick="window.location.href='#'" class="EditText">Edit</button><br>
+                <button onclick="window.location.href='admin-editBook.php'" class="EditText">Edit</button><br>
                 
           </div>
 
@@ -153,15 +156,17 @@ if (isset($_POST["submit"])) {
         }
     }
 		
-		else{
+		else {
 			echo "Name Does not exist";
 		}
 
 
-}
+    }
+                
 
 ?>
 
 
 </body>
+
 </html>

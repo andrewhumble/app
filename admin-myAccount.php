@@ -9,6 +9,10 @@ if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+if ($_SESSION['userType'] != 3) {
+    header("Location: home.php");
+}
+
 //ensures someone is logged inbefore allowing them to create a profile
 if (!isset($_SESSION['username'])) {
 
@@ -25,7 +29,7 @@ if (!isset($_SESSION['username'])) {
 <head>
     <link href="myAccount.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <title>Welcome to LittyLit</title>
+    <title>LittyLit</title>
     <link href='https://fonts.googleapis.com/css?family=Nunito:400,700,400italic,700italic' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Girassol:400,700,400italic,700italic' rel='stylesheet'>
 </head>

@@ -6,6 +6,8 @@ if ($conn == false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+
+
 ############
 session_start();
 
@@ -43,7 +45,7 @@ $state = $row['state'];
 $zip = $row['zip'];
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["submitButton"])) {
-    
+
     $firstName = isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : '';
     $lastName = isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : '';
     //$password = $_POST['password'];
@@ -57,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["submitButton"])) {
     $conn->query($sql);
 }
 if (isset($_POST["submitbutton"])) {
-    
+
     $firstName = isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : '';
     $lastName = isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : '';
     //$password = $_POST['password'];
@@ -67,7 +69,7 @@ if (isset($_POST["submitbutton"])) {
     $city = isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
     $state = $_POST['state'] ? htmlspecialchars($_POST['state']) : '';
     $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
-    $sql = "DELETE FROM userInfo WHERE username='".$_SESSION['user']."' ";
+    $sql = "DELETE FROM userInfo WHERE username='" . $_SESSION['user'] . "' ";
     $conn->query($sql);
     header("Location: search_user.php");
     
@@ -80,7 +82,7 @@ if (isset($_POST["submitbutton"])) {
 <head>
     <link href="admin-editUserAccount.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <title>Welcome to LittyLit</title>
+    <title>LittyLit</title>
     <link href='https://fonts.googleapis.com/css?family=Nunito:400,700,400italic,700italic' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Girassol:400,700,400italic,700italic' rel='stylesheet'>
 </head>
@@ -118,73 +120,89 @@ if (isset($_POST["submitbutton"])) {
 
         <div class="container-fluid text-center">
             <div class="row h-30 content">
-            <form method="post">
-                <div class="col-sm-9 pt-5 mx-auto">
-                    <div class="row">
-                        <h1><?php echo $firstName ?>'s Account</h1>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-sm-6">
-                            <label class="float-left">First Name</label>
-                            <input type="text" name='firstName' class="form-control" value="<?php echo $firstName ?>">
+                <form method="post">
+                    <div class="col-sm-9 pt-5 mx-auto">
+                        <div class="row">
+                            <h1><?php echo $firstName ?>'s Account</h1>
                         </div>
-                        <div class="col-sm-6">
-                            <label class="float-left">Last Name</label>
-                            <input type="text" name='lastName' class="form-control" value="<?php echo $lastName ?>">
+                        <div class="row mt-4">
+                            <div class="col-sm-6">
+                                <label class="float-left">First Name</label>
+                                <input type="text" name='firstName' class="form-control" value="<?php echo $firstName ?>">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="float-left">Last Name</label>
+                                <input type="text" name='lastName' class="form-control" value="<?php echo $lastName ?>">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-sm-12">
-                            <label class="float-left">Email</label>
-                            <input type="text" name='email' class="form-control" value="<?php echo $email ?>">
+                        <div class="row mt-4">
+                            <div class="col-sm-12">
+                                <label class="float-left">Email</label>
+                                <input type="text" name='email' class="form-control" value="<?php echo $email ?>">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-sm-4">
-                            <label class="float-left">Birthday</label>
-                            <input type="text" name='birthday' class="form-control" value="<?php echo $birthday ?>">
+                        <div class="row mt-4">
+                            <div class="col-sm-4">
+                                <label class="float-left">Birthday</label>
+                                <input type="text" name='birthday' class="form-control" value="<?php echo $birthday ?>">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-sm-12">
-                            <hr>
+                        <div class="row mt-4">
+                            <div class="col-sm-12">
+                                <hr>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-sm-12">
-                            <label class="float-left">Shipping Address</label>
-                            <input type="text" name='strAddress' class="form-control" value="<?php echo $strAddress ?>">
+                        <div class="row mt-4">
+                            <div class="col-sm-12">
+                                <label class="float-left">Shipping Address</label>
+                                <input type="text" name='strAddress' class="form-control" value="<?php echo $strAddress ?>">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-sm-5">
-                            <label class="float-left">City</label>
-                            <input type="text" name='city' class="form-control" value="<?php echo $city ?>">
+                        <div class="row mt-4">
+                            <div class="col-sm-5">
+                                <label class="float-left">City</label>
+                                <input type="text" name='city' class="form-control" value="<?php echo $city ?>">
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="float-left">State</label>
+                                <input type="text" name='state' class="form-control" value="<?php echo $state ?>">
+                            </div>
+                            <div class="col-sm-5">
+                                <label class="float-left">Zip Code</label>
+                                <input type="text" name='zip' class="form-control" value="<?php echo $zip ?>">
+                            </div>
                         </div>
-                        <div class="col-sm-2">
-                            <label class="float-left">State</label>
-                            <input type="text" name='state' class="form-control" value="<?php echo $state ?>">
+                        <div class="row mt-5">
+                            <div class="col-sm-6">
+                                <!-- <a class="deleteAcc float-left" href=""><u>Delete Account</u></a> -->
+                                <button name="submitbutton" type="submit" class="btn btn-primary pr-6">Delete Account</button>
+                            </div>
+                            <div class="col-sm-6">
+                                <!-- <input class="submit float-right" type="submit" value="Save Changes" name="submitButton"> -->
+                                <button name="submitButton" type="submit" class="btn btn-primary pr-6">Save Changes</button>
+                            </div>
                         </div>
-                        <div class="col-sm-5">
+                        <!-- <div class="col-sm-5">
                             <label class="float-left">Zip Code</label>
                             <input type="text" name='zip' class="form-control" value="<?php echo $zip ?>">
                         </div>
                     </div>
                     <div class="row mt-5">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6"> -->
                             <!-- <a class="deleteAcc float-left" href=""><u>Delete Account</u></a> -->
                             
-                            <button name="submitbutton" type="submit" class="btn btn-primary pr-6">Delete Account</button>
+                            <!-- <button name="submitbutton" type="submit" class="btn btn-primary pr-6">Delete Account</button>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6"> -->
                             <!-- <input class="submit float-right" type="submit" value="Save Changes" name="submitButton"> -->
                             
-                            <button name="submitButton" type="submit" class="btn btn-primary pr-6">Save Changes</button>
+                            <!-- <button name="submitButton" type="submit" class="btn btn-primary pr-6">Save Changes</button>
                         </div>
-                    </div>
+                    </div> -->
                     </form>
                 </div>
             </div>
+        </div>
         </div>
 
         <footer class="footer pl-4">

@@ -9,7 +9,9 @@ if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-#hellobro
+if ($_SESSION['userType'] != 1) {
+    header("Location: home.php");
+}
 
 if (!isset($_SESSION['username'])) {
 
