@@ -77,10 +77,11 @@ CREATE TABLE `report` (
   `isbn` varchar(13) NOT NULL,
   `sold` int(11) NOT NULL,
   `cost` int(11) NOT NULL,
-  `revenue` int(11) NOT NULL,
+  `revenue` float NOT NULL,
   `vendor` varchar(255) DEFAULT NULL,
-  `stock` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `stock` int(11) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
 INSERT INTO `userInfo` (`firstName`, `lastName`, `username`, `password`, `email`, `birthday`, `strAddress`, `city`, `state`, `zip`, `userType`, `promotion`, `verification_code`, `verified`) VALUES ('Andrew', 'Humble', 'andrewhumble', '123456', 'andrew@me.com', '2/28/01', '100 Maple Street', 'Athens', 'GA', '30601', '1', '0', '0', '1');
 
