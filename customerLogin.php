@@ -4,10 +4,6 @@ if (!isset($_SESSION)) {
   session_start();
 }
 
-if ($_SESSION['userType'] != 1) {
-  header("Location: home.php");
-}
-
 require('connDB.php');
 //connects to db
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
