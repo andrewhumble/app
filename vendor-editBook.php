@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["save"])) {
         if (in_array($fileType, $allowTypes)) {
             $image = $_FILES['image']['tmp_name'];
             $imgContent = addslashes(file_get_contents($image));
-            $sql = "UPDATE book SET image='$imgContent' WHERE isbn ='$selectedBook'";
+            $sql = "UPDATE book SET image='$imgContent' WHERE ISBN ='$selectedBook'";
             $conn->query($sql);
         }
     } else {
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["save"])) {
     // $city = isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
     // $state = $_POST['state'] ? htmlspecialchars($_POST['state']) : '';
     // $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
-    $sql = "UPDATE book SET title='$title', author='$author', genre='$genre', price='$price', Inventory='$inventory' WHERE isbn ='$selectedBook'";
+    $sql = "UPDATE book SET title='$title', author='$author', genre='$genre', price='$price', stock='$inventory' WHERE ISBN ='$selectedBook'";
     echo $sql;
     $conn->query($sql);
 
