@@ -22,38 +22,45 @@ if (!isset($_SESSION['username'])) {
     header("Location: home.php");
     exit();
 } else {
-    $username = $_SESSION['user'];
+    $order_id = $_SESSION['order'];
     $userType = $_SESSION['userType'];
 }
 ###########
 
-$getValuesQuery = "SELECT firstName, lastName, email, birthday, strAddress, city, state, zip FROM userInfo WHERE username='" . $_SESSION['user'] . "';";
+$getValuesQuery = "SELECT firstName, lastName, username, order_id, confirmation_id, street, city, state, zip, day_ordered FROM orders WHERE order_id='" . $_SESSION['order'] . "';";
 
 $values = $conn->query($getValuesQuery);
-$row = $values->fetch_assoc();
-
+$row = mysqli_fetch_array($values);
+//$id = $row['id'];
 $firstName = isset($row['firstName']) ? htmlspecialchars($row['firstName']) : '';
 $lastName = isset($row['lastName']) ? htmlspecialchars($row['lastName']) : '';
 //$password = $row['password'];
-$email = $row['email'];
-$birthday = $row['birthday'];
-$strAddress = isset($row['strAddress']) ? htmlspecialchars($row['strAddress']) : '';
+$username = isset($row['username']) ? htmlspecialchars($row['username']) : '';
+$order_id = isset($row['order_id']) ? htmlspecialchars($row['order_id']) : '';
+$confirmation_id = isset($row['confirmation_id']) ? htmlspecialchars($row['confirmation_id']) : '';
+$street = isset($row['street']) ? htmlspecialchars($row['street']) : '';
 $city = isset($row['city']) ? htmlspecialchars($row['city']) : '';
-$state = $row['state'];
-$zip = $row['zip'];
+$state = isset($row['state']) ? htmlspecialchars($row['state']) : '';
+$zip = isset($row['zip']) ? htmlspecialchars($row['zip']) : '';
+$day_ordered = isset($row['day_ordered']) ? htmlspecialchars($row['day_ordered']) : '';
+
+//echo $getValuesQuery;
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["submitButton"])) {
     
     $firstName = isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : '';
     $lastName = isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : '';
     //$password = $_POST['password'];
-    $email = $_POST['email'] ? htmlspecialchars($_POST['email']) : '';
-    $birthday = $_POST['birthday'] ? htmlspecialchars($_POST['birthday']) : '';
-    $strAddress = isset($_POST['strAddress']) ? htmlspecialchars($_POST['strAddress']) : '';
+    $username = $_POST['username'] ? htmlspecialchars($_POST['username']) : '';
+    $order_id = $_POST['order_id'] ? htmlspecialchars($_POST['order_id']) : '';
+    $confirmation_id = isset($_POST['confirmation_id']) ? htmlspecialchars($_POST['confirmation_id']) : '';
+    $street = isset($_POST['street']) ? htmlspecialchars($_POST['street']) : '';
     $city = isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
-    $state = $_POST['state'] ? htmlspecialchars($_POST['state']) : '';
+    $state = isset($_POST['state']) ? htmlspecialchars($_POST['state']) : '';
     $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
-    $sql = "UPDATE userInfo SET firstName=\"$firstName\",lastName=\"$lastName\", email='$email', birthday='$birthday', strAddress=\"$strAddress\", city=\"$city\", state='$state', zip='$zip' WHERE username='" . $_SESSION['user'] . "'";
+    $day_ordered = $_POST['day_ordered'] ? htmlspecialchars($_POST['day_ordered']) : '';
+    $sql = "UPDATE orders SET firstName=\"$firstName\",lastName=\"$lastName\", username=\"$username\", order_id = '$order_id', confirmation_id='$confirmation_id', street=\"$street\", city=\"$city\", state=\"$state\", zip=\"$zip\", day_ordered='$day_ordered' WHERE order_id='" . $_SESSION['order'] . "'";
+    echo $sql;
     $conn->query($sql);
 }
 if (isset($_POST["submitbutton"])) {
@@ -61,15 +68,19 @@ if (isset($_POST["submitbutton"])) {
     $firstName = isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : '';
     $lastName = isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : '';
     //$password = $_POST['password'];
-    $email = $_POST['email'] ? htmlspecialchars($_POST['email']) : '';
-    $birthday = $_POST['birthday'] ? htmlspecialchars($_POST['birthday']) : '';
-    $strAddress = isset($_POST['strAddress']) ? htmlspecialchars($_POST['strAddress']) : '';
+    $username = $_POST['username'] ? htmlspecialchars($_POST['username']) : '';
+    $order_id = $_POST['order_id'] ? htmlspecialchars($_POST['order_id']) : '';
+    $confirmation_id = isset($_POST['confirmation_id']) ? htmlspecialchars($_POST['confirmation_id']) : '';
+    $street = isset($_POST['street']) ? htmlspecialchars($_POST['street']) : '';
     $city = isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
-    $state = $_POST['state'] ? htmlspecialchars($_POST['state']) : '';
+    $state = isset($_POST['state']) ? htmlspecialchars($_POST['state']) : '';
     $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
-    $sql = "DELETE FROM userInfo WHERE username='".$_SESSION['user']."' ";
+    $day_ordered = $_POST['day_ordered'] ? htmlspecialchars($_POST['day_ordered']) : '';
+    
+    //$zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
+    $sql = "DELETE FROM orders WHERE order_id='".$_SESSION['order']."' ";
     $conn->query($sql);
-    header("Location: search_user.php");
+    header("Location: search_order.php");
     
 }
 
@@ -78,7 +89,7 @@ if (isset($_POST["submitbutton"])) {
 <!DOCTYPE>
 
 <head>
-    <link href="admin-editUserAccount.css" rel="stylesheet">
+    <link href="admin-editOrder.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
     <title>Welcome to LittyLit</title>
     <link href='https://fonts.googleapis.com/css?family=Nunito:400,700,400italic,700italic' rel='stylesheet'>
@@ -90,7 +101,7 @@ if (isset($_POST["submitbutton"])) {
 <body>
     <main>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand pl-4" href="home.php" style="font-size: 60px; color: #3F3D56">LittyLit</a>
+            <a class="navbar-brand pl-4" href="#" style="font-size: 60px; color: #3F3D56">LittyLit</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -119,41 +130,44 @@ if (isset($_POST["submitbutton"])) {
         <div class="container-fluid text-center">
             <div class="row h-30 content">
             <form method="post">
-                <div class="col-sm-9 pt-5 mx-auto">
+                <div class="col-sm-9 pt-4 mx-auto">
                     <div class="row">
-                        <h1><?php echo $firstName ?>'s Account</h1>
+                        <h1>Order #<?php echo $order_id ?> Information</h1>
                     </div>
                     <div class="row mt-4">
                         <div class="col-sm-6">
                             <label class="float-left">First Name</label>
-                            <input type="text" name='firstName' class="form-control" value="<?php echo $firstName ?>">
+                            <input type="text" name = 'firstName' class="form-control" value="<?php echo $firstName ?>">
                         </div>
                         <div class="col-sm-6">
                             <label class="float-left">Last Name</label>
-                            <input type="text" name='lastName' class="form-control" value="<?php echo $lastName ?>">
+                            <input type="text" name = 'lastName' class="form-control" value="<?php echo $lastName ?>">
                         </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-sm-12">
-                            <label class="float-left">Email</label>
-                            <input type="text" name='email' class="form-control" value="<?php echo $email ?>">
+                            <label class="float-left">Username</label>
+                            <input type="text" name = 'username' class="form-control" value="<?php echo $username ?>">
                         </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-sm-4">
-                            <label class="float-left">Birthday</label>
-                            <input type="text" name='birthday' class="form-control" value="<?php echo $birthday ?>">
+                            <label class="float-left">Order ID</label>
+                            <input type="text" name = 'order_id' class="form-control" value="<?php echo $order_id ?>">
                         </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-sm-12">
-                            <hr>
+                        <div class="col-sm-4">
+                            <label class="float-left">Confirmation Number</label>
+                            <input type="text" name = 'confirmation_id' class="form-control" value="<?php echo $confirmation_id ?>">
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="float-left">Date Ordered</label>
+                            <input type="text" name = 'day_ordered' class="form-control" value="<?php echo $day_ordered ?>">
                         </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-sm-12">
                             <label class="float-left">Shipping Address</label>
-                            <input type="text" name='strAddress' class="form-control" value="<?php echo $strAddress ?>">
+                            <input type="text" name = 'street' class="form-control" value="<?php echo $street ?>">
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -172,17 +186,13 @@ if (isset($_POST["submitbutton"])) {
                     </div>
                     <div class="row mt-5">
                         <div class="col-sm-6">
-                            <!-- <a class="deleteAcc float-left" href=""><u>Delete Account</u></a> -->
-                            
-                            <button name="submitbutton" type="submit" class="btn btn-primary pr-6">Delete Account</button>
+                        <button name="submitbutton" type="submit" class="btn btn-primary pr-6">Delete Order</button>
                         </div>
                         <div class="col-sm-6">
-                            <!-- <input class="submit float-right" type="submit" value="Save Changes" name="submitButton"> -->
-                            
-                            <button name="submitButton" type="submit" class="btn btn-primary pr-6">Save Changes</button>
+                        <button name="submitButton" type="submit" class="btn btn-primary pr-6">Save Changes</button>
                         </div>
                     </div>
-                    </form>
+                </form>
                 </div>
             </div>
         </div>

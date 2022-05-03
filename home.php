@@ -68,7 +68,7 @@ $userType = $values['userType'];
                         </button>
                         </a>";
                     } else if ($userType == 3) {
-                        echo "<a href='admin-searchOrders.php'>
+                        echo "<a href='search_order.php'>
                         <button type='button' class='btn-lg btn btn-primary mt-3' style='background-color: #ffffff; border-width: 0px;'>
                             <strong style='color: #3F3D56; font-family: Nunito;'>Search Orders!</strong>
                         </button>

@@ -1,5 +1,24 @@
 <?php
-    require('connDB.php');
+    session_start();
+
+    //connect to database
+    require_once('connDB.php');
+    // Check connection
+    if ($conn === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+    $userType = $_SESSION['userType'];
+    //ensures someone is logged inbefore allowing them to create a profile
+    if (!isset($_SESSION['username']) || $_SESSION['userType'] != 3) {
+    
+        header("Location: welcome.html");
+        exit();
+    } else {
+        $username = $_SESSION['username'];
+        $userType = $_SESSION['userType'];
+    
+        
+    }
 ?>
 
 
@@ -39,26 +58,26 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand pl-4" href="#" style="font-size: 60px; color: #3F3D56">LittyLit</a>
+            <a class="navbar-brand pl-4" href="home.php" style="font-size: 60px; color: #3F3D56">LittyLit</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav d-lg-flex align-items-center mt-3">
-                    <a class="nav-item h-100 nav-link" href="#">
+                    <a class="nav-item h-100 nav-link" href="search_order.php">
                         <h5>Search Orders</h5>
                     </a>
-                    <a class="nav-item h-100 nav-link" href="#">
+                    <a class="nav-item h-100 nav-link" href="search_user.php">
                         <h5>Search Users</h5>
                     </a>
-                    <a class="nav-item h-100 nav-link" href="#">
+                    <a class="nav-item h-100 nav-link" href="view.php">
                         <h5>Search Books</h5>
                     </a>
-                    <a class="nav-item h-100 nav-link" href="#">
+                    <a class="nav-item h-100 nav-link" href="admin-myAccount">
                         <h5>My Account</h5>
                     </a>
-                    <a class="nav-item h-100 nav-link" href="#">
+                    <a class="nav-item h-100 nav-link" href="admin-reports.php">
                         <h5>Reports</h5>
                     </a>
                 </div>
@@ -79,6 +98,7 @@
         </div>
  </form>
 
+ 
 <!-- <div class="container">
     <h1> Retrive</h1>
     <?php if($result->num_rows > 0){ ?> 
@@ -98,10 +118,11 @@
 
 <?php
 
+
 if (isset($_POST["submit"])) {
-	$ISBN = $_POST["Search"];
-    $val = $conn->query("SELECT image FROM `book` WHERE isbn ='$ISBN'"); 
-	$res = $conn->query("SELECT * FROM `book` WHERE isbn = '$ISBN'");
+	$_SESSION['is'] = $_POST["Search"];
+    $val = $conn->query("SELECT image FROM `book` WHERE isbn ='".$_SESSION['is']."'"); 
+	$res = $conn->query("SELECT * FROM book WHERE isbn = '".$_SESSION['is']."'");
     $results = mysqli_num_rows($res);
     if ($results > 0) {
         while ($row = mysqli_fetch_object($res)) {
@@ -122,7 +143,7 @@ if (isset($_POST["submit"])) {
                 <!-- <img class="pic" src= "images/Gatsby.png" alt="Place Holder Book" style="width:150px;height:200px;"> -->
                 <h4 id="work"><?php echo $row->title; ?></h4>
                 <p id="auth"><?php echo $row->author; ?></p><br>
-                <pre id="change">  Inventory: <?php echo $row->Inventory; ?>           <?php echo $row->price; ?></pre>
+                <pre id="change">  Inventory: <?php echo $row->inventory; ?>           <?php echo $row->price; ?></pre>
                 <!-- <p id="change"><?php echo $row->price; ?></p><br> -->
                 <button onclick="window.location.href='#'" class="EditText">Edit</button><br>
                 

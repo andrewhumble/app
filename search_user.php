@@ -46,7 +46,7 @@ session_start();
 
 if (isset($_POST["submit"])) {
     $_SESSION['user'] = $_POST["Search"];
-   echo $_SESSION['user'];
+   
     $res = $conn->query("SELECT * FROM userInfo WHERE username='".$_SESSION['user']."'");
     $results = mysqli_num_rows($res);
     if ($results > 0) {
@@ -60,7 +60,7 @@ if (isset($_POST["submit"])) {
                     </div>
                     <div class="col-lg" id="right">
                         <form action="admin-editUser.php" method="post">
-                            <input type="submit" id="EditText" name="edit">
+                            <input type="submit" id="EditText" name="edit" value="Edit">
                         </form>
                         <!-- <button onclick="window.location.href='admin-editUser.php'" id="EditText">Edit</button><br> -->
                     </div>

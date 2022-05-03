@@ -106,13 +106,13 @@ if (!isset($_SESSION['userType'])) {
             <a class='nav-item h-100 nav-link' href='search_user.php'>
                 <h5>Search Users</h5>
             </a>
-            <a class='nav-item h-100 nav-link' href='#'>
+            <a class='nav-item h-100 nav-link' href='view.php'>
                 <h5>Search Books</h5>
             </a>
             <a class='nav-item h-100 nav-link' href='admin-myAccount.php'>
                 <h5>My Account</h5>
             </a>
-            <a class='nav-item h-100 nav-link' href='#'>
+            <a class='nav-item h-100 nav-link' href='admin-reports.php'>
                 <h5>Reports</h5>
             </a>
         </div>
