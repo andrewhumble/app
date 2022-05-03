@@ -22,8 +22,9 @@ if (!isset($_SESSION['username'])) {
 } else {
     $username = $_SESSION['username'];
     $userType = $_SESSION['userType'];
-    $total = $_SESSION['grandTotal'];
 }
+
+$total = 0;
 
 $query = "SELECT vendor, title, ISBN, sold, cost, stock FROM report";
 $values = $conn->query($query);
@@ -35,15 +36,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['vendor'])) {
         $showLow = 0;
         $vendor = $_POST['vendor'];
-        $query = "SELECT vendor, title, ISBN, sold, cost, stock FROM report WHERE vendor='$vendor';";
+        $query = "SELECT vendor, title, ISBN, sold, cost, stock, revenue FROM report WHERE vendor='$vendor';";
         $values = $conn->query($query);
     } else if (!empty($_POST['lowInv'])) {
         $showLow = 1;
-        $query = "SELECT vendor, title, ISBN, sold, cost, stock FROM report WHERE stock < 6;";
+        $query = "SELECT vendor, title, ISBN, sold, cost, stock, revenue FROM report WHERE stock < 6;";
         $values = $conn->query($query);
     } else if (!empty($_POST['all'])) {
         $showLow = 0;
-        $query = "SELECT vendor, title, ISBN, sold, cost, stock FROM report";
+        $query = "SELECT vendor, title, ISBN, sold, cost, stock, revenue FROM report";
         $values = $conn->query($query);
     }
 }
@@ -51,6 +52,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $totalCopiesSold = "SELECT SUM(sold) FROM report;";
 $valuesTotal = $conn->query($totalCopiesSold);
 $copiesSold = mysqli_fetch_array($valuesTotal);
+
+$revenueQuery = "SELECT SUM(sold*cost) FROM report;";
+$revenueResults = $conn->query($revenueQuery);
+$revenueValue = mysqli_fetch_array($revenueResults);
+$revenue = $revenueValue['SUM(sold*cost)'];
+
+$promoQuery = "SELECT DISTINCT revenue, order_id FROM report;";
+$promoResults = $conn->query($promoQuery);
+$lossInPromos = 0;
+while ($row = mysqli_fetch_array($promoResults)) {
+    $lossInPromos = $lossInPromos + $row['revenue'];
+}
 
 ?>
 
@@ -72,7 +85,7 @@ $copiesSold = mysqli_fetch_array($valuesTotal);
             <div class="top">
                 <div class="row justify-content-center pt-5">
                     <h2 style="font-family: Nunito; color: #3F3D56"><strong>End of Day Sales Report</strong></h2>
-                    <h2 class="totalSales">Total Sales: <span class="span1">$<?php echo $total ?></span></h2>
+                    <h2 class="totalSales">Total Sales: <span class="span1">$<?php echo ($revenue - $lossInPromos) ?></span></h2>
                     <h2 class="totalBooks">Total Books Sold: <span class="span2"><?php echo $copiesSold['SUM(sold)'] ?></span></h2> <br>
                 </div>
                 <div class="row justify-content-center pt-3">
@@ -108,7 +121,8 @@ $copiesSold = mysqli_fetch_array($valuesTotal);
                         <h3><b>Revenue</b></h3>
                     </div>
                 </div>
-                <?php while ($row = mysqli_fetch_array($values)) { ?>
+                <?php while ($row = mysqli_fetch_array($values)) {
+                    $total = $total + ($row['sold'] * $row['cost']); ?>
                     <div class="row">
                         <div class="col-3 pt-4">
                             <h4><?php echo $row['title'] ?></h4>
