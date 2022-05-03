@@ -1,9 +1,7 @@
 <?php
 require('connDB.php');
 
-if ($_SESSION['userType'] != 3) {
-    header("Location: home.php");
-}
+
 ?>
 
 <!DOCTYPE html>
