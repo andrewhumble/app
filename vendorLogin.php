@@ -20,7 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (!$user) {
       $message = "Username and/or Password incorrect.\\nTry again.";
-      echo "<script type='text/javascript'>alert('$message');</script>";
+            echo "<script type='text/javascript'>alert('$message');";
+            echo 'window.location.href = "login.php";';
+            echo '</script>';
     } else {
 
       if (isset($_SESSION['username'])) {
