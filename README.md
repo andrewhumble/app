@@ -143,6 +143,12 @@ INSERT INTO `promotions` (`id`, `discount`, `name`) VALUES ('10101', '0.5', 'HAL
 
 ***********
 
+## Vendor and Customer Login
+Both vendor and customer users of LittyLit log into their accounts via /login.php, which is accessible through the welcome.html page. 
+
+## Vendor and Customer Login
+
+
 ## Libraries/Frameworks Used
 LittyLit is built using HTML5, CSS3, MySQL, and PHP. The only framework used is Bootstrap, on top of CSS3, which provides a set of classes specially designed for responsive, mobile-first design.
 

@@ -97,11 +97,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <button class="AddCart" name="addedBook"><?php echo $button ?></button>
                         <p class="InventoryText mt-2 mr-1"><b>Quantity:</b></p>
                         <select class="form-select" style="border-radius: 0.3rem; border-color: white;" name="quantity">
-                            <?php for ($i = 1; $i <= $row['stock']; $i++) {
+                            <?php for ($i = 0; $i <= $row['stock']; $i++) {
                                 if ($i == $quantity) { ?>
                                     <option style="font-weight: bolder;" value="<?php echo $i ?>" selected> <?php echo $i ?>
                                     </option>
-                                <?php } else { ?>
+                                <?php }
+                                
+                                
+                                else { ?>
                                     <option style="font-weight: bolder;" value="<?php echo $i ?>"> <?php echo $i ?>
                                     </option>
                             <?php }

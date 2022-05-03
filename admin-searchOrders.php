@@ -77,7 +77,7 @@ if (isset($_POST["submit"])) {
                         </div>
                     </div>
                     <div class=" col-lg" id="right">
-                        <form action="admin-editUser.php" method="post">
+                        <form action="admin-editOrder.php" method="post">
                             <input type="submit" id="EditText" name="edit" value="Edit">
                         </form>
                     </div>
