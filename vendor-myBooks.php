@@ -21,15 +21,13 @@ if (!isset($_SESSION['username']) || $_SESSION['userType'] != 2) {
 } else {
     $username = $_SESSION['username'];
     $userType = $_SESSION['userType'];
-
-    echo $username;
 }
 
-$getBooksQuery = "SELECT username, title, author, price, genre, ISBN, stock, image FROM book WHERE username='$username';";
+$getBooksQuery = "SELECT username, title, author, price, genre, ISBN, stock, imgPath FROM book WHERE username='$username';";
 $values = $conn->query($getBooksQuery);
 
 $length = mysqli_num_rows($values);
-echo $length;
+// echo $length;
 
 $order = array_fill(0, $length, NULL);
 
@@ -38,15 +36,9 @@ while ($row = mysqli_fetch_array($values)) {
     $order[$i] = $row;
     $i++;
 }
-echo sizeof($order);
+// echo sizeof($order);
 
 ?>
-
-
-
-
-
-
 
 <!DOCTYPE>
 
@@ -61,77 +53,50 @@ echo sizeof($order);
 <body>
 
     <main>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand pl-4" href="#" style="font-size: 60px; color: #3F3D56">LittyLit</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-                <div class="navbar-nav d-lg-flex align-items-center mt-3">
-                    <a class="nav-item h-100 nav-link" href="vendor-myBooks.php">
-                        <h5>My Books</h5>
-                    </a>
-                    <a class="nav-item h-100 nav-link" href="vendor-myAccount.php">
-                        <h5>My Account</h5>
-                    </a>
-                </div>
-            </div>
-        </nav>
-
+        <?php include 'elements/header.php' ?>
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <h1>My Books</h1>
+                    <h1 class="mt-5">My Books</h1>
                 </div>
                 <div class="col-lg-6">
-                    <button onclick="window.location.href='vendor-addBook.php'" class="AddText">Add Book</button><br>
+                    <button onclick="window.location.href='vendor-addBook.php'" class="AddText mt-5">Add
+                        Book</button><br>
                 </div>
-
             </div>
-
         </div>
-        <!-- <div class="Search" style="width:1300px; height:100px; background-color: chocolate;">
-            <h1>My Books</h1>
-            <button onclick="window.location.href='#'" class="AddText">Add Book</button><br>
-          </div> -->
         <br>
         <br>
         <br>
 
+        <div class="row justify-content-center">
 
-
-        <div class="row">
             <?php foreach ($order as $o) { ?>
 
-                <div class="center">
-                    <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($o['image']); ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
-
-                    <h4><?php echo $o['title']; ?></h4>
-
-
-                    <!-- <?php $_SESSION['title'] = $o['title']; ?> -->
-
-
-                    <p><?php echo $o['author']; ?></p>
-                    <?php $_SESSION['author'] = $o['author']; ?>
-
-                    <pre> Inventory: <?php echo $o['stock']; ?>               <?php echo $o['price']; ?></pre>
-                    <a href="vendor-editBook.php?selectedBook=<?php echo $o['ISBN'] ?>" class="EditText">Edit</a>
-                    <!-- <button onclick="window.location.href='vendor-editBook.php'" class="EditText">Edit</button><br> -->
-
+            <div class="center">
+                <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($o['image']); ?>"
+                    alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
+                <div row>
+                    <h4 style="font-size: 1.5rem; line-height: 20px;"><?php echo $o['title']; ?></h4>
                 </div>
-            <?php } ?>
+                <?php $_SESSION['title'] = $o['title']; ?>
+                <p><?php echo $o['author']; ?></p>
+                <?php $_SESSION['author'] = $o['author']; ?>
+                <p> Inventory: <?php echo $o['stock']; ?> <?php echo $o['price']; ?></p><br>
+                <button class="btn-lg btn-primary" style="background-color: #2B6777"><a
+                        href="vendor-editBook.php?selectedBook=<?php echo $o['ISBN'] ?>"
+                        class="EditText">Edit</a></button>
+            </div>
 
+            <?php } ?>
         </div>
+
+
 
     </main>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-
-
-
-
 </body>
 
 </html>

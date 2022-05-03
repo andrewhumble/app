@@ -71,7 +71,7 @@ $copiesSold = mysqli_fetch_array($valuesTotal);
         <div class="col-10">
             <div class="top">
                 <div class="row justify-content-center pt-5">
-                    <h2>End of Day Sales Report</h2>
+                    <h2 style="font-family: Nunito; color: #3F3D56"><strong>End of Day Sales Report</strong></h2>
                     <h2 class="totalSales">Total Sales: <span class="span1">$<?php echo $total ?></span></h2>
                     <h2 class="totalBooks">Total Books Sold: <span class="span2"><?php echo $copiesSold['SUM(sold)'] ?></span></h2> <br>
                 </div>

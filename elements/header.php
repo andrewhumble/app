@@ -100,19 +100,19 @@ if (!isset($_SESSION['userType'])) {
     </button>
     <div class='collapse navbar-collapse justify-content-end' id='navbarNavAltMarkup'>
         <div class='navbar-nav d-lg-flex align-items-center mt-3'>
-            <a class='nav-item h-100 nav-link' href='search_order.php'>
+            <a class='nav-item h-100 nav-link' href='admin-serchOrders.php'>
                 <h5>Search Orders</h5>
             </a>
-            <a class='nav-item h-100 nav-link' href='search_user.php'>
+            <a class='nav-item h-100 nav-link' href='admin-searchUsers.php'>
                 <h5>Search Users</h5>
             </a>
-            <a class='nav-item h-100 nav-link' href='#'>
+            <a class='nav-item h-100 nav-link' href='admin-searchBooks.php'>
                 <h5>Search Books</h5>
             </a>
             <a class='nav-item h-100 nav-link' href='admin-myAccount.php'>
                 <h5>My Account</h5>
             </a>
-            <a class='nav-item h-100 nav-link' href='#'>
+            <a class='nav-item h-100 nav-link' href='admin-reports.php'>
                 <h5>Reports</h5>
             </a>
         </div>

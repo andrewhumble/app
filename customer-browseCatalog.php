@@ -131,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <div class="col-sm-12 pt-4">
-            <div class="row justify-content-center">
+            <div class="c">
                 <?php
                 if (mysqli_num_rows($values) == 0) {
                     echo "<div style='padding-top: 5rem;'><h3>No results found for \"" . $search . "\".</h3></div>";
