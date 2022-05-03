@@ -73,11 +73,22 @@ while ($row = mysqli_fetch_array($values)) {
 
             <?php foreach ($order as $o) { ?>
 
-            <div class="center">
-                <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($o['image']); ?>"
-                    alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
-                <div row>
-                    <h4 style="font-size: 1.5rem; line-height: 20px;"><?php echo $o['title']; ?></h4>
+                <div class="center">
+                    <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($o['imgPath']); ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
+
+                    <h4><?php echo $o['title']; ?></h4>
+
+
+                    <!-- <?php $_SESSION['title'] = $o['title']; ?> -->
+
+
+                    <p><?php echo $o['author']; ?></p>
+                    <?php $_SESSION['author'] = $o['author']; ?>
+
+                    <pre> Inventory: <?php echo $o['stock']; ?>               <?php echo $o['price']; ?></pre>
+                    <a href="vendor-editBook.php?selectedBook=<?php echo $o['ISBN'] ?>" class="EditText">Edit</a>
+                    <!-- <button onclick="window.location.href='vendor-editBook.php'" class="EditText">Edit</button><br> -->
+
                 </div>
                 <?php $_SESSION['title'] = $o['title']; ?>
                 <p><?php echo $o['author']; ?></p>

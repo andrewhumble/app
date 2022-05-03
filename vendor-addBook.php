@@ -35,18 +35,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $isbn = $_POST["isbn"];
     $stock = $_POST["inventory"];
 
-    echo $title;
-
     $status = $statusMsg = '';
     if (isset($_POST["save"])) {
         $status = 'error';
 
         if (!empty($_FILES["image"]["name"])) {
+            echo "Here";
             // Get file info 
             $fileName = basename($_FILES["image"]["name"]);
             $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+            echo $fileType;
             // $folder = "images/".$filename;
-            echo "HELLUR";
             // Allow certain file formats 
             $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
             if (in_array($fileType, $allowTypes)) {
@@ -54,13 +53,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $imgContent = addslashes(file_get_contents($image));
 
                 // Insert image content into database 
-                $insert = $conn->query("INSERT into book (username, title, author, price, genre, ISBN, stock, image) VALUES ('$username', '$title', '$author', '$price', '$genre', '$isbn', '$stock', '$imgContent')");
+                $insert = $conn->query("INSERT into book (username, title, author, price, genre, ISBN, stock, imgPath) VALUES ('$username', '$title', '$author', '$price', '$genre', '$isbn', '$stock', '$imgContent')");
+                echo $insert;
 
                 if ($insert) {
                     $status = 'success';
-                    echo $status;
                     $statusMsg = "File uploaded successfully.";
-                    $result = $conn->query("SELECT image FROM book WHERE ISBN='$isbn'");
+                    $result = $conn->query("SELECT imgPath FROM book WHERE ISBN='$isbn'");
                 } else {
                     $statusMsg = "File upload failed, please try again.";
                 }

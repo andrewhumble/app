@@ -6,9 +6,7 @@ if ($conn == false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-if ($_SESSION['userType'] != 3) {
-    header("Location: home.php");
-}
+
 
 ############
 session_start();
@@ -73,6 +71,8 @@ if (isset($_POST["submitbutton"])) {
     $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
     $sql = "DELETE FROM userInfo WHERE username='" . $_SESSION['user'] . "' ";
     $conn->query($sql);
+    header("Location: search_user.php");
+    
 }
 
 ?>
@@ -92,8 +92,9 @@ if (isset($_POST["submitbutton"])) {
 <body>
     <main>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand pl-4" href="#" style="font-size: 60px; color: #3F3D56">LittyLit</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand pl-4" href="home.php" style="font-size: 60px; color: #3F3D56">LittyLit</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
@@ -104,13 +105,13 @@ if (isset($_POST["submitbutton"])) {
                     <a class="nav-item h-100 nav-link" href="search_user.php">
                         <h5>Search Users</h5>
                     </a>
-                    <a class="nav-item h-100 nav-link" href="#">
+                    <a class="nav-item h-100 nav-link" href="view.php">
                         <h5>Search Books</h5>
                     </a>
                     <a class="nav-item h-100 nav-link" href="admin-myAccount.php">
                         <h5>My Account</h5>
                     </a>
-                    <a class="nav-item h-100 nav-link" href="#">
+                    <a class="nav-item h-100 nav-link" href="admin-reports.php">
                         <h5>Reports</h5>
                     </a>
                 </div>
@@ -181,7 +182,25 @@ if (isset($_POST["submitbutton"])) {
                                 <button name="submitButton" type="submit" class="btn btn-primary pr-6">Save Changes</button>
                             </div>
                         </div>
-                </form>
+                        <!-- <div class="col-sm-5">
+                            <label class="float-left">Zip Code</label>
+                            <input type="text" name='zip' class="form-control" value="<?php echo $zip ?>">
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-sm-6"> -->
+                            <!-- <a class="deleteAcc float-left" href=""><u>Delete Account</u></a> -->
+                            
+                            <!-- <button name="submitbutton" type="submit" class="btn btn-primary pr-6">Delete Account</button>
+                        </div>
+                        <div class="col-sm-6"> -->
+                            <!-- <input class="submit float-right" type="submit" value="Save Changes" name="submitButton"> -->
+                            
+                            <!-- <button name="submitButton" type="submit" class="btn btn-primary pr-6">Save Changes</button>
+                        </div>
+                    </div> -->
+                    </form>
+                </div>
             </div>
         </div>
         </div>
