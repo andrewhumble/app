@@ -21,7 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = mysqli_fetch_assoc($result);
 
         if (!$user) {
-            echo "<div class=echo><h6>Username or password is incorrect.</h6></div>";
+            $message = "Username and/or Password incorrect.\\nTry again.";
+            echo "<script type='text/javascript'>alert('$message');</script>";
         } else {
 
             if (isset($_SESSION['username'])) {
@@ -35,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $url = "admin-myAccount.php";
                 header('Location: admin-myAccount.php');
 
-
                 exit();
             }
         }
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE>
 
 <head>
-    <link href="admin-login.css" rel="stylesheet">
+    <link href="login.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
     <title>LittyLit</title>
     <link href='https://fonts.googleapis.com/css?family=Nunito:400,700,400italic,700italic' rel='stylesheet'>

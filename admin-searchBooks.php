@@ -109,8 +109,8 @@ if (!isset($_SESSION['username'])) {
                     <h1 id="header">Search Books</h1><br>
                     <div class="input-group rounded">
 
-                        <input type="text" id="inputEmail" class="form-control rounded" placeholder="Username" name="Search" />
-                        <input type="submit" class="btn-lg btn-primary ml-4" style="background-color: #2B6777; border-width: 0px;" name="submit">
+                        <input type="text" id="inputEmail" class="form-control rounded" placeholder="ISBN" name="Search" />
+                        <input type="submit" class="btn-lg btn-primary ml-4 mb-2" style="background-color: #2B6777; border-width: 0px;" name="submit">
                     </div>
                     <p id="para">Search by ISBN</p>
                 </div>
@@ -122,7 +122,7 @@ if (!isset($_SESSION['username'])) {
 
 </html>
 
-    <!-- <form method="post">
+<!-- <form method="post">
         <div class="container-fluid mt-5" id="Search">
             <div class="mx-auto text-center" style="width: 400px;">
                 <h1 id="header">Search Books</h1><br>
@@ -136,7 +136,7 @@ if (!isset($_SESSION['username'])) {
         </div>
     </form> -->
 
-    <!-- <div class="container">
+<!-- <div class="container">
     <h1> Retrive</h1>
     <?php if ($result->num_rows > 0) { ?> 
     <div class="gallery"> 
@@ -151,55 +151,70 @@ if (!isset($_SESSION['username'])) {
 <a href="show_book.php">Upload</a>
 </div> -->
 
+<div class="col-sm-12 pt-4">
+    <div class="row justify-content-center" style="margin-bottom: 7rem;">
 
-
-    <?php
-
-
-
-    if (isset($_POST["submit"])) {
-        $_SESSION['is'] = $_POST["Search"];
-        $val = $conn->query("SELECT imgPath FROM `book` WHERE ISBN= '" . $_SESSION['is'] . "'");
-        $res = $conn->query("SELECT * FROM `book` WHERE ISBN = '" . $_SESSION['is'] . "'");
-        
-        $results = mysqli_num_rows($res);
-        if ($results > 0) {
-            while ($row = mysqli_fetch_object($res)) {
-    ?>
-
-
-
-                <div class="container">
-                    <div class="center">
-
-                        <!-- Uploading image -->
-                        <?php if ($val->num_rows > 0) { ?>
-                            <?php while ($blah = $val->fetch_assoc()) { ?>
-                                <img id="pic" src="<?php echo $blah['imgPath'] ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
-                            <?php } ?>
-                        <?php } else { ?>
-                            <p class="status error">Image(s) not found...</p> <?php } ?>
-                        <!-- <img class="pic" src= "images/Gatsby.png" alt="Place Holder Book" style="width:150px;height:200px;"> -->
-                        <h4 id="work"><?php echo $row->title; ?></h4>
-                        <p id="auth"><?php echo $row->author; ?></p><br>
-                        <pre id="change">  Inventory: <?php echo $row->stock; ?>           $<?php echo $row->price; ?></pre>
-                        <!-- <p id="change"><?php echo $row->price; ?></p><br> -->
-                        <button onclick="window.location.href='admin-editBook.php'" class="EditText">Edit</button><br>
-
-                    </div>
 
         <?php
+
+
+
+        if (isset($_POST["submit"])) {
+            $_SESSION['is'] = $_POST["Search"];
+            $val = $conn->query("SELECT imgPath FROM `book` WHERE ISBN= '" . $_SESSION['is'] . "'");
+            $bookImgRes = mysqli_fetch_array($val);
+            if ($bookImgRes != NULL) {
+                $bookImg = $bookImgRes['imgPath'];
             }
-        } else {
-            echo "Name Does not exist";
+
+            $res = $conn->query("SELECT * FROM `book` WHERE ISBN = '" . $_SESSION['is'] . "'");
+
+            $results = mysqli_num_rows($res);
+            if ($results > 0) {
+                while ($row = mysqli_fetch_array($res)) {
+        ?>
+
+
+                    <a href="admin-editBook.php">
+                        <div class="card ml-4 mr-4 mt-4 mb-4" style="background-color: #2B6777; height: 22rem; width: 15rem; border-radius: 1em !important;">
+                            <div class="col-sm-12 justify-content-center">
+                                <div class="row">
+                                    <div class="card-body ml-1">
+                                        <img class="card-img-top mx-auto mt-3 mb-4" src="<?php echo $bookImg ?>" alt="Place Holder Book" style="height: 10rem; width: 8rem; display:block">
+                                        <div class="row justify-content-center">
+                                            <h4 class="card-title text-center" style="font-size: 1.2rem;">
+                                                <?php echo $row['title']; ?></h4>
+                                        </div>
+                                        <div class="row justify-content-center" style="margin-top: -0.5rem; font-size: 0.9rem;">
+                                            <p class="card-text" style="color: #fff !important;"><?php echo $row['author']; ?>
+                                            </p>
+                                        </div>
+                                        <div class="row pt-4 justify-content-center">
+                                            <p class="card-text" style="font-size: 1.3rem; color: #fff !important;">
+                                                <?php echo "$" . number_format($row['price'], 2) ?></p>
+                                        </div>
+                                        <div class="row pt-1 justify-content-center">
+                                            <p class="card-text" style="font-size: 0rem; color: #fff !important;">
+                                                <?php echo $row['stock'] ?> in stock</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+        <?php
+                }
+            } else {
+                echo "<h3>ISBN Not Found!</h3>";
+            }
         }
-    }
 
 
-                
 
-?>
 
+        ?>
+    </div>
+</div>
 
 <!-- </body>
 

@@ -55,3 +55,11 @@ button:hover {
 .linkHere:hover {
   color: rgba(43, 103, 119, 1) !important;
 }
+
+.echo {
+    color: #5D5D5D;
+    text-align: center;
+    padding-top: 3%;
+}
+
+

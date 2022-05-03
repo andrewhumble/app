@@ -38,16 +38,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($user) { // if user exists
         if ($user['username'] === $u) {
-            echo "<div class=echo><h6 id=malign>Username already exists!</h6></div>";
+            $message = "Username already exists!\\nTry again.";
+            echo "<script type='text/javascript'>alert('$message');</script>";
         } //if
 
         if ($user['email'] === $email) {
-            echo "<div class=echo><h6 id=malign>Email already exists!</h6></div>";
+            $message = "Email already exists!\\nTry again.";
+            echo "<script type='text/javascript'>alert('$message');</script>";
         } //if
     } else {
         echo ("INSIDE ELSE FOR INSERT");
         if (isset($_POST["register"])) {
-            //Create an instance; passing `true` enables exceptions
+
             $mail = new PHPMailer(true);
 
 

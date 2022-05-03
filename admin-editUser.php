@@ -20,9 +20,6 @@ if (!isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
 }
 
-
-session_start();
-
 //connect to database
 require_once('connDB.php');
 
@@ -66,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["submitButton"])) {
     $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
     $sql = "UPDATE userInfo SET firstName=\"$firstName\",lastName=\"$lastName\", email='$email', birthday='$birthday', strAddress=\"$strAddress\", city=\"$city\", state='$state', zip='$zip' WHERE username='" . $_SESSION['user'] . "'";
     $conn->query($sql);
-    header("Location: admin-searchUsers.php");
+    header("Location: admin-editUser.php");
 }
 if (isset($_POST["submitbutton"])) {
 
@@ -84,8 +81,7 @@ if (isset($_POST["submitbutton"])) {
     $sql = "DELETE FROM userInfo WHERE username='" . $_SESSION['user'] . "' ";
     echo $sql;
     $conn->query($sql);
-    header("Location: admin-searchUsers.php");
-    
+    header("Location: admin-editUser.php");
 }
 
 ?>
@@ -106,7 +102,7 @@ if (isset($_POST["submitbutton"])) {
     <main>
         <?php include 'elements/header.php' ?>
         <div class="container-fluid text-center">
-            <div class="row h-30 justify-content-center">
+            <div class="row h-30 justify-content-center pb-4">
                 <form method="post">
                     <div class="col-sm-9 pt-5 mx-auto">
                         <div class="row justify-content-center">
@@ -116,27 +112,23 @@ if (isset($_POST["submitbutton"])) {
                         <div class="row mt-4">
                             <div class="col-sm-6">
                                 <label style="font-family: Nunito; color: #3F3D56" class="float-left">First Name</label>
-                                <input style="font-family: Nunito" type="text" name='firstName' class="form-control"
-                                    value="<?php echo $firstName ?>">
+                                <input style="font-family: Nunito" type="text" name='firstName' class="form-control" value="<?php echo $firstName ?>">
                             </div>
                             <div class="col-sm-6">
                                 <label style="font-family: Nunito; color: #3F3D56" class="float-left">Last Name</label>
-                                <input style="font-family: Nunito" type="text" name='lastName' class="form-control"
-                                    value="<?php echo $lastName ?>">
+                                <input style="font-family: Nunito" type="text" name='lastName' class="form-control" value="<?php echo $lastName ?>">
                             </div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-sm-12">
                                 <label style="font-family: Nunito; color: #3F3D56" class="float-left">Email</label>
-                                <input style="font-family: Nunito" type="text" name='email' class="form-control"
-                                    value="<?php echo $email ?>">
+                                <input style="font-family: Nunito" type="text" name='email' class="form-control" value="<?php echo $email ?>">
                             </div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-sm-4">
                                 <label style="font-family: Nunito; color: #3F3D56" class="float-left">Birthday</label>
-                                <input style="font-family: Nunito" type="text" name='birthday' class="form-control"
-                                    value="<?php echo $birthday ?>">
+                                <input style="font-family: Nunito" type="text" name='birthday' class="form-control" value="<?php echo $birthday ?>">
                             </div>
                         </div>
                         <div class="row mt-4">
@@ -148,36 +140,29 @@ if (isset($_POST["submitbutton"])) {
                             <div class="col-sm-12">
                                 <label style="font-family: Nunito; color: #3F3D56" class="float-left">Shipping
                                     Address</label>
-                                <input style="font-family: Nunito" type="text" name='strAddress' class="form-control"
-                                    value="<?php echo $strAddress ?>">
+                                <input style="font-family: Nunito" type="text" name='strAddress' class="form-control" value="<?php echo $strAddress ?>">
                             </div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-sm-5">
                                 <label style="font-family: Nunito; color: #3F3D56" class="float-left">City</label>
-                                <input style="font-family: Nunito" type="text" name='city' class="form-control"
-                                    value="<?php echo $city ?>">
+                                <input style="font-family: Nunito" type="text" name='city' class="form-control" value="<?php echo $city ?>">
                             </div>
                             <div class="col-sm-2">
                                 <label style="font-family: Nunito; color: #3F3D56" class="float-left">State</label>
-                                <input style="font-family: Nunito" type="text" name='state' class="form-control"
-                                    value="<?php echo $state ?>">
+                                <input style="font-family: Nunito" type="text" name='state' class="form-control" value="<?php echo $state ?>">
                             </div>
                             <div class="col-sm-5">
                                 <label style="font-family: Nunito; color: #3F3D56" class="float-left">Zip Code</label>
-                                <input style="font-family: Nunito" type="text" name='zip' class="form-control"
-                                    value="<?php echo $zip ?>">
+                                <input style="font-family: Nunito" type="text" name='zip' class="form-control" value="<?php echo $zip ?>">
                             </div>
                         </div>
                         <div class="row mt-5 justify-content-center">
                             <div class="col-6">
-                                <button
-                                    style="background-color: transparent; color: black; text-decoration: underline; border: 0px;"
-                                    name="submitbutton" type="submit" class="btn btn-primary pr-6">Delete User</button>
+                                <button style="background-color: transparent; color: black; text-decoration: underline; border: 0px;" name="submitbutton" type="submit" class="btn btn-primary pr-6">Delete User</button>
                             </div>
                             <div class="col-6 justify-content-center">
-                                <button style="background-color: #2B6777; border: 0px;" name="submitButton"
-                                    type="submit" class="btn btn-primary pr-6 mb-5">Save Changes</button>
+                                <button style="background-color: #2B6777; border: 0px;" name="submitButton" type="submit" class="btn btn-primary pr-6 mb-5">Save Changes</button>
                             </div>
                         </div>
                     </div>

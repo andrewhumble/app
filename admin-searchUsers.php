@@ -46,7 +46,7 @@ if (!isset($_SESSION['username'])) {
                     <div class="input-group rounded">
 
                         <input type="text" id="inputEmail" class="form-control rounded" placeholder="Username" name="Search" />
-                        <input type="submit" class="btn-lg btn-primary ml-4" style="background-color: #2B6777; border-width: 0px;" name="submit">
+                        <input type="submit" class="btn-lg btn-primary ml-4 mb-2" style="background-color: #2B6777; border-width: 0px;" name="submit">
                     </div>
                     <p id="para">Enter username associated with the person</p>
                 </div>
@@ -59,13 +59,10 @@ if (!isset($_SESSION['username'])) {
 </html>
 <?php
 
-session_start();
-
-
 if (isset($_POST["submit"])) {
     $_SESSION['user'] = $_POST["Search"];
-   
-    $res = $conn->query("SELECT * FROM userInfo WHERE username='".$_SESSION['user']."'");
+
+    $res = $conn->query("SELECT * FROM userInfo WHERE username='" . $_SESSION['user'] . "'");
     $results = mysqli_num_rows($res);
     if ($results > 0) {
         while ($row = mysqli_fetch_object($res)) {
@@ -73,8 +70,12 @@ if (isset($_POST["submit"])) {
             <div class="container">
                 <div class="row">
                     <div class="col-lg" id="left">
-                        <h1 class="m-3"><?php echo $row->firstName; ?> <?php echo $row->lastName; ?></h1>
-                        <h2>@<?php echo $row->username; ?></h2>
+                        <div class="row">
+                            <h1 class="ml-3 mt-3" style="font-size: 2rem;"><?php echo $row->firstName; ?> <?php echo $row->lastName; ?></h1>
+                        </div>
+                        <div class="row pb-2">
+                            <h2 style="margin-left: 1rem;">@<?php echo $row->username; ?></h2>
+                        </div>
                     </div>
                     <div class="col-lg" id="right">
                         <form action="admin-editUser.php" method="post">

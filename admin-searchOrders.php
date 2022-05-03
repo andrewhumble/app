@@ -46,7 +46,7 @@ if (!isset($_SESSION['username'])) {
                     <h1 id="header">Search Orders</h1><br>
                     <div class="input-group rounded">
                         <input type="text" id="inputEmail" class="form-control rounded" placeholder="Order ID" name="Search">
-                        <input type="submit" class="btn-lg btn-primary ml-4" style="background-color: #2B6777; border-width: 0px;" name="submit">
+                        <input type="submit" class="btn-lg btn-primary ml-4 mb-2" style="background-color: #2B6777; border-width: 0px;" name="submit">
                     </div>
                     <p id="para">Enter the order id associated with the person</p>
                 </div>
@@ -59,11 +59,9 @@ if (!isset($_SESSION['username'])) {
 </html>
 <?php
 
-session_start();
-
 if (isset($_POST["submit"])) {
     $_SESSION['order'] = $_POST["Search"];
-    $res = $conn->query("SELECT * FROM orders WHERE order_id='".$_SESSION['order']."'");
+    $res = $conn->query("SELECT DISTINCT username, firstName, lastName, order_id FROM orders WHERE order_id='" . $_SESSION['order'] . "'");
     $results = mysqli_num_rows($res);
     if ($results > 0) {
         while ($row = mysqli_fetch_object($res)) {
@@ -71,11 +69,15 @@ if (isset($_POST["submit"])) {
             <div class="container">
                 <div class="row">
                     <div class="col-lg" id="left">
-                        <h1 class="m-3"><?php echo $row->firstName; ?> <?php echo $row->lastName; ?></h1>
-                        <h2>Order ID <?php echo $row->order_id; ?></h2>
+                        <div class="row">
+                            <h1 class="ml-3 mt-3" style="font-size: 2rem;"><?php echo $row->firstName; ?> <?php echo $row->lastName; ?></h1>
+                        </div>
+                        <div class="row pb-2">
+                            <h2 style="margin-left: 1rem;">Order ID <?php echo $row->order_id; ?></h2>
+                        </div>
                     </div>
-                    <div class="col-lg" id="right">
-                        <form action="admin-editOrder.php" method="post">
+                    <div class=" col-lg" id="right">
+                        <form action="admin-editUser.php" method="post">
                             <input type="submit" id="EditText" name="edit" value="Edit">
                         </form>
                     </div>
