@@ -1,21 +1,13 @@
 <?php
 session_start();
-
 //connect to database
 require_once('connDB.php');
 // Check connection
 if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
-
-// if ($_SESSION['userType'] != 2) {
-//     header("Location: home.php");
-// }
-
 $userType = $_SESSION['userType'];
-//ensures someone is logged inbefore allowing them to create a profile
 if (!isset($_SESSION['username']) || $_SESSION['userType'] != 2) {
-
     header("Location: welcome.html");
     exit();
 } else {
@@ -36,9 +28,7 @@ if (!isset($_SESSION['username']) || $_SESSION['userType'] != 2) {
 </head>
 
 <html>
-
 <body>
-
     <main>
         <?php include 'elements/header.php' ?>
         <div class="row">

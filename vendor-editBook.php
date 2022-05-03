@@ -63,11 +63,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["save"])) {
     // $city = isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
     // $state = $_POST['state'] ? htmlspecialchars($_POST['state']) : '';
     // $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
-    $sql = "UPDATE book SET title='$title', author='$author', price='$price', genre='$genre', stock='$inventory' WHERE ISBN ='$selectedBook'";
-    echo $sql;
+    $sql = "UPDATE book SET title='$title', author='$author', price=$price, genre='$genre', stock=$inventory, imgPath='$row[imgPath]' WHERE ISBN ='$selectedBook'";
     $conn->query($sql);
 
-    header("Location: vendor-editBook.php?selectedBook=$selectedBook");
+    # header("Location: vendor-editBook.php?selectedBook=$selectedBook");
 }
 
 
@@ -87,85 +86,64 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["save"])) {
 <body>
 
     <main>
-        <!-- <ul>
-            <li><a class="active" href="home.html">LittyLit</a></li>
-            <a href="#" class = "MyBooks"><b>My Account</b></a>
-            <a href="#" class = "MyBooks"><b>My Books</b></a>
-          </ul> -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand pl-4" href="#" style="font-size: 60px; color: #3F3D56">LittyLit</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-                <div class="navbar-nav d-lg-flex align-items-center mt-3">
-                    <a class="nav-item h-100 nav-link" href="vendor-myBooks.php">
-                        <h5>My Books</h5>
-                    </a>
-                    <a class="nav-item h-100 nav-link" href="vendor-myAccount.php">
-                        <h5>My Account</h5>
-                    </a>
-                </div>
-            </div>
-        </nav>
+        <?php include 'elements/header.php'; ?>
 
         <a href="vendor-myBooks.php" class="GoBack"><b>
                 << Go Back</b></a>
 
-        <div class="container">
+        <div class="container mt-5">
             <form method="post" enctype="multipart/form-data">
                 <div class="row">
-                    <div class=col-lg-3>
+                    <div class="col-sm-3">
                         <img class="pic" src="<?php echo $row['imgPath'] ?>" alt="Place Holder Book" style="width:210px;height:350px;">
-                        <input type="file" name="image">
+                        <input class="pb-4 pt-4 pl-4" type="file" name="image" style="font-family: Nunito !important; color: #3F3D56 !important;">
                         <!-- <input type="file" name="image" value="Change Cover"> -->
                         <!-- <a href="#" class="Cover"><b>Change Cover</b></a> -->
                     </div>
 
 
-                    <div class=col-lg-3 id="QMiddle">
-                        <p><b>Book Title</b></p><br>
-                        <input class="Text" type="text" id="btitle" name="title" value="<?php echo $row['title'] ?>"><br><br>
+                    <div class="col-sm-9 pt-5">
+                        <div class="row pb-3">
+                            <div class="col-5">
+                                <p><b>Book Title</b></p>
+                                <input class="form-control rounded" type="text" id="btitle" name="title" value="<?php echo $row['title'] ?>">
+                            </div>
+                            <div class="col-3">
+                                <p><b>Inventory:</b></p>
+                                <input class="form-control rounded" type="text" id="btitle" name="inventory" value="<?php echo $row['stock'] ?>">
+                            </div>
+                        </div>
 
-                        <p><b>Author</b></p><br>
-                        <input class="Text" type="text" id="btitle" name="author" value="<?php echo $row['author'] ?>"><br><br>
+                        <div class="row pb-3">
+                            <div class="col-5">
+                                <p><b>Author</b></p>
+                                <input class="form-control rounded" type="text" id="btitle" name="author" value="<?php echo $row['author'] ?>">
+                            </div>
+                            <div class="col-3">
+                                <p><b>Price</b></p>
+                                <p>$</p><input class="form-control rounded" type="text" id="btitle" name="price" value="<?php echo $row['price'] ?>">
+                            </div>
+                        </div>
 
-                        <p><b>Genre</b>
-                        <p><br>
-                            <input type="text" class="TextDrop" name="genre" value="<?php echo $row['genre'] ?>"><br><br>
+                        <div class="row pb-3">
+                            <div class="col-5">
+                                <p><b>Genre</b></p>
+                                <input type="text" class="form-control rounded" name="genre" value="<?php echo $row['genre'] ?>">
+                            </div>
+                            <div class="col-3">
+                                <p><b>ISBN</b></p>
+                                <input class="form-control rounded" type="text" id="btitle" name="ISBN" value="<?php echo $row['ISBN'] ?>">
+                            </div>
+                        </div>
 
-                            <!-- <select class="TextDrop">  
-                            <option style="font-weight: bolder;" value = "Fiction" selected> Fiction   
-                            </option>  
-                            </select> -->
+                        <div class="row float-right align-items-end pr-4 pt-4">
+                            <a href="#" class="Remove pr-4"><b>Remove Book</b></a>
+                            <button type="submit" class="SaveChanges" name="save">Save Changes</button>
+                        </div>
 
                     </div>
-                    <div class=col-lg-3 id="QEnd">
-                        <p><b>Inventory:</b></p>
-                        <input class="Inventory" type="text" id="btitle" name="inventory" value="<?php echo $row['stock'] ?>"><br><br>
-
-                        <!-- <select class="Inventory">  
-                                <option style="font-weight: bolder;" value = "Number" selected> 100   
-                                </option>  
-                            </select>-->
-                        <!-- <br><br>  -->
-
-                        <p><b>Price</b></p><br>
-                        <p>$</p><input class="TextPrice" type="text" id="btitle" name="price" value="<?php echo $row['price'] ?>"><br><br>
-
-                        <!-- <p><b>ISBN</b></p><br>
-                        <input class="TextISBN" type="text" id="btitle" name="isbn" value="<?php echo $row['ISBN'] ?>"><br><br> -->
-
-                    </div>
-                    <div class=col-lg-3 id="Button">
-
-                        <button type="submit" class="SaveChanges" name="save">Save Changes</button><br>
-                        <a href="#" class="Remove"><b>Remove Book</b></a>
-
-                    </div>
-
+                </div>
             </form>
-        </div>
         </div>
 
     </main>

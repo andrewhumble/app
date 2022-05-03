@@ -135,3 +135,10 @@ p.sidebar {
 .form-check .form-check-input {
   box-shadow: none !important;
 }
+
+input {
+  font-family: Nunito !important;
+  text-align: left !important;
+  color: #3F3D56 !important;
+  margin-bottom: 0;
+}
