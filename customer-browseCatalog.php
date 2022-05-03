@@ -142,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="card ml-4 mr-4 mt-4 mb-4">
                             <div class="col-sm-12 justify-content-center">
                                 <div class="row">
-                                    <img class="card-img-top mx-auto mt-5" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['imgPath']); ?>" alt="Place Holder Book" style="height: 10rem; width: 8rem; display:block">
+                                    <img class="card-img-top mx-auto mt-5" src="<?php echo $row['imgPath'] ?>" alt="Place Holder Book" style="height: 10rem; width: 8rem; display:block">
                                     <div class="card-body ml-1">
                                         <div class="row justify-content-center">
                                             <h4 class="card-title text-center" style="font-size: 1.2rem;"><?php echo $row['title'] ?></h4>

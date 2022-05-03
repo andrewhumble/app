@@ -89,7 +89,7 @@ if ($_SESSION['userType'] != 3) {
     <?php if ($result->num_rows > 0) { ?> 
     <div class="gallery"> 
         <?php while ($row = $result->fetch_assoc()) { ?> 
-            <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['imgPath']); ?>" /> 
+            <img src="<?php echo $row['imgPath'] ?>" /> 
         <?php } ?> 
     </div> 
 <?php } else { ?> 
@@ -120,7 +120,7 @@ if ($_SESSION['userType'] != 3) {
                         <!-- Uploading image -->
                         <?php if ($val->num_rows > 0) { ?>
                             <?php while ($blah = $val->fetch_assoc()) { ?>
-                                <img id="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($blah['imgPath']); ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
+                                <img id="pic" src="<?php echo $blah['imgPath'] ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
                             <?php } ?>
                         <?php } else { ?>
                             <p class="status error">Image(s) not found...</p> <?php } ?>

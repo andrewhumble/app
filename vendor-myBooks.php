@@ -100,7 +100,7 @@ while ($row = mysqli_fetch_array($values)) {
             <?php foreach ($order as $o) { ?>
 
                 <div class="center">
-                    <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($o['imgPath']); ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
+                    <img class="pic" src="<?php echo $o['imgPath'] ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
 
                     <h4><?php echo $o['title']; ?></h4>
 
