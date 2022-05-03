@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
             $mail->Username   = "OfficialLittyLit@gmail.com";                     //SMTP username
             $mail->Password   = "mean1234";                               //SMTP password
-            $mail->Subject = "Test Email";
+            $mail->Subject = "Verification Code";
 
 
 
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
 
-            $body = '<strong>Hello!</strong> LittyLit. Here is your verification Code: ' . $verification_code . '</p>';
+            $body = '<strong>Hello!</strong> Welcome to LittyLit. Here is your verification Code: ' . $verification_code . '</p>';
 
             $mail->isHTML(true);
             $mail->Body    = $body;

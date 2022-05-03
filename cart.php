@@ -73,7 +73,7 @@ if ($remove != "") {
                     <?php while ($row = mysqli_fetch_array($values)) { ?>
                         <div class="center">
                             <div class="picLeft" style="width: 250px;height:250px;">
-                                <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['imgPath']); ?>" alt=" Place Holder Book" style="width:150px;height:210px;">
+                                <img class="pic" src="<?php echo $row['imgPath'] ?>" alt=" Place Holder Book" style="width:150px;height:210px;">
                             </div>
 
                             <div class="QMiddle" style="width: 500px;">
@@ -110,8 +110,6 @@ if ($remove != "") {
 
                                     $addToCartQuery = "UPDATE cart SET quantity=$quantity WHERE ISBN='$isbn' AND username='$username';";
                                     $conn->query($addToCartQuery);
-
-                                    # header("Refresh:0");
                                 }
                                 ?>
                             </div>
