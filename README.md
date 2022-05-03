@@ -147,4 +147,4 @@ INSERT INTO `promotions` (`id`, `discount`, `name`) VALUES ('10101', '0.5', 'HAL
 LittyLit is built using HTML5, CSS3, MySQL, and PHP. The only framework used is Bootstrap, on top of CSS3, which provides a set of classes specially designed for responsive, mobile-first design.
 
 ## Code
-No starter code was used for this project. All source code, files, and images are open-source and available at this project’s [GitHub Repository](#).
+No starter code was used for this project. All source code, files, and images are open-source and available at this project’s [GitHub Repository](https://github.com/andrewhumble/app.git).

@@ -23,7 +23,7 @@ if (!isset($_SESSION['username']) || $_SESSION['userType'] != 2) {
     $username = $_SESSION['username'];
     $userType = $_SESSION['userType'];
 
-    echo $username;
+    // echo $username;
 }
 
 
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stock = $_POST["inventory"];
     $description = $_POST["description"];
 
-    echo $title;
+    //echo $title;
     $target_dir = "images/";
     $target_file = $target_dir . basename($_FILES["image"]["name"]);
 
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["save"])) {
         $check = getimagesize($_FILES["image"]["tmp_name"]);
         if ($check !== false) {
-            echo "File is an image - " . $check["mime"] . ".";
+            //echo "File is an image - " . $check["mime"] . ".";
             $uploadOk = 1;
         } else {
             echo "File is not an image.";
@@ -83,10 +83,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-            echo "The file " . htmlspecialchars(basename($_FILES["image"]["name"])) . " has been uploaded.";
+            // echo "The file " . htmlspecialchars(basename($_FILES["image"]["name"])) . " has been uploaded.";
             $insert = "INSERT into book (username, title, author, price, genre, ISBN, stock, imgPath, description) VALUES ('$username', '$title', '$author', '$price', '$genre', '$isbn', '$stock', '$target_file', '$description')";
             $conn->query($insert);
-            echo $insert;
+            // echo $insert;
         } else {
             echo "Sorry, there was an error uploading your file.";
         }
@@ -136,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </nav>
 
-        <a href="#" class="GoBack"><b>
+        <a href="vendor-myBooks.php" class="GoBack"><b>
                 << Go Back</b></a>
 
         <div class="container">
