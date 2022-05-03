@@ -51,8 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["save"])) {
     // $city = isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
     // $state = $_POST['state'] ? htmlspecialchars($_POST['state']) : '';
     // $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
-    $sql = "UPDATE book SET title='$title', author='$author', price='$price', genre='$genre', stock='$inventory', imgPath WHERE ISBN ='$selectedBook'";
-    echo $sql;
+    $sql = "UPDATE book SET title='$title', author='$author', price=$price, genre='$genre', stock=$inventory, imgPath='$row[imgPath]' WHERE ISBN ='$selectedBook'";
     $conn->query($sql);
 
     # header("Location: vendor-editBook.php?selectedBook=$selectedBook");

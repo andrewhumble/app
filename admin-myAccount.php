@@ -38,8 +38,8 @@ if (!isset($_SESSION['username'])) {
             <div class="col-md-6 text-center" style="background-color:#C8D8E4;">
                 <img style="padding: 14%;" src="./images/undraw_click_here_re_y6uq.svg" class="img-fluid" alt="Responsive image">
             </div>
-            <div class="col-md-6 text-center" style="background-color:#2B6777;">
-                <h1 class="display-1" style="color: #ffffff; font-family: Nunito; margin-top: 15%; font-size: 60px; margin-top: 5%;">My Account</h2>
+            <div class="col-md-6 text-center pt-5" style="background-color:#2B6777;">
+                <h1 class="display-1 pt-5" style="color: #ffffff; font-family: Nunito; margin-top: 15%; font-size: 60px; margin-top: 5%;">My Account</h2>
                     <p style="color: #ffffff; font-family: Nunito; margin-left: 5%; margin-right: 5%; font-size: 22px;">Shopping with us is easy - all of your personal info
                         saved here for you to reference and manage whenever you
                         need to.</p>
