@@ -107,12 +107,21 @@ echo sizeof($order);
                     <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($o['image']); ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
 
                     <h4><?php echo $o['title']; ?></h4>
+
+
+                    <!-- <?php $_SESSION['title'] = $o['title']; ?> -->
+
+
                     <p><?php echo $o['author']; ?></p>
-                    <pre> Inventory: <?php echo $o['Inventory']; ?>               <?php echo $o['price']; ?></pre>
-                    <button onclick="window.location.href='vendor-editBook.php'" class="EditText">Edit</button><br>
+                    <?php $_SESSION['author'] = $o['author']; ?>
+
+                    <pre> Inventory: <?php echo $o['stock']; ?>               <?php echo $o['price']; ?></pre>
+                    <a href="vendor-editBook.php?selectedBook=<?php echo $o['ISBN'] ?>" class="EditText">Edit</a>
+                    <!-- <button onclick="window.location.href='vendor-editBook.php'" class="EditText">Edit</button><br> -->
 
                 </div>
             <?php } ?>
+
         </div>
 
     </main>

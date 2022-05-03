@@ -105,8 +105,8 @@ if ($_SESSION['userType'] != 3) {
 
     if (isset($_POST["submit"])) {
         $ISBN = $_POST["Search"];
-        $val = $conn->query("SELECT image FROM `book` WHERE isbn ='$ISBN'");
-        $res = $conn->query("SELECT * FROM `book` WHERE isbn = '$ISBN'");
+        $val = $conn->query("SELECT image FROM `book` WHERE ISBN ='$ISBN'");
+        $res = $conn->query("SELECT * FROM `book` WHERE ISBN = '$ISBN'");
         $results = mysqli_num_rows($res);
         if ($results > 0) {
             while ($row = mysqli_fetch_object($res)) {

@@ -1,8 +1,75 @@
 <?php
-if ($_SESSION['userType'] != 2) {
-    header("Location: home.php");
+session_start();
+
+//connect to database
+require_once('connDB.php');
+// Check connection
+if ($conn === false) {
+    die("ERROR: Could not connect. " . mysqli_connect_error());
 }
+$userType = $_SESSION['userType'];
+//ensures someone is logged inbefore allowing them to create a profile
+if (!isset($_SESSION['username']) || $_SESSION['userType'] != 2) {
+
+    header("Location: welcome.html");
+    exit();
+} else {
+    $username = $_SESSION['username'];
+    $userType = $_SESSION['userType'];
+
+    // $titles = $_SESSION['title'];
+    // echo $titles;
+}
+
+isset($_POST['selectedBook']) ? $selectedBook = $_POST['selectedBook'] : $selectedBook = $_GET['selectedBook'];
+
+echo $selectedBook;
+
+$getBooksQuery = "SELECT username, title, author, price, genre, ISBN, stock, image FROM book WHERE ISBN='$selectedBook';";
+$values = $conn->query($getBooksQuery);
+$row = mysqli_fetch_array($values);
+
+echo $row['title'];
+
+if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["save"])) {
+    $title = isset($_POST['title']) ? htmlspecialchars($_POST['title']) : '';
+    $author = isset($_POST['author']) ? htmlspecialchars($_POST['author']) : '';
+    $genre = isset($_POST['genre']) ? htmlspecialchars($_POST['genre']) : '';
+    $price = isset($_POST['price']) ? htmlspecialchars($_POST['price']) : '';
+    $inventory = isset($_POST['inventory']) ? htmlspecialchars($_POST['inventory']) : '';
+    if (!empty($_FILES["image"]["name"])) {
+        // Get file info 
+        $fileName = basename($_FILES["image"]["name"]);
+        $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+        // $folder = "images/".$filename;
+        // Allow certain file formats 
+        $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
+        if (in_array($fileType, $allowTypes)) {
+            $image = $_FILES['image']['tmp_name'];
+            $imgContent = addslashes(file_get_contents($image));
+            $sql = "UPDATE book SET image='$imgContent' WHERE ISBN ='$selectedBook'";
+            $conn->query($sql);
+        }
+    } else {
+        echo "hi";
+    }
+    //$password = $_POST['password'];
+    // $email = $_POST['email'] ? htmlspecialchars($_POST['email']) : '';
+    // $birthday = $_POST['birthday'] ? htmlspecialchars($_POST['birthday']) : '';
+    // $strAddress = isset($_POST['strAddress']) ? htmlspecialchars($_POST['strAddress']) : '';
+    // $city = isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
+    // $state = $_POST['state'] ? htmlspecialchars($_POST['state']) : '';
+    // $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
+    $sql = "UPDATE book SET title='$title', author='$author', price='$price', genre='$genre', stock='$inventory' WHERE ISBN ='$selectedBook'";
+    echo $sql;
+    $conn->query($sql);
+
+    header("Location: vendor-editBook.php?selectedBook=$selectedBook");
+}
+
+
 ?>
+
 
 <!DOCTYPE>
 
@@ -43,53 +110,59 @@ if ($_SESSION['userType'] != 2) {
                 << Go Back</b></a>
 
         <div class="container">
-            <div class="row">
-                <div class=col-lg-3>
-                    <img class="pic" src="images/Gatsby.png" alt="Place Holder Book" style="width:210px;height:350px;">
-                    <a href="#" class="Cover"><b>Change Cover</b></a>
-                </div>
+            <form method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class=col-lg-3>
+                        <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']); ?>" alt="Place Holder Book" style="width:210px;height:350px;">
+                        <input type="file" name="image">
+                        <!-- <input type="file" name="image" value="Change Cover"> -->
+                        <!-- <a href="#" class="Cover"><b>Change Cover</b></a> -->
+                    </div>
 
 
-                <div class=col-lg-3 id="QMiddle">
-                    <form action="">
+                    <div class=col-lg-3 id="QMiddle">
                         <p><b>Book Title</b></p><br>
-                        <input class="Text" type="text" id="btitle" name="btitle" placeholder="The Great Gatsby"><br><br>
+                        <input class="Text" type="text" id="btitle" name="title" value="<?php echo $row['title'] ?>"><br><br>
 
                         <p><b>Author</b></p><br>
-                        <input class="Text" type="text" id="btitle" name="btitle" placeholder="F. Scott Fitzgerald"><br><br>
+                        <input class="Text" type="text" id="btitle" name="author" value="<?php echo $row['author'] ?>"><br><br>
 
                         <p><b>Genre</b>
                         <p><br>
-                            <select class="TextDrop">
-                                <option style="font-weight: bolder;" value="Fiction" selected> Fiction
-                                </option>
-                            </select>
-                    </form>
+                            <input type="text" class="TextDrop" name="genre" value="<?php echo $row['genre'] ?>"><br><br>
 
-                </div>
-                <div class=col-lg-3 id="QEnd">
-                    <form action="">
+                            <!-- <select class="TextDrop">  
+                            <option style="font-weight: bolder;" value = "Fiction" selected> Fiction   
+                            </option>  
+                            </select> -->
+
+                    </div>
+                    <div class=col-lg-3 id="QEnd">
                         <p><b>Inventory:</b></p>
-                        <select class="Inventory">
-                            <option style="font-weight: bolder;" value="Number" selected> 100
-                            </option>
-                        </select><br><br>
+                        <input class="Inventory" type="text" id="btitle" name="inventory" value="<?php echo $row['stock'] ?>"><br><br>
+
+                        <!-- <select class="Inventory">  
+                                <option style="font-weight: bolder;" value = "Number" selected> 100   
+                                </option>  
+                            </select>-->
+                        <!-- <br><br>  -->
 
                         <p><b>Price</b></p><br>
-                        <p>$</p><input class="TextPrice" type="text" id="btitle" name="btitle" placeholder="5.00"><br><br>
+                        <p>$</p><input class="TextPrice" type="text" id="btitle" name="price" value="<?php echo $row['price'] ?>"><br><br>
 
-                        <p><b>ISBN</b></p><br>
-                        <input class="TextISBN" type="text" id="btitle" name="btitle" placeholder="ABC123"><br><br>
-                    </form>
+                        <!-- <p><b>ISBN</b></p><br>
+                        <input class="TextISBN" type="text" id="btitle" name="isbn" value="<?php echo $row['ISBN'] ?>"><br><br> -->
 
-                </div>
-                <div class=col-lg-3 id="Button">
+                    </div>
+                    <div class=col-lg-3 id="Button">
 
-                    <button onclick="window.location.href='#'" class="SaveChanges">Save Changes</button><br>
-                    <a href="#" class="Remove"><b>Remove Book</b></a>
+                        <button type="submit" class="SaveChanges" name="save">Save Changes</button><br>
+                        <a href="#" class="Remove"><b>Remove Book</b></a>
 
-                </div>
-            </div>
+                    </div>
+
+            </form>
+        </div>
         </div>
 
     </main>

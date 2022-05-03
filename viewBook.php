@@ -25,13 +25,13 @@ if (!isset($_SESSION['username'])) {
 
 isset($_POST['selectedBook']) ? $selectedBook = $_POST['selectedBook'] : $selectedBook = $_GET['selectedBook'];
 
-$getBooksQuery = "SELECT title, author, price, genre, ISBN, stock, description, imgPath FROM book WHERE isbn=$selectedBook;";
+$getBooksQuery = "SELECT title, author, price, genre, ISBN, stock, description, imgPath FROM book WHERE ISBN=$selectedBook;";
 $values = $conn->query($getBooksQuery);
 $row = mysqli_fetch_array($values);
 
 # Check if book is already in cart
 
-$getCartQuery = "SELECT * FROM cart WHERE isbn='$selectedBook' AND username='$username';";
+$getCartQuery = "SELECT * FROM cart WHERE ISBN='$selectedBook' AND username='$username';";
 $cartValues = $conn->query($getCartQuery);
 $cartRow = mysqli_fetch_array($cartValues);
 
