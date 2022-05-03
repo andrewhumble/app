@@ -25,7 +25,7 @@ isset($_POST['selectedBook']) ? $selectedBook = $_POST['selectedBook'] : $select
 
 echo $selectedBook;
 
-$getBooksQuery = "SELECT username, title, author, genre, price, ISBN, Inventory, image FROM book WHERE isbn='$selectedBook';";
+$getBooksQuery = "SELECT username, title, author, price, genre, ISBN, stock, image FROM book WHERE ISBN='$selectedBook';";
 $values = $conn->query($getBooksQuery);
 $row = mysqli_fetch_array($values);
 
@@ -37,16 +37,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["save"])) {
     $genre = isset($_POST['genre']) ? htmlspecialchars($_POST['genre']) : '';
     $price = isset($_POST['price']) ? htmlspecialchars($_POST['price']) : '';
     $inventory = isset($_POST['inventory']) ? htmlspecialchars($_POST['inventory']) : '';
-    if(!empty($_FILES["image"]["name"])) { 
+    if (!empty($_FILES["image"]["name"])) {
         // Get file info 
-        $fileName = basename($_FILES["image"]["name"]); 
-        $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
+        $fileName = basename($_FILES["image"]["name"]);
+        $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
         // $folder = "images/".$filename;
         // Allow certain file formats 
-        $allowTypes = array('jpg','png','jpeg','gif'); 
-        if(in_array($fileType, $allowTypes)){ 
-            $image = $_FILES['image']['tmp_name']; 
-            $imgContent = addslashes(file_get_contents($image)); 
+        $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
+        if (in_array($fileType, $allowTypes)) {
+            $image = $_FILES['image']['tmp_name'];
+            $imgContent = addslashes(file_get_contents($image));
             $sql = "UPDATE book SET image='$imgContent' WHERE isbn ='$selectedBook'";
             $conn->query($sql);
         }
@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["save"])) {
                 << Go Back</b></a>
 
         <div class="container">
-            <form method="post"  enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class=col-lg-3>
                         <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']); ?>" alt="Place Holder Book" style="width:210px;height:350px;">
