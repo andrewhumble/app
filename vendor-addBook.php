@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $status = $statusMsg = ''; 
     if (isset($_POST["save"])) {
         $status = 'error'; 
-        
+        echo $status;
         if(!empty($_FILES["image"]["name"])) { 
             // Get file info 
             $fileName = basename($_FILES["image"]["name"]); 
