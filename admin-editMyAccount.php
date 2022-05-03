@@ -5,9 +5,9 @@ if ($conn == false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-if ($_SESSION['userType'] != 3) {
-    header("Location: home.php");
-}
+// if ($_SESSION['userType'] != 3) {
+//     header("Location: home.php");
+// }
 
 ############
 session_start();
