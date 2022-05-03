@@ -65,11 +65,10 @@ while ($row = mysqli_fetch_array($values)) {
         $getId = "SELECT order_id FROM report WHERE ISBN='$row[ISBN]'";
         $idRet = $conn->query($getId);
         $idArr = mysqli_fetch_array($idRet);
-        $order_id = $idArr['order_id'];
+        $temp = $idArr['order_id'];
 
-        $update = "UPDATE report SET sold = sold + $row[quantity], cost = $row[price], stock = $row[stock], revenue = revenue + $promoAmt WHERE order_id = $order_id;";
+        $update = "UPDATE report SET sold = sold + $row[quantity], cost = $row[price], stock = $row[stock], revenue = revenue + $promoAmt WHERE order_id = $temp;";
         $conn->query($update);
-        echo $update;
     }
 }
 
@@ -99,7 +98,7 @@ $firstName = $val['firstName'];
 $confirmationID = $val['confirmation_id'];
 $orderID = $val['order_id'];
 $orderDate = $val['day_ordered'];
-$total = $val['quantity']*$val['price'];
+$total = $val['quantity'] * $val['price'];
 
 
 $okay = "SELECT * FROM orders WHERE order_id= '$orderID';";
@@ -124,30 +123,25 @@ foreach ($order as $o) {
     $quantity = $quantity + $o['quantity'];
 }
 
-$total = $quantity*$val['price'];
+$total = $quantity * $val['price'];
 
-
-
-echo $email;
-
-    
 $mail = new PHPMailer(true);
 
-        //Server settings
-        $mail->SMTPDebug = 1;                      //Enable verbose debug output
-        $mail->isSMTP();                                            //Send using SMTP
-        $mail->Host       = "smtp.gmail.com";                     //Set the SMTP server to send through
-        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
-        $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-        $mail->Username   = "OfficialLittyLit@gmail.com";                     //SMTP username
-        $mail->Password   = "mean1234";                               //SMTP password
-        $mail->Subject = "Order Confirmation!";
+//Server settings
+$mail->SMTPDebug = 1;                      //Enable verbose debug output
+$mail->isSMTP();                                            //Send using SMTP
+$mail->Host       = "smtp.gmail.com";                     //Set the SMTP server to send through
+$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+$mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
+$mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+$mail->Username   = "OfficialLittyLit@gmail.com";                     //SMTP username
+$mail->Password   = "mean1234";                               //SMTP password
+$mail->Subject = "Order Confirmation!";
 
 
-        $mail->setFrom("OfficialLittyLit@gmail.com");
+$mail->setFrom("OfficialLittyLit@gmail.com");
 
-        $body = '<strong>Hello ' . $firstName . '!</strong><p> Thank you so much for buying from LittyLit. We hope you enjoy your read!</p><br>
+$body = '<strong>Hello ' . $firstName . '!</strong><p> Thank you so much for buying from LittyLit. We hope you enjoy your read!</p><br>
         <p>Below is your order summary:</p><br><br>
         <b>Confirmation Number: ' . $confirmationID . '</b><br>
         <b>Order ID: ' . $orderID . '</b><br>
@@ -165,22 +159,21 @@ $mail = new PHPMailer(true);
 
         ';
 
-        // foreach($order as $o) {
-        //     echo $o['ISBN'];
-        // }
+// foreach($order as $o) {
+//     echo $o['ISBN'];
+// }
 
-            $mail->isHTML(true);
-            $mail->Body    = $body;
+$mail->isHTML(true);
+$mail->Body    = $body;
 
-            $mail->addAddress($email);
-            if ($mail->Send()) {
-                
-            } else {
-                
-                echo "Ur Stupid";
-            }
+$mail->addAddress($email);
+if ($mail->Send()) {
+} else {
 
-            
+    echo "Ur Stupid";
+}
+
+
 
 $emptyQuery = "DELETE FROM cart WHERE username='$username';";
 $execCartEmpty = $conn->query($emptyQuery);
@@ -194,5 +187,3 @@ header("Location: customer-confirmation.php");
 #     $values = $conn->query($postReport);
 # }
 # header("Location: customer-confirmation.php");
-
-

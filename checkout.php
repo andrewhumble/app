@@ -110,10 +110,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $url = $urlO . "&length=" . $length . "&promoAmt=" . $promoVal;
     }
 
-    
+
 
     if (isset($_POST['location'])) {
-            header("Location: placeOrder.php?" . $url);   
+        header("Location: placeOrder.php?" . $url);
     }
 } else {
 }
