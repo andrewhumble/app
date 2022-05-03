@@ -107,7 +107,7 @@
     <?php if ($result->num_rows > 0) { ?> 
     <div class="gallery"> 
         <?php while ($row = $result->fetch_assoc()) { ?> 
-            <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']); ?>" /> 
+            <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['imgPath']); ?>" /> 
         <?php } ?> 
     </div> 
 <?php } else { ?> 
@@ -121,38 +121,40 @@
 
     <?php
 
+    if (isset($_POST["submit"])) {
+        $ISBN = $_POST["Search"];
+        $val = $conn->query("SELECT imgPath FROM `book` WHERE ISBN ='$ISBN'");
+        $res = $conn->query("SELECT * FROM `book` WHERE ISBN = '$ISBN'");
+        $results = mysqli_num_rows($res);
+        if ($results > 0) {
+            while ($row = mysqli_fetch_object($res)) {
+    ?>
 
-if (isset($_POST["submit"])) {
-	$_SESSION['is'] = $_POST["Search"];
-    $val = $conn->query("SELECT image FROM `book` WHERE isbn ='".$_SESSION['is']."'"); 
-	$res = $conn->query("SELECT * FROM book WHERE isbn = '".$_SESSION['is']."'");
-    $results = mysqli_num_rows($res);
-    if ($results > 0) {
-        while ($row = mysqli_fetch_object($res)) {
-            ?>
 
 
-        
-        <div class="container">
-            <div class="center">  
+                <div class="container">
+                    <div class="center">
 
-            <!-- Uploading image -->
-            <?php if($val->num_rows > 0){ ?> 
-                <?php while($blah = $val->fetch_assoc()){ ?> 
-            <img  id="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($blah['image']); ?>"  alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px"/><br>
-                <?php } ?> 
-            <?php }else{ ?> 
-                <p class="status error">Image(s) not found...</p> <?php } ?>
-                <!-- <img class="pic" src= "images/Gatsby.png" alt="Place Holder Book" style="width:150px;height:200px;"> -->
-                <h4 id="work"><?php echo $row->title; ?></h4>
-                <p id="auth"><?php echo $row->author; ?></p><br>
-                <pre id="change">  Inventory: <?php echo $row->inventory; ?>           <?php echo $row->price; ?></pre>
-                <!-- <p id="change"><?php echo $row->price; ?></p><br> -->
-                <button onclick="window.location.href='admin-editBook.php'" class="EditText">Edit</button><br>
-                
-          </div>
+                        <!-- Uploading image -->
+                        <?php if ($val->num_rows > 0) { ?>
+                            <?php while ($blah = $val->fetch_assoc()) { ?>
+                                <img id="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($blah['imgPath']); ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
+                            <?php } ?>
+                        <?php } else { ?>
+                            <p class="status error">Image(s) not found...</p> <?php } ?>
+                        <!-- <img class="pic" src= "images/Gatsby.png" alt="Place Holder Book" style="width:150px;height:200px;"> -->
+                        <h4 id="work"><?php echo $row->title; ?></h4>
+                        <p id="auth"><?php echo $row->author; ?></p><br>
+                        <pre id="change">  Inventory: <?php echo $row->stock; ?>           <?php echo $row->price; ?></pre>
+                        <!-- <p id="change"><?php echo $row->price; ?></p><br> -->
+                        <button onclick="window.location.href='#'" class="EditText">Edit</button><br>
 
-<?php 
+                    </div>
+
+        <?php
+            }
+        } else {
+            echo "Name Does not exist";
         }
     }
 		

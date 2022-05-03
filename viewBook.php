@@ -25,13 +25,13 @@ if (!isset($_SESSION['username'])) {
 
 isset($_POST['selectedBook']) ? $selectedBook = $_POST['selectedBook'] : $selectedBook = $_GET['selectedBook'];
 
-$getBooksQuery = "SELECT title, author, price, genre, ISBN, stock, description, imgPath FROM book WHERE isbn=$selectedBook;";
+$getBooksQuery = "SELECT title, author, price, genre, ISBN, stock, description, imgPath FROM book WHERE ISBN=$selectedBook;";
 $values = $conn->query($getBooksQuery);
 $row = mysqli_fetch_array($values);
 
 # Check if book is already in cart
 
-$getCartQuery = "SELECT * FROM cart WHERE isbn='$selectedBook' AND username='$username';";
+$getCartQuery = "SELECT * FROM cart WHERE ISBN='$selectedBook' AND username='$username';";
 $cartValues = $conn->query($getCartQuery);
 $cartRow = mysqli_fetch_array($cartValues);
 
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $addedBook = $row;
     $quantity = $_POST['quantity'];
 
-    $addToCartQuery = "INSERT INTO cart VALUES ('" . $username . "', '" . $row['title'] . "', '" . $row['author'] . "', " . $row['price'] . ", '" . $row['ISBN'] . "', " . $quantity . ", '" . $row['imgPath'] . "', " . $row['stock'] . ")";
+    $addToCartQuery = "INSERT INTO cart VALUES ('" . $username . "', '" . $row['title'] . "', '" . $row['author'] . "', " . $row['price'] . ", '" . $row['ISBN'] . "', " . $quantity . ", 'data:image/jpg;charset=utf8;base64," . base64_encode($row['imgPath']) . "', " . $row['stock'] . ")";
     $conn->query($addToCartQuery);
     $button = "<img src='images/check.svg' alt='My Happy SVG' class='pb-4' />";
 }
@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="row">
                 <div class="col-lg-4 pt-4 pb-4 text-center" id="top">
-                    <img class="pic" src="<?php echo $row['imgPath'] ?>" alt="Place Holder Book" style="width:210px;height:350px;">
+                    <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['imgPath']); ?>" alt="Place Holder Book" style="width:210px;height:350px;">
                 </div>
                 <div class="col-lg-5 pt-4 pb-4 text-left mr-5" id="middle" style="margin-left: -2rem;">
                     <h1 class="TitleInfo"><?php echo $row['title'] ?></h1>

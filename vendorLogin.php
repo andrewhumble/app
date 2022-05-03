@@ -3,10 +3,6 @@ session_set_cookie_params(0);
 
 session_start();
 
-if ($_SESSION['userType'] != 2) {
-  header("Location: home.php");
-}
-
 require('connDB.php');
 //connects to db
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

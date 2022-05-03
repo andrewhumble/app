@@ -23,6 +23,21 @@ if (!isset($_SESSION['username'])) {
     $userType = $_SESSION['userType'];
 }
 
+$getValuesQuery = "SELECT firstName, lastName, password, email, birthday, strAddress, city, state, zip FROM userInfo WHERE username='" . $_SESSION['username'] . "';";
+
+$values = $conn->query($getValuesQuery);
+$row = $values->fetch_assoc();
+
+$firstName = isset($row['firstName']) ? htmlspecialchars($row['firstName']) : '';
+$lastName = isset($row['lastName']) ? htmlspecialchars($row['lastName']) : '';
+$password = $row['password'];
+$email = $row['email'];
+$birthday = $row['birthday'];
+$strAddress = isset($row['strAddress']) ? htmlspecialchars($row['strAddress']) : '';
+$city = isset($row['city']) ? htmlspecialchars($row['city']) : '';
+$state = $row['state'];
+$zip = $row['zip'];
+
 $getBooksQuery = "SELECT username, title, author, price, ISBN, quantity, stock, imgPath FROM cart WHERE username='$username';";
 $values = $conn->query($getBooksQuery);
 
@@ -53,27 +68,6 @@ if ($remove != "") {
 $promotion = "";
 $method = "card";
 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-
-    if (isset($_POST['radio'])) {
-        $method = $_POST['radio'];
-    }
-
-    if (isset($_POST['promotion'])) {
-        $promotion = $_POST['promotion'];
-
-        $promoQuery = "SELECT * FROM promotions WHERE name='$promotion';";
-        $promoResult = $conn->query($promoQuery);
-        $promo = mysqli_fetch_array($promoResult);
-
-        if (mysqli_num_rows($promoResult) != 0) {
-            $promotion = $promo['discount'];
-        }
-    }
-}
-
 $grandTotal = 0;
 
 $index = count($order) - 1;
@@ -94,6 +88,30 @@ $url = "placeOrder.php?" . http_build_query(array(
 
 $url = $url . "&length=" . $length . "&promoAmt=" . $promoAmt;
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+
+    if (isset($_POST['radio'])) {
+        $method = $_POST['radio'];
+    }
+
+    if (isset($_POST['promotion'])) {
+        $promotion = $_POST['promotion'];
+
+        $promoQuery = "SELECT * FROM promotions WHERE name='$promotion';";
+        $promoResult = $conn->query($promoQuery);
+        $promo = mysqli_fetch_array($promoResult);
+
+        if (mysqli_num_rows($promoResult) != 0) {
+            $promotion = $promo['discount'];
+        }
+    }
+
+    if (isset($_POST['location'])) {
+        header("Location: placeOrder.php?" . $url);
+    }
+}
+
 ?>
 
 <!DOCTYPE>
@@ -112,7 +130,6 @@ $url = $url . "&length=" . $length . "&promoAmt=" . $promoAmt;
     <main>
         <?php include 'elements/header.php' ?>
 
-        <form method="post">
             <div class="row">
                 <div class="col-8" style="padding-left: 5rem !important;">
                     <div class="row pt-5">
@@ -174,33 +191,33 @@ $url = $url . "&length=" . $length . "&promoAmt=" . $promoAmt;
                         <div class="pt-2 row justify-content-center">
                             <div class="col-12 t-2 form-group">
                                 <label for="address">Street Address</label>
-                                <input type="text" placeholder="Street Address" class="form-control" id="strAddress" name="strAddress">
+                                <input type="text" placeholder="Street Address" class="form-control" id="strAddress" name="strAddress"  value=<?php echo $strAddress ?>>
                             </div>
                         </div>
                         <div class="pt-2 mb-4 row justify-content-center">
                             <div class="col-5">
                                 <div class="pt-2 form-group">
                                     <label for="city">City</label>
-                                    <input type="text" placeholder="City" class="form-control" id="city" name="city">
+                                    <input type="text" placeholder="City" class="form-control" id="city" name="city"  value=<?php echo $city ?>>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="pt-2 form-group">
                                     <label for="state">State</label>
-                                    <input type="text" placeholder="GA" class="form-control" id="state" name="state">
+                                    <input type="text" placeholder="GA" class="form-control" id="state" name="state"  value=<?php echo $state ?>>
                                 </div>
                             </div>
                             <div class="col-5">
                                 <div class="pl-2 pt-2 form-group">
                                     <label for="password">Zip Code</label>
-                                    <input type="text" placeholder="Zip" class="form-control" id="zip" name="zip">
+                                    <input type="text" placeholder="Zip" class="form-control" id="zip" name="zip" value=<?php echo $zip ?>>
                                 </div>
                             </div>
                         </div>
                     <?php } else { ?>
                         <div class="pt-2 row justify-content-center">
                             <div class="col-12 t-2 form-group">
-                                <p>Pick up in-store at your nearest store in the next 5 days.</p>
+                                <p>All pay-in-store orders must be picked up at your nearest LittyLit location within 5 days following order completion.</p>
                             </div>
                         </div>
                     <?php } ?>
@@ -248,15 +265,16 @@ $url = $url . "&length=" . $length . "&promoAmt=" . $promoAmt;
                     </div>
 
                     <div class="row mt-5 justify-content-center">
+
                         <?php
                         if (mysqli_num_rows($values) != 0) { ?>
                             <a href=<?php echo $url ?>>
-                                <button class="btn" style="border-radius: 1rem 1rem; padding: 0rem 5rem; background-color: #C8D8E4">
+                                <button name="location" class="btn" style="border-radius: 1rem 1rem; padding: 0rem 5rem; background-color: #C8D8E4">
                                     <p class="pt-3" style="color: #2B6777; font-weight: bold; font-size: 1.2rem;">Place Order</p>
                                 </button>
                             </a>
                         <?php } else { ?>
-                            <button onclick="location.href=$url" class="btn" style="border-radius: 1rem 1rem; padding: 0rem 5reml; background-color: #C8D8E4" disabled>
+                            <button name="location" class="btn" style="border-radius: 1rem 1rem; padding: 0rem 5reml; background-color: #C8D8E4" disabled>
                                 <p class="pt-3" style="color: #2B6777; font-weight: bold; font-size: 1.2rem;">Place Order</p>
                             </button>
                         <?php } ?>
@@ -265,7 +283,6 @@ $url = $url . "&length=" . $length . "&promoAmt=" . $promoAmt;
                     </div>
                 </div>
             </div>
-        </form>
 
         <?php include 'elements/footer.html' ?>
     </main>

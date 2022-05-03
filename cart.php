@@ -73,7 +73,7 @@ if ($remove != "") {
                     <?php while ($row = mysqli_fetch_array($values)) { ?>
                         <div class="center">
                             <div class="picLeft" style="width: 250px;height:250px;">
-                                <img class="pic" src="<?php echo $row['imgPath'] ?>" alt="Place Holder Book" style="width:150px;height:210px;">
+                                <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['imgPath']); ?>" alt=" Place Holder Book" style="width:150px;height:210px;">
                             </div>
 
                             <div class="QMiddle" style="width: 500px;">
@@ -138,7 +138,7 @@ if ($remove != "") {
                 <div class="row mt-4 justify-content-center">
                     <?php
                     if (mysqli_num_rows($values) != 0) { ?>
-                        <button onclick="location.href='checkout.php'" class="btn" style="border-radius: 1rem 1rem; padding: 0.7rem 5rem">
+                        <button onclick="location.href='checkout.php'" class="btn" style="border-radius: 1rem 1rem; padding: 0.7rem 5rem; background-color: #ffffff">
                             <p style="color: #2B6777; font-weight: bold; font-size: 1.2rem;">Checkout</p>
                         </button>
                     <?php } else { ?>
