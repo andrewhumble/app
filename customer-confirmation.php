@@ -22,6 +22,44 @@ if (!isset($_SESSION['username'])) {
     $userType = $_SESSION['userType'];
 }
 
+// $help = "SELECT * FROM orders WHERE username = '$username'";
+// $res = $conn->query($help);
+// $val = mysqli_fetch_array($res);
+// $firstName = $val['firstName'];
+// $confirmationID = $val['confirmation_id'];
+// $orderID = $val['order_id'];
+// $orderDate = $val['day_ordered'];
+
+
+
+// $okay = "SELECT * FROM orders WHERE order_id= '$orderID';";
+// $p = $conn->query($okay);
+
+// $length = mysqli_num_rows($p);
+
+
+
+// $order = array_fill(0, $length, NULL);
+
+// $items = array_fill(0, $length, NULL);
+
+// $i = 0;
+// while ($row = mysqli_fetch_array($p)) {
+//     $order[$i] = $row;
+//     $i++;
+// }
+
+// $quantity = 0;
+// foreach ($order as $o) {
+//     $quantity = $quantity + $o['quantity'];
+// }
+
+
+
+// $total = $quantity*$val['price'];
+
+
+
 ?>
 
 <!DOCTYPE>
