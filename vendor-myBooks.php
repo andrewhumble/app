@@ -26,6 +26,8 @@ if (!isset($_SESSION['username']) || $_SESSION['userType'] != 2) {
 $getBooksQuery = "SELECT username, title, author, price, genre, ISBN, stock, imgPath FROM book WHERE username='$username';";
 $values = $conn->query($getBooksQuery);
 
+echo $getBooksQuery;
+
 $length = mysqli_num_rows($values);
 // echo $length;
 
@@ -36,8 +38,7 @@ while ($row = mysqli_fetch_array($values)) {
     $order[$i] = $row;
     $i++;
 }
-// echo sizeof($order);
-
+echo sizeof($order);
 ?>
 
 <!DOCTYPE>
@@ -74,7 +75,10 @@ while ($row = mysqli_fetch_array($values)) {
             <?php foreach ($order as $o) { ?>
 
                 <div class="center">
-                    <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($o['imgPath']); ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
+                <?php $blue =  $o['imgPath']; ?>
+                    <img class="pic" src= "<?php echo $o['imgPath']; ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
+
+                   
 
                     <h4><?php echo $o['title']; ?></h4>
 
@@ -89,15 +93,7 @@ while ($row = mysqli_fetch_array($values)) {
                     <a href="vendor-editBook.php?selectedBook=<?php echo $o['ISBN'] ?>" class="EditText">Edit</a>
                     <!-- <button onclick="window.location.href='vendor-editBook.php'" class="EditText">Edit</button><br> -->
 
-                </div>
-                <?php $_SESSION['title'] = $o['title']; ?>
-                <p><?php echo $o['author']; ?></p>
-                <?php $_SESSION['author'] = $o['author']; ?>
-                <p> Inventory: <?php echo $o['stock']; ?> <?php echo $o['price']; ?></p><br>
-                <button class="btn-lg btn-primary" style="background-color: #2B6777"><a
-                        href="vendor-editBook.php?selectedBook=<?php echo $o['ISBN'] ?>"
-                        class="EditText">Edit</a></button>
-            </div>
+                
 
             <?php } ?>
         </div>
