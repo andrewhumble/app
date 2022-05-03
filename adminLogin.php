@@ -21,7 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = mysqli_fetch_assoc($result);
 
         if (!$user) {
-            echo "<div class=echo><h6>Username or password is incorrect.</h6></div>";
+            $message = "Username and/or Password incorrect.\\nTry again.";
+            echo "<script type='text/javascript'>alert('$message');</script>";
         } else {
 
             if (isset($_SESSION['username'])) {
