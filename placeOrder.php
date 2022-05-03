@@ -74,38 +74,98 @@ foreach ($order as $item) {
     $conn->query($reduceStock);
 }
 
-// $check = "SELECT email FROM userInfo WHERE username = '$username'";
+$check = "SELECT email FROM userInfo WHERE username = '$username'";
+$result = $conn->query($check);
+$values = mysqli_fetch_array($result);
+$email = $values['email'];
+
+$help = "SELECT * FROM orders WHERE username = '$username'";
+$res = $conn->query($help);
+$val = mysqli_fetch_array($res);
+$firstName = $val['firstName'];
+$confirmationID = $val['confirmation_id'];
+$orderID = $val['order_id'];
+$orderDate = $val['day_ordered'];
+$total = $val['quantity']*$val['price'];
+
+
+$okay = "SELECT * FROM orders WHERE order_id= '$orderID';";
+$p = $conn->query($okay);
+
+$length = mysqli_num_rows($p);
+
+$order = array_fill(0, $length, NULL);
+
+$items = array_fill(0, $length, NULL);
+
+$i = 0;
+while ($row = mysqli_fetch_array($p)) {
+    $order[$i] = $row;
+    $i++;
+}
+
+
+
+$quantity = 0;
+foreach ($order as $o) {
+    $quantity = $quantity + $o['quantity'];
+}
+
+$total = $quantity*$val['price'];
+
+
+
+echo $email;
 
     
-// $mail = new PHPMailer(true);
+$mail = new PHPMailer(true);
 
-//         //Server settings
-//         $mail->SMTPDebug = 1;                      //Enable verbose debug output
-//         $mail->isSMTP();                                            //Send using SMTP
-//         $mail->Host       = "smtp.gmail.com";                     //Set the SMTP server to send through
-//         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-//         $mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
-//         $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-//         $mail->Username   = "OfficialLittyLit@gmail.com";                     //SMTP username
-//         $mail->Password   = "mean1234";                               //SMTP password
-//         $mail->Subject = "Stuff";
+        //Server settings
+        $mail->SMTPDebug = 1;                      //Enable verbose debug output
+        $mail->isSMTP();                                            //Send using SMTP
+        $mail->Host       = "smtp.gmail.com";                     //Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+        $mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
+        $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        $mail->Username   = "OfficialLittyLit@gmail.com";                     //SMTP username
+        $mail->Password   = "mean1234";                               //SMTP password
+        $mail->Subject = "Order Confirmation!";
 
 
-//         $mail->setFrom("OfficialLittyLit@gmail.com");
+        $mail->setFrom("OfficialLittyLit@gmail.com");
 
-//         $body = '<strong>Hello!</strong> Welcome to LittyLit. Here is your verification Code: ';
+        $body = '<strong>Hello ' . $firstName . '!</strong><p> Thank you so much for buying from LittyLit. We hope you enjoy your read!</p><br>
+        <p>Below is your order summary:</p><br><br>
+        <b>Confirmation Number: ' . $confirmationID . '</b><br>
+        <b>Order ID: ' . $orderID . '</b><br>
+        <b>Date Ordered: ' . $orderDate . '</b><br>
+        <b># of Ordered Items: ' . $quantity . '</b><br>
+        <b>Total Cost: $' . $total . '</b><br>
 
-//             $mail->isHTML(true);
-//             $mail->Body    = $body;
+        <h4>Have a great rest of your day!</h4><br><br>
 
-//             $mail->addAddress($check);
-//             if ($mail->Send()) {
+        <p>Sincerely, Litty Lit Exec Board</p>
+       
+
+
+        
+
+        ';
+
+        // foreach($order as $o) {
+        //     echo $o['ISBN'];
+        // }
+
+            $mail->isHTML(true);
+            $mail->Body    = $body;
+
+            $mail->addAddress($email);
+            if ($mail->Send()) {
                 
-//             } else {
+            } else {
                 
-//                 echo "Ur Stupid";
-//             }
-//             $mail->smtpClose();
+                echo "Ur Stupid";
+            }
 
             
 
@@ -121,3 +181,5 @@ header("Location: customer-confirmation.php");
 #     $values = $conn->query($postReport);
 # }
 # header("Location: customer-confirmation.php");
+
+
