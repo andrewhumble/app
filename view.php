@@ -103,10 +103,12 @@ if ($_SESSION['userType'] != 3) {
 
     <?php
 
+
+
     if (isset($_POST["submit"])) {
-        $ISBN = $_POST["Search"];
-        $val = $conn->query("SELECT imgPath FROM `book` WHERE ISBN ='$ISBN'");
-        $res = $conn->query("SELECT * FROM `book` WHERE ISBN = '$ISBN'");
+        $_SESSION['is'] = $_POST["Search"];
+        $val = $conn->query("SELECT image FROM `book` WHERE isbn= '" . $_SESSION['is'] . "'");
+        $res = $conn->query("SELECT * FROM `book` WHERE isbn = '" . $_SESSION['is'] . "'");
         $results = mysqli_num_rows($res);
         if ($results > 0) {
             while ($row = mysqli_fetch_object($res)) {
@@ -127,9 +129,9 @@ if ($_SESSION['userType'] != 3) {
                         <!-- <img class="pic" src= "images/Gatsby.png" alt="Place Holder Book" style="width:150px;height:200px;"> -->
                         <h4 id="work"><?php echo $row->title; ?></h4>
                         <p id="auth"><?php echo $row->author; ?></p><br>
-                        <pre id="change">  Inventory: <?php echo $row->stock; ?>           <?php echo $row->price; ?></pre>
+                        <pre id="change">  Inventory: <?php echo $row->inventory; ?>           <?php echo $row->price; ?></pre>
                         <!-- <p id="change"><?php echo $row->price; ?></p><br> -->
-                        <button onclick="window.location.href='#'" class="EditText">Edit</button><br>
+                        <button onclick="window.location.href='admin-editBook.php'" class="EditText">Edit</button><br>
 
                     </div>
 
