@@ -1,9 +1,24 @@
 <?php
-require('connDB.php');
+    session_start();
 
-if ($_SESSION['userType'] != 3) {
-    header("Location: home.php");
-}
+    //connect to database
+    require_once('connDB.php');
+    // Check connection
+    if ($conn === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+    $userType = $_SESSION['userType'];
+    //ensures someone is logged inbefore allowing them to create a profile
+    if (!isset($_SESSION['username']) || $_SESSION['userType'] != 3) {
+    
+        header("Location: welcome.html");
+        exit();
+    } else {
+        $username = $_SESSION['username'];
+        $userType = $_SESSION['userType'];
+    
+        
+    }
 ?>
 
 
@@ -44,28 +59,30 @@ if ($_SESSION['userType'] != 3) {
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand pl-4" href="#" style="font-size: 60px; color: #3F3D56">LittyLit</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-            <div class="navbar-nav d-lg-flex align-items-center mt-3">
-                <a class="nav-item h-100 nav-link" href="#">
-                    <h5>Search Orders</h5>
-                </a>
-                <a class="nav-item h-100 nav-link" href="#">
-                    <h5>Search Users</h5>
-                </a>
-                <a class="nav-item h-100 nav-link" href="#">
-                    <h5>Search Books</h5>
-                </a>
-                <a class="nav-item h-100 nav-link" href="#">
-                    <h5>My Account</h5>
-                </a>
-                <a class="nav-item h-100 nav-link" href="#">
-                    <h5>Reports</h5>
-                </a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand pl-4" href="home.php" style="font-size: 60px; color: #3F3D56">LittyLit</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                <div class="navbar-nav d-lg-flex align-items-center mt-3">
+                    <a class="nav-item h-100 nav-link" href="search_order.php">
+                        <h5>Search Orders</h5>
+                    </a>
+                    <a class="nav-item h-100 nav-link" href="search_user.php">
+                        <h5>Search Users</h5>
+                    </a>
+                    <a class="nav-item h-100 nav-link" href="view.php">
+                        <h5>Search Books</h5>
+                    </a>
+                    <a class="nav-item h-100 nav-link" href="admin-myAccount.php">
+                        <h5>My Account</h5>
+                    </a>
+                    <a class="nav-item h-100 nav-link" href="admin-reports.php">
+                        <h5>Reports</h5>
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
@@ -84,7 +101,8 @@ if ($_SESSION['userType'] != 3) {
         </div>
     </form>
 
-    <!-- <div class="container">
+ 
+<!-- <div class="container">
     <h1> Retrive</h1>
     <?php if ($result->num_rows > 0) { ?> 
     <div class="gallery"> 
@@ -139,8 +157,16 @@ if ($_SESSION['userType'] != 3) {
             echo "Name Does not exist";
         }
     }
+		
+		else {
+			echo "Name Does not exist";
+		}
 
-        ?>
+
+    }
+                
+
+?>
 
 
 </body>

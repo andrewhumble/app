@@ -8,9 +8,9 @@ if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-if ($_SESSION['userType'] != 2) {
-    header("Location: home.php");
-}
+// if ($_SESSION['userType'] != 2) {
+//     header("Location: home.php");
+// }
 
 $userType = $_SESSION['userType'];
 //ensures someone is logged inbefore allowing them to create a profile

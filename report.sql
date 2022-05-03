@@ -1,0 +1,9 @@
+CREATE TABLE `report` (
+  `title` varchar(200) NOT NULL,
+  `isbn` varchar(13) NOT NULL,
+  `sold` int(11) NOT NULL,
+  `cost` int(11) NOT NULL,
+  `revenue` int(11) NOT NULL,
+  `vendor` varchar(255) DEFAULT NULL,
+  `stock` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

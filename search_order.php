@@ -1,9 +1,7 @@
 <?php
 require('connDB.php');
 
-if ($_SESSION['userType'] != 3) {
-    header("Location: home.php");
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -46,9 +44,11 @@ if ($_SESSION['userType'] != 3) {
 
 <?php
 
+session_start();
+
 if (isset($_POST["submit"])) {
-    $order = $_POST["Search"];
-    $res = $conn->query("SELECT * FROM `orders` WHERE order_id = '$order'");
+    $_SESSION['order'] = $_POST["Search"];
+    $res = $conn->query("SELECT * FROM orders WHERE order_id='".$_SESSION['order']."'");
     $results = mysqli_num_rows($res);
     if ($results > 0) {
         while ($row = mysqli_fetch_object($res)) {
@@ -60,8 +60,11 @@ if (isset($_POST["submit"])) {
                         <h2><?php echo $row->order_id; ?></h2>
                     </div>
                     <div class="col-lg" id="right">
+                        <form action="admin-editOrder.php" method="post">
+                            <input type="submit" id="EditText" name="edit" value="Edit">
+                        </form>
 
-                        <button onclick="window.location.href='#'" id="EditText">Edit</button><br>
+                        <!-- <button onclick="window.location.href='#'" id="EditText">Edit</button><br> -->
                     </div>
                 </div>
             </div>
