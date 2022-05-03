@@ -87,19 +87,19 @@ if (isset($_POST["submitbutton"])) {
                         <img class="pic" src="<?php echo $row['imgPath'] ?>" alt="Place Holder Book"
                             style="width:210px;height:350px;">
                         <input class="pb-4 pt-4 pl-4" type="file" name="image"
-                            style="font-family: Nunito !important; color: #3F3D56 !important;">
+                            style="font-family: Nunito !important; color: #3F3D56 !important;" required>
                     </div>
                     <div class="col-sm-9 pt-5">
                         <div class="row pb-3">
                             <div class="col-5">
                                 <p><b>Book Title</b></p>
                                 <input class="form-control rounded" type="text" id="btitle" name="title"
-                                    value="<?php echo $row['title'] ?>">
+                                    value="<?php echo $row['title'] ?>" required>
                             </div>
                             <div class="col-3">
                                 <p><b>Inventory:</b></p>
                                 <input class="form-control rounded" type="text" id="btitle" name="inventory"
-                                    value="<?php echo $row['stock'] ?>">
+                                    value="<?php echo $row['stock'] ?>" required>
                             </div>
                         </div>
 
@@ -107,24 +107,24 @@ if (isset($_POST["submitbutton"])) {
                             <div class="col-5">
                                 <p><b>Author</b></p>
                                 <input class="form-control rounded" type="text" id="btitle" name="author"
-                                    value="<?php echo $row['author'] ?>">
+                                    value="<?php echo $row['author'] ?>" required>
                             </div>
                             <div class="col-3">
                                 <p><b>Price</b></p>
                                 <p>$</p><input class="form-control rounded" type="text" id="btitle" name="price"
-                                    value="<?php echo $row['price'] ?>">
+                                    value="<?php echo $row['price'] ?>" required>
                             </div>
                         </div>
                         <div class="row pb-3">
                             <div class="col-5">
                                 <p><b>Genre</b></p>
                                 <input type="text" class="form-control rounded" name="genre"
-                                    value="<?php echo $row['genre'] ?>">
+                                    value="<?php echo $row['genre'] ?>" required>
                             </div>
                             <div class="col-3">
                                 <p><b>ISBN</b></p>
                                 <input class="form-control rounded" type="text" id="btitle" name="ISBN"
-                                    value="<?php echo $row['ISBN'] ?>">
+                                    value="<?php echo $row['ISBN'] ?>" required>
                             </div>
                         </div>
                         <div class="row float-right align-items-end pr-4 pt-4">

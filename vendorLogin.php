@@ -33,8 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['userType'] = 2;
         $url = "vendor-myAccount.php";
         header('Location: vendor-myAccount.php');
-
-
         exit();
       }
     }

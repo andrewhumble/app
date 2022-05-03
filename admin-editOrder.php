@@ -100,51 +100,51 @@ if (isset($_POST["submitbutton"])) {
                     <div class="row mt-4 justify-content-center">
                         <div class="col-sm-6">
                             <label class="float-left">First Name</label>
-                            <input style="font-family: Nunito" type="text" name = 'firstName' class="form-control" value="<?php echo $firstName ?>">
+                            <input style="font-family: Nunito" type="text" name = 'firstName' class="form-control" value="<?php echo $firstName ?>" required>
                         </div>
                         <div class="col-sm-6 justify-content-center">
                             <label class="float-left">Last Name</label>
-                            <input style="font-family: Nunito" type="text" name = 'lastName' class="form-control" value="<?php echo $lastName ?>">
+                            <input style="font-family: Nunito" type="text" name = 'lastName' class="form-control" value="<?php echo $lastName ?>" required>
                         </div>
                     </div>
                     <div class="row mt-4 justify-content-center">
                         <div class="col-sm-12">
                             <label class="float-left">Username</label>
-                            <input style="font-family: Nunito" type="text" name = 'username' class="form-control" value="<?php echo $username ?>">
+                            <input style="font-family: Nunito" type="text" name = 'username' class="form-control" value="<?php echo $username ?>" required>
                         </div>
                     </div>
                     <div class="row mt-4 justify-content-center">
                         <div class="col-sm-4">
                             <label class="float-left">Order ID</label>
-                            <input style="font-family: Nunito" type="text" name = 'order_id' class="form-control" value="<?php echo $order_id ?>">
+                            <input style="font-family: Nunito" type="text" name = 'order_id' class="form-control" value="<?php echo $order_id ?>" required>
                         </div>
                         <div class="col-sm-4">
                             <label class="float-left">Confirmation Number</label>
-                            <input style="font-family: Nunito" type="text" name = 'confirmation_id' class="form-control" value="<?php echo $confirmation_id ?>">
+                            <input style="font-family: Nunito" type="text" name = 'confirmation_id' class="form-control" value="<?php echo $confirmation_id ?>" required>
                         </div>
                         <div class="col-sm-4">
                             <label class="float-left">Date Ordered</label>
-                            <input style="font-family: Nunito" type="text" name = 'day_ordered' class="form-control" value="<?php echo $day_ordered ?>">
+                            <input style="font-family: Nunito" type="text" name = 'day_ordered' class="form-control" value="<?php echo $day_ordered ?>" required>
                         </div>
                     </div>
                     <div class="row mt-4 justify-content-center">
                         <div class="col-sm-12">
                             <label class="float-left">Shipping Address</label>
-                            <input style="font-family: Nunito" type="text" name = 'street' class="form-control" value="<?php echo $street ?>">
+                            <input style="font-family: Nunito" type="text" name = 'street' class="form-control" value="<?php echo $street ?>" required>
                         </div>
                     </div>
                     <div class="row mt-4 justify-content-center">
                         <div class="col-sm-5">
                             <label class="float-left">City</label>
-                            <input style="font-family: Nunito" type="text" name='city' class="form-control" value="<?php echo $city ?>">
+                            <input style="font-family: Nunito" type="text" name='city' class="form-control" value="<?php echo $city ?>" required>
                         </div>
                         <div class="col-sm-2">
                             <label class="float-left">State</label>
-                            <input style="font-family: Nunito" type="text" name='state' class="form-control" value="<?php echo $state ?>">
+                            <input style="font-family: Nunito" type="text" name='state' class="form-control" value="<?php echo $state ?>" required>
                         </div>
                         <div class="col-sm-5">
                             <label class="float-left">Zip Code</label>
-                            <input style="font-family: Nunito" type="text" name='zip' class="form-control" value="<?php echo $zip ?>">
+                            <input style="font-family: Nunito" type="text" name='zip' class="form-control" value="<?php echo $zip ?>" required>
                         </div>
                     </div>
                     <div class="row mt-5 justify-content-center">
