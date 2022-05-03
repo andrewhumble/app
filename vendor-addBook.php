@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $genre = $_POST["genre"];
     $price = $_POST["price"];
     $isbn = $_POST["isbn"];
-    $inventory = $_POST["inventory"];
+    $stock = $_POST["inventory"];
 
     echo $title;
 
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $imgContent = addslashes(file_get_contents($image));
 
                 // Insert image content into database 
-                $insert = $conn->query("INSERT into book (username, title, author, genre, price, isbn, Inventory, image, created) VALUES ('$username', '$title', '$author', '$genre', '$price', '$isbn', '$inventory', '$imgContent', NOW())");
+                $insert = $conn->query("INSERT into book (username, title, author, price, genre, isbn, stock, image) VALUES ('$username', '$title', '$author', '$price', '$genre', '$isbn', '$stock', '$imgContent')");
 
                 if ($insert) {
                     $status = 'success';

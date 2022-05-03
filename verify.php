@@ -1,8 +1,9 @@
 <?php
 
-if ($_SESSION['userType'] == 3) {
-    header("Location: home.php");
-}
+session_start();
+
+require_once('connDB.php');
+// connect to the db
 
 if (isset($_POST["verify_email"])) {
     $verification_code = $_POST["verification_code"];
@@ -13,6 +14,10 @@ if (isset($_POST["verify_email"])) {
     $sql = "UPDATE userInfo SET email_verified_at = NOW() WHERE verification_code = '" . $verification_code . "'";
     $result = mysqli_query($conn, $sql);
 
+    $getUsernameQuery = "SELECT username, userType FROM userInfo WHERE verification_code = '" . $verification_code . "'";
+    $getUsernameResult = $conn->query($getUsernameQuery);
+    $getUsernameRow = mysqli_fetch_array($getUsernameResult);
+
     // echo mysqli_affected_rows($conn);
 
     if (mysqli_affected_rows($conn) == 0) {
@@ -22,9 +27,11 @@ if (isset($_POST["verify_email"])) {
         // die("Verification Code Failed.");
     } else {
         // echo "<p>You can login now</p>";
+        $_SESSION['username'] = $getUsernameRow['username'];
+        $_SESSION['userType'] = $getUsernameRow['userType'];
         $val = "UPDATE userInfo SET verified = 1 WHERE verification_code = '" . $verification_code . "'";
         $pls = mysqli_query($conn, $val);
-        header("Location: welcome.html ");
+        header("Location: home.php ");
     }
 
     exit();

@@ -15,10 +15,6 @@ require_once('connDB.php');
 //Load Composer's autoloader
 require 'vendor/autoload.php';
 
-if ($_SESSION['userType'] == 3) {
-    header("Location: home.php");
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
@@ -82,9 +78,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($mail->Send()) {
                 echo "Message has been sent";
                 $sql = "INSERT INTO userInfo (firstName, lastName, username, password, email, birthday, strAddress, 
-                    city, state, zip, userType, promotion, verification_code, email_verified_at, verified) 
+                    city, state, zip, userType, promotion, verification_code, verified) 
                     VALUES ('" . $firstName . "' , '" . $lastName . "' , '" . $u . "' , '" . $p . "' , '" . $email . "' , '" . $birthday . "' , '" . $strAddress . "' ,
-                    '" . $city . "' , '" . $state . "' , '" . $zip . "' , '" . $userType . "' , '" . $promotion . "' , '" . $verification_code . "', NULL, '" . 0 . "')";
+                    '" . $city . "' , '" . $state . "' , '" . $zip . "' , '" . $userType . "' , " . $promotion . " , " . $verification_code . ", 0)";
                 mysqli_query($conn, $sql);
                 header("Location: verify.php");
             } else {

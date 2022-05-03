@@ -25,7 +25,7 @@ if (!isset($_SESSION['username']) || $_SESSION['userType'] != 2) {
     echo $username;
 }
 
-$getBooksQuery = "SELECT username, title, author, genre, price, ISBN, Inventory, image FROM book WHERE username='$username';";
+$getBooksQuery = "SELECT username, title, author, price, genre, ISBN, stock, image FROM book WHERE username='$username';";
 $values = $conn->query($getBooksQuery);
 
 $length = mysqli_num_rows($values);
