@@ -75,10 +75,7 @@ echo sizeof($order);
             <?php foreach ($order as $o) { ?>
 
                 <div class="center">
-                <?php $blue =  $o['imgPath']; ?>
-                    <img class="pic" src= "<?php echo $o['imgPath']; ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
-
-                   
+                    <img class="pic" src="<?php echo $o['imgPath'] ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
 
                     <h4><?php echo $o['title']; ?></h4>
 
