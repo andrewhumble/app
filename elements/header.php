@@ -100,7 +100,7 @@ if (!isset($_SESSION['userType'])) {
     </button>
     <div class='collapse navbar-collapse justify-content-end' id='navbarNavAltMarkup'>
         <div class='navbar-nav d-lg-flex align-items-center mt-3'>
-            <a class='nav-item h-100 nav-link' href='admin-serchOrders.php'>
+            <a class='nav-item h-100 nav-link' href='admin-searchOrders.php'>
                 <h5>Search Orders</h5>
             </a>
             <a class='nav-item h-100 nav-link' href='admin-searchUsers.php'>

@@ -1,9 +1,27 @@
 <?php
-require('connDB.php');
+session_start();
 
-// if ($_SESSION['userType'] != 3) {
-//     header("Location: home.php");
-// }
+//connect to database
+// hi
+require_once('connDB.php');
+// Check connection
+if ($conn === false) {
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+
+if ($_SESSION['userType'] != 3) {
+    header("Location: home.php");
+}
+
+//ensures someone is logged inbefore allowing them to create a profile
+if (!isset($_SESSION['username'])) {
+
+    header("Location: home.php");
+    exit();
+} else {
+    $username = $_SESSION['username'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -25,25 +43,23 @@ require('connDB.php');
 
         <!-- This should be generic html code -->
         <form method="post">
-            <div class="container-fluid mt-5" id="Search">
+            <div class="container-fluid mt-5 p-5" id="Search">
                 <div class="mx-auto text-center" style="width: 400px;">
                     <h1 id="header">Search Users</h1><br>
                     <div class="input-group rounded">
 
-                        <input type="text" id="inputEmail" class="form-control rounded" placeholder="username" name="Search" />
-                        <input type="submit" name="submit">
+                        <input type="text" id="inputEmail" class="form-control rounded" placeholder="Username" name="Search" />
+                        <input type="submit" class="btn-lg btn-primary ml-4" style="background-color: #2B6777; border-width: 0px;" name="submit">
                     </div>
                     <p id="para">Enter username associated with the person</p>
                 </div>
             </div>
         </form>
     </main>
+    <?php include 'elements/footer.html'; ?>
 </body>
 
 </html>
-
-
-
 <?php
 
 session_start();
@@ -60,21 +76,20 @@ if (isset($_POST["submit"])) {
             <div class="container">
                 <div class="row">
                     <div class="col-lg" id="left">
-                        <h1><?php echo $row->firstName; ?> <?php echo $row->lastName; ?></h1>
-                        <h2><?php echo $row->email; ?></h2>
+                        <h1 class="m-3"><?php echo $row->firstName; ?> <?php echo $row->lastName; ?></h1>
+                        <h2>@<?php echo $row->username; ?></h2>
                     </div>
                     <div class="col-lg" id="right">
                         <form action="admin-editUser.php" method="post">
                             <input type="submit" id="EditText" name="edit" value="Edit">
                         </form>
-                        <!-- <button onclick="window.location.href='admin-editUser.php'" id="EditText">Edit</button><br> -->
                     </div>
                 </div>
             </div>
 <?php
         }
     } else {
-        echo "Name Does not exist";
+        echo "<h3>Username does not exist!</h3>";
     }
 }
 
