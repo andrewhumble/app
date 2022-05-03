@@ -34,6 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $price = $_POST["price"];
     $isbn = $_POST["isbn"];
     $stock = $_POST["inventory"];
+    $description = $_POST["description"];
 
     echo $title;
     $target_dir = "images/";
@@ -83,44 +84,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
             echo "The file " . htmlspecialchars(basename($_FILES["image"]["name"])) . " has been uploaded.";
-            $insert = "INSERT into book (username, title, author, price, genre, ISBN, stock, imgPath) VALUES ('$username', '$title', '$author', '$price', '$genre', '$isbn', '$stock', '$target_file')";
+            $insert = "INSERT into book (username, title, author, price, genre, ISBN, stock, imgPath, description) VALUES ('$username', '$title', '$author', '$price', '$genre', '$isbn', '$stock', '$target_file', '$description')";
             $conn->query($insert);
             echo $insert;
         } else {
             echo "Sorry, there was an error uploading your file.";
         }
     }
-
-    $status = 'error';
-
-    //     if(!empty($_FILES["image"]["name"])) { 
-    //         $fileName = basename($_FILES["image"]["name"]); 
-    //         $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
-    //         echo "HELLUR";
-
-    //         $allowTypes = array('jpg','png','jpeg','gif'); 
-    //         if(in_array($fileType, $allowTypes)){ 
-    //             $image = $_FILES['image']['tmp_name']; 
-    //             $imgContent = addslashes(file_get_contents($image)); 
-
-
-    //             $insert = $conn->query("INSERT into book (id, title, author, price, genre, ISBN, stock, image, created) VALUES ('23', '$title', '$author', '$price', '$genre', '$isbn', '$stock', '$imgContent', NOW())");  
-
-    //             if($insert){ 
-    //                 $status = 'success'; 
-    //                 echo $status;
-    //                 $statusMsg = "File uploaded successfully."; 
-
-    //             }else{ 
-    //                 $statusMsg = "File upload failed, please try again."; 
-    //             }  
-    //         }else{ 
-    //             $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
-    //         } 
-    //     }else{ 
-    //         $statusMsg = 'Please select an image file to upload.'; 
-    //     } 
-    // echo $statusMsg;
 
 
 }
@@ -212,6 +182,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <p><b>ISBN</b></p><br>
                         <input class="TextISBN" type="text" id="btitle" name="isbn"><br><br>
+
+                        <p><b>Description</b></p><br>
+                        <textarea class="TextISBN" type="textbox" id="btitle" name="description"></textarea><br><br>
 
 
                     </div>

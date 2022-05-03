@@ -13,7 +13,6 @@ if ($_SESSION['userType'] != 3) {
     header("Location: home.php");
 }
 
-//ensures someone is logged inbefore allowing them to create a profile
 if (!isset($_SESSION['username'])) {
 
     header("Location: home.php");
@@ -40,8 +39,6 @@ if (!isset($_SESSION['username'])) {
 
     <main>
         <?php include 'elements/header.php' ?>
-
-        <!-- This should be generic html code -->
         <form method="post">
             <div class="container-fluid mt-5 p-5" id="Search">
                 <div class="mx-auto text-center" style="width: 400px;">

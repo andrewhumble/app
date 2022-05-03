@@ -99,11 +99,7 @@ while ($row = mysqli_fetch_array($values)) {
                     <h4><?php echo $o['title']; ?></h4>
 
 
-                     <?php $_SESSION['title'] = $o['title']; ?>
-
-
                     <p><?php echo $o['author']; ?></p>
-                    <?php $_SESSION['author'] = $o['author']; ?>
 
                     <pre> Inventory: <?php echo $o['stock']; ?>               <?php echo $o['price']; ?></pre>
                     <a href="vendor-editBook.php?selectedBook=<?php echo $o['ISBN'] ?>" class="EditText">Edit</a>

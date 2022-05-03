@@ -67,6 +67,9 @@ if (isset($_POST["submitbutton"])) {
     $city = isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
     $state = $_POST['state'] ? htmlspecialchars($_POST['state']) : '';
     $zip = $_POST['zip'] ? htmlspecialchars($_POST['zip']) : '';
+    $sql = "DELETE FROM book WHERE username='" . $_SESSION['username'] . "' ";
+    echo $sql;
+    $conn->query($sql);
     $sql = "DELETE FROM userInfo WHERE username='" . $_SESSION['username'] . "' ";
     echo $sql;
     $conn->query($sql);
