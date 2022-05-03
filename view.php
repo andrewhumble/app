@@ -1,9 +1,26 @@
 <?php
-require('connDB.php');
+session_start();
+
+//connect to database
+// hi
+require_once('connDB.php');
+// Check connection
+if ($conn === false) {
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
 
 if ($_SESSION['userType'] != 3) {
     header("Location: home.php");
 }
+
+if (!isset($_SESSION['username'])) {
+
+    header("Location: home.php");
+    exit();
+} else {
+    $username = $_SESSION['username'];
+}
+
 ?>
 
 
@@ -26,7 +43,7 @@ if ($_SESSION['userType'] != 3) {
 <!-- DISPLAY IMAGE -->
 
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 
 <head>
@@ -68,9 +85,44 @@ if ($_SESSION['userType'] != 3) {
                 </a>
             </div>
         </div>
-    </nav>
+    </nav> -->
 
-    <form method="post">
+<!DOCTYPE html>
+
+<head>
+    <link href="admin-searchBooks.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <title>LittyLit</title>
+    <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Girassol' rel='stylesheet'>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type='text/css'>
+
+</head>
+
+<body>
+
+    <main>
+        <?php include 'elements/header.php' ?>
+        <form method="post">
+            <div class="container-fluid mt-5 p-5" id="Search">
+                <div class="mx-auto text-center" style="width: 400px;">
+                    <h1 id="header">Search Books</h1><br>
+                    <div class="input-group rounded">
+
+                        <input type="text" id="inputEmail" class="form-control rounded" placeholder="Username" name="Search" />
+                        <input type="submit" class="btn-lg btn-primary ml-4" style="background-color: #2B6777; border-width: 0px;" name="submit">
+                    </div>
+                    <p id="para">Search by ISBN</p>
+                </div>
+            </div>
+        </form>
+    </main>
+    <?php include 'elements/footer.html'; ?>
+</body>
+
+</html>
+
+    <!-- <form method="post">
         <div class="container-fluid mt-5" id="Search">
             <div class="mx-auto text-center" style="width: 400px;">
                 <h1 id="header">Search Books</h1><br>
@@ -82,7 +134,7 @@ if ($_SESSION['userType'] != 3) {
                 <p id="para">Search by ISBN</p>
             </div>
         </div>
-    </form>
+    </form> -->
 
     <!-- <div class="container">
     <h1> Retrive</h1>
@@ -107,8 +159,9 @@ if ($_SESSION['userType'] != 3) {
 
     if (isset($_POST["submit"])) {
         $_SESSION['is'] = $_POST["Search"];
-        $val = $conn->query("SELECT image FROM `book` WHERE isbn= '" . $_SESSION['is'] . "'");
-        $res = $conn->query("SELECT * FROM `book` WHERE isbn = '" . $_SESSION['is'] . "'");
+        $val = $conn->query("SELECT imgPath FROM `book` WHERE ISBN= '" . $_SESSION['is'] . "'");
+        $res = $conn->query("SELECT * FROM `book` WHERE ISBN = '" . $_SESSION['is'] . "'");
+        
         $results = mysqli_num_rows($res);
         if ($results > 0) {
             while ($row = mysqli_fetch_object($res)) {
@@ -122,14 +175,14 @@ if ($_SESSION['userType'] != 3) {
                         <!-- Uploading image -->
                         <?php if ($val->num_rows > 0) { ?>
                             <?php while ($blah = $val->fetch_assoc()) { ?>
-                                <img id="pic" src="<?php echo $row['imgPath'] ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
+                                <img id="pic" src="<?php echo $blah['imgPath'] ?>" alt="Place Holder Book" style="width:150px; height:200px; margin-top: 20px" /><br>
                             <?php } ?>
                         <?php } else { ?>
                             <p class="status error">Image(s) not found...</p> <?php } ?>
                         <!-- <img class="pic" src= "images/Gatsby.png" alt="Place Holder Book" style="width:150px;height:200px;"> -->
                         <h4 id="work"><?php echo $row->title; ?></h4>
                         <p id="auth"><?php echo $row->author; ?></p><br>
-                        <pre id="change">  Inventory: <?php echo $row->inventory; ?>           <?php echo $row->price; ?></pre>
+                        <pre id="change">  Inventory: <?php echo $row->stock; ?>           $<?php echo $row->price; ?></pre>
                         <!-- <p id="change"><?php echo $row->price; ?></p><br> -->
                         <button onclick="window.location.href='admin-editBook.php'" class="EditText">Edit</button><br>
 
@@ -148,6 +201,6 @@ if ($_SESSION['userType'] != 3) {
 ?>
 
 
-</body>
+<!-- </body>
 
-</html>
+</html> -->
