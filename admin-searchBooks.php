@@ -43,7 +43,7 @@ if (!isset($_SESSION['username'])) {
 <!-- DISPLAY IMAGE -->
 
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 
 <head>
@@ -85,9 +85,44 @@ if (!isset($_SESSION['username'])) {
                 </a>
             </div>
         </div>
-    </nav>
+    </nav> -->
 
-    <form method="post">
+<!DOCTYPE html>
+
+<head>
+    <link href="admin-searchBooks.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <title>LittyLit</title>
+    <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Girassol' rel='stylesheet'>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type='text/css'>
+
+</head>
+
+<body>
+
+    <main>
+        <?php include 'elements/header.php' ?>
+        <form method="post">
+            <div class="container-fluid mt-5 p-5" id="Search">
+                <div class="mx-auto text-center" style="width: 400px;">
+                    <h1 id="header">Search Books</h1><br>
+                    <div class="input-group rounded">
+
+                        <input type="text" id="inputEmail" class="form-control rounded" placeholder="ISBN" name="Search" />
+                        <input type="submit" class="btn-lg btn-primary ml-4" style="background-color: #2B6777; border-width: 0px;" name="submit">
+                    </div>
+                    <p id="para">Search by ISBN</p>
+                </div>
+            </div>
+        </form>
+    </main>
+    <?php include 'elements/footer.html'; ?>
+</body>
+
+</html>
+
+    <!-- <form method="post">
         <div class="container-fluid mt-5" id="Search">
             <div class="mx-auto text-center" style="width: 400px;">
                 <h1 id="header">Search Books</h1><br>
@@ -99,7 +134,7 @@ if (!isset($_SESSION['username'])) {
                 <p id="para">Search by ISBN</p>
             </div>
         </div>
-    </form>
+    </form> -->
 
     <!-- <div class="container">
     <h1> Retrive</h1>
@@ -166,6 +201,6 @@ if (!isset($_SESSION['username'])) {
 ?>
 
 
-</body>
+<!-- </body>
 
-</html>
+</html> -->
