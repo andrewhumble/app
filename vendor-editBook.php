@@ -35,13 +35,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["save"])) {
     $genre = isset($_POST['genre']) ? htmlspecialchars($_POST['genre']) : '';
     $price = isset($_POST['price']) ? htmlspecialchars($_POST['price']) : '';
     $inventory = isset($_POST['inventory']) ? htmlspecialchars($_POST['inventory']) : '';
-    $image = isset($_POST['image']) ? htmlspecialchars($_POST['image']) : '';
+    // $image = isset($_POST['image']) ? htmlspecialchars($_POST['image']) : '';
+        $target_dir = "images/";
+        $target_file = $target_dir . basename($_FILES["image"]["name"]);
 
-    $target_dir = "images/";
-    $target_file = $target_dir . basename($image);
+        echo "Here 1";
 
-    $sql = "UPDATE book SET imgPath='$target_file' WHERE ISBN ='$selectedBook'";
-    $conn->query($sql);
+        if ($target_file != 'images/') {
+            echo "Here 2";
+
+            $sql = "UPDATE book SET imgPath='$target_file' WHERE ISBN ='$selectedBook'";
+            $conn->query($sql);
+
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                echo "File has been successfully uploaded";
+            }
+        }
+    // $target_file = $target_dir . basename($image);
+
+    // $sql = "UPDATE book SET imgPath='$target_file' WHERE ISBN ='$selectedBook'";
+    // $conn->query($sql);
 
     //$password = $_POST['password'];
     // $email = $_POST['email'] ? htmlspecialchars($_POST['email']) : '';
