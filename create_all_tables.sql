@@ -92,7 +92,7 @@ INSERT INTO userInfo VALUES('Ryan', 'Kendall', 'ryankendall', 'ryan123', 'ryanke
 
 INSERT INTO `book` (`username`, `title`, `author`, `price`, `genre`, `ISBN`, `stock`, `imgPath`, `description`) VALUES ('mcswagger', 'Pride and Prejudice', 'Jane Austen', '32', 'Romance', '32312', '10', './images/Pride.png', 'Sparks fly when spirited Elizabeth Bennet meets single, rich, and proud Mr. Darcy. But Mr. Darcy reluctantly finds himself falling in love with a woman beneath his class. Can each overcome their own pride and prejudice?');
 
-INSERT INTO `book` (`username`, `title`, `author`, `price`, `genre`, `ISBN`, `stock`, `imgPath`, `description`) VALUES ('mcswagger', '1984', 'George Orwell', '30', 'Dystopian', '3231324', '199', './images/1984.jpeg', 'In a totalitarian future society, Winston Smith, whose daily work is re-writing history, tries to rebel by falling in love.')
+INSERT INTO `book` (`username`, `title`, `author`, `price`, `genre`, `ISBN`, `stock`, `imgPath`, `description`) VALUES ('mcswagger', '1984', 'George Orwell', '30', 'Dystopian', '3231324', '199', './images/1984.jpeg', 'In a totalitarian future society, Winston Smith, whose daily work is re-writing history, tries to rebel by falling in love.');
 
 INSERT INTO `promotions` (`id`, `discount`, `name`) VALUES ('10101', '0.5', 'HALFOFF');
 

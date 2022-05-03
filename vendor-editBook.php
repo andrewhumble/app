@@ -18,7 +18,7 @@ if (!isset($_SESSION['username']) || $_SESSION['userType'] != 2) {
     $userType = $_SESSION['userType'];
 
     // $titles = $_SESSION['title'];
-    // echo $titles;
+    // echo $ti
 }
 
 isset($_POST['selectedBook']) ? $selectedBook = $_POST['selectedBook'] : $selectedBook = $_GET['selectedBook'];

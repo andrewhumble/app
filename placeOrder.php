@@ -68,6 +68,8 @@ foreach ($order as $item) {
     $conn->query($reduceStock);
 }
 
+
+
 $emptyQuery = "DELETE FROM cart WHERE username='$username';";
 $execCartEmpty = $conn->query($emptyQuery);
 
