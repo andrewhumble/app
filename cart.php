@@ -134,7 +134,7 @@ if ($remove != "") {
                 <div class="row mt-4 justify-content-center">
                     <?php
                     if (mysqli_num_rows($values) != 0) { ?>
-                        <button onclick="location.href='checkout.php'" class="btn" style="border-radius: 1rem 1rem; padding: 0.7rem 5rem">
+                        <button onclick="location.href='checkout.php'" class="btn" style="border-radius: 1rem 1rem; padding: 0.7rem 5rem; background-color: #ffffff">
                             <p style="color: #2B6777; font-weight: bold; font-size: 1.2rem;">Checkout</p>
                         </button>
                     <?php } else { ?>

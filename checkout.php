@@ -107,7 +107,6 @@ $url = $url . "&length=" . $length . "&promoAmt=" . $promoAmt;
     <main>
         <?php include 'elements/header.php' ?>
 
-        <form method="post">
             <div class="row">
                 <div class="col-8" style="padding-left: 5rem !important;">
                     <div class="row pt-5">
@@ -195,7 +194,7 @@ $url = $url . "&length=" . $length . "&promoAmt=" . $promoAmt;
                     <?php } else { ?>
                         <div class="pt-2 row justify-content-center">
                             <div class="col-12 t-2 form-group">
-                                <p>Pick up in-store at your nearest store in the next 5 days.</p>
+                                <p>All pay-in-store orders must be picked up at your nearest LittyLit location within 5 days following order completion.</p>
                             </div>
                         </div>
                     <?php } ?>
@@ -243,10 +242,11 @@ $url = $url . "&length=" . $length . "&promoAmt=" . $promoAmt;
                     </div>
 
                     <div class="row mt-5 justify-content-center">
+
                         <?php
                         if (mysqli_num_rows($values) != 0) { ?>
                             <a href=<?php echo $url ?>>
-                                <button class="btn" style="border-radius: 1rem 1rem; padding: 0rem 5rem; background-color: #C8D8E4">
+                                <button onclick="location.href=$url" class="btn" style="border-radius: 1rem 1rem; padding: 0rem 5rem; background-color: #C8D8E4">
                                     <p class="pt-3" style="color: #2B6777; font-weight: bold; font-size: 1.2rem;">Place Order</p>
                                 </button>
                             </a>
@@ -260,7 +260,6 @@ $url = $url . "&length=" . $length . "&promoAmt=" . $promoAmt;
                     </div>
                 </div>
             </div>
-        </form>
 
         <?php include 'elements/footer.html' ?>
     </main>
