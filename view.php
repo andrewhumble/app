@@ -107,7 +107,7 @@
     <?php if ($result->num_rows > 0) { ?> 
     <div class="gallery"> 
         <?php while ($row = $result->fetch_assoc()) { ?> 
-            <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['imgPath']); ?>" /> 
+            <img src="<?php echo $row['imgPath'] ?>" /> 
         <?php } ?> 
     </div> 
 <?php } else { ?> 

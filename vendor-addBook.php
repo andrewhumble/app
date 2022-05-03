@@ -35,41 +35,93 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $isbn = $_POST["isbn"];
     $stock = $_POST["inventory"];
 
-    $status = $statusMsg = '';
+    echo $title;
+$target_dir = "images/";
+    $target_file = $target_dir . basename($_FILES["image"]["name"]);
+
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+    $status = $statusMsg = ''; 
     if (isset($_POST["save"])) {
-        $status = 'error';
-
-        if (!empty($_FILES["image"]["name"])) {
-            echo "Here";
-            // Get file info 
-            $fileName = basename($_FILES["image"]["name"]);
-            $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
-            echo $fileType;
-            // $folder = "images/".$filename;
-            // Allow certain file formats 
-            $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
-            if (in_array($fileType, $allowTypes)) {
-                $image = $_FILES['image']['tmp_name'];
-                $imgContent = addslashes(file_get_contents($image));
-
-                // Insert image content into database 
-                $insert = $conn->query("INSERT into book (username, title, author, price, genre, ISBN, stock, imgPath) VALUES ('$username', '$title', '$author', '$price', '$genre', '$isbn', '$stock', '$imgContent')");
-                echo $insert;
-
-                if ($insert) {
-                    $status = 'success';
-                    $statusMsg = "File uploaded successfully.";
-                    $result = $conn->query("SELECT imgPath FROM book WHERE ISBN='$isbn'");
-                } else {
-                    $statusMsg = "File upload failed, please try again.";
-                }
-            } else {
-                $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.';
-            }
+        $check = getimagesize($_FILES["image"]["tmp_name"]);
+        if($check !== false) {
+          echo "File is an image - " . $check["mime"] . ".";
+          $uploadOk = 1;
         } else {
-            $statusMsg = 'Please select an image file to upload.';
+          echo "File is not an image.";
+          $uploadOk = 0;
         }
     }
+    
+
+    //Check if file already exists
+if (file_exists($target_file)) {
+    echo "Sorry, file already exists.";
+    $uploadOk = 0;
+  }
+  
+  //Check file size
+  if ($_FILES["image"]["size"] > 1000000) {
+    echo "Sorry, your file is too large.";
+    $uploadOk = 0;
+  }
+  
+  //Allow certain file formats
+  if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+  && $imageFileType != "gif" ) {
+    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    $uploadOk = 0;
+  }
+  
+  //Check if $uploadOk is set to 0 by an error
+  if ($uploadOk == 0) {
+    echo "Sorry, your file was not uploaded.";
+  //if everything is ok, try to upload file
+  } else {
+    if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+        echo "The file ". htmlspecialchars( basename( $_FILES["image"]["name"])). " has been uploaded.";
+        $insert = "INSERT into book (username, title, author, price, genre, ISBN, stock, image) VALUES ('mg', '$title', '$author', '$price', '$genre', '$isbn', '$stock', '$target_file')";  
+        $conn->query($insert);
+        echo $insert;
+
+      } else {
+        echo "Sorry, there was an error uploading your file.";
+      }
+  }
+
+        $status = 'error'; 
+        
+    //     if(!empty($_FILES["image"]["name"])) { 
+    //         $fileName = basename($_FILES["image"]["name"]); 
+    //         $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
+    //         echo "HELLUR";
+            
+    //         $allowTypes = array('jpg','png','jpeg','gif'); 
+    //         if(in_array($fileType, $allowTypes)){ 
+    //             $image = $_FILES['image']['tmp_name']; 
+    //             $imgContent = addslashes(file_get_contents($image)); 
+             
+                
+    //             $insert = $conn->query("INSERT into book (id, title, author, price, genre, ISBN, stock, image, created) VALUES ('23', '$title', '$author', '$price', '$genre', '$isbn', '$stock', '$imgContent', NOW())");  
+                 
+    //             if($insert){ 
+    //                 $status = 'success'; 
+    //                 echo $status;
+    //                 $statusMsg = "File uploaded successfully."; 
+                    
+    //             }else{ 
+    //                 $statusMsg = "File upload failed, please try again."; 
+    //             }  
+    //         }else{ 
+    //             $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
+    //         } 
+    //     }else{ 
+    //         $statusMsg = 'Please select an image file to upload.'; 
+    //     } 
+    // echo $statusMsg;
+    
+
 }
 
 

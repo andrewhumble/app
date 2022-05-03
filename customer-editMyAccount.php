@@ -5,7 +5,6 @@ if ($conn == false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-############
 session_start();
 
 //connect to database
@@ -28,7 +27,6 @@ if (!isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
     $userType = $_SESSION['userType'];
 }
-###########
 
 $getValuesQuery = "SELECT firstName, lastName, password, email, birthday, strAddress, city, state, zip FROM userInfo WHERE username='" . $_SESSION['username'] . "';";
 
