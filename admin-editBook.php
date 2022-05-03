@@ -29,8 +29,8 @@ $price = isset($row['price']) ? htmlspecialchars($row['price']) : '';
 $inventory = isset($row['inventory']) ? htmlspecialchars($row['inventory']) : '';
 //$image = isset($row['image']) ? htmlspecialchars($row['image']) : '';
 
-echo $getBooksQuery;
-echo $row['title'];
+//echo $getBooksQuery;
+//echo $row['title'];
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["submitButton"])) {
     $title = isset($_POST['title']) ? htmlspecialchars($_POST['title']) : '';

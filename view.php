@@ -109,7 +109,7 @@ if (!isset($_SESSION['username'])) {
                     <h1 id="header">Search Books</h1><br>
                     <div class="input-group rounded">
 
-                        <input type="text" id="inputEmail" class="form-control rounded" placeholder="Username" name="Search" />
+                        <input type="text" id="inputEmail" class="form-control rounded" placeholder="ISBN" name="Search" />
                         <input type="submit" class="btn-lg btn-primary ml-4" style="background-color: #2B6777; border-width: 0px;" name="submit">
                     </div>
                     <p id="para">Search by ISBN</p>
