@@ -35,20 +35,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["submitButton"])) {
     $price = isset($_POST['price']) ? htmlspecialchars($_POST['price']) : '';
     $inventory = isset($_POST['inventory']) ? htmlspecialchars($_POST['inventory']) : '';
 
-        $target_dir = "images/";
-        $target_file = $target_dir . basename($_FILES["image"]["name"]);
+    $target_dir = "images/";
+    $target_file = $target_dir . basename($_FILES["image"]["name"]);
 
-        if ($target_file != 'images/') {
+    if ($target_file != 'images/') {
 
-            $sql = "UPDATE book SET imgPath='$target_file' WHERE ISBN ='$selectedBook'";
-            $conn->query($sql);
+        $sql = "UPDATE book SET imgPath='$target_file' WHERE ISBN ='$selectedBook'";
+        $conn->query($sql);
 
-            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-                echo "File has been successfully uploaded";
-            }
+        if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+            echo "File has been successfully uploaded";
         }
+    }
     $sql = "UPDATE book SET title='$title', author='$author', price=$price, genre='$genre', stock=$inventory, imgPath='$row[imgPath]' WHERE ISBN ='" . $_SESSION['is'] . "';";
     $conn->query($sql);
+
+    header("Location: admin-editBook.php");
 }
 
 if (isset($_POST["submitbutton"])) {
@@ -60,7 +62,6 @@ if (isset($_POST["submitbutton"])) {
     $sql = "DELETE FROM book WHERE ISBN='" . $_SESSION['is'] . "' ";
     $conn->query($sql);
     header("Location: admin-searchBooks.php");
-    
 }
 
 
@@ -84,58 +85,47 @@ if (isset($_POST["submitbutton"])) {
             <form method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-sm-3">
-                        <img class="pic" src="<?php echo $row['imgPath'] ?>" alt="Place Holder Book"
-                            style="width:210px;height:350px;">
-                        <input class="pb-4 pt-4 pl-4" type="file" name="image"
-                            style="font-family: Nunito !important; color: #3F3D56 !important;">
+                        <img class="pic" src="<?php echo $row['imgPath'] ?>" alt="Place Holder Book" style="width:210px;height:350px;">
+                        <input class="pb-4 pt-4 pl-4" type="file" name="image" style="font-family: Nunito !important; color: #3F3D56 !important;">
                     </div>
                     <div class="col-sm-9 pt-5">
                         <div class="row pb-3">
                             <div class="col-5">
                                 <p><b>Book Title</b></p>
-                                <input class="form-control rounded" type="text" id="btitle" name="title"
-                                    value="<?php echo $row['title'] ?>">
+                                <input class="form-control rounded" type="text" id="btitle" name="title" value="<?php echo $row['title'] ?>">
                             </div>
                             <div class="col-3">
                                 <p><b>Inventory:</b></p>
-                                <input class="form-control rounded" type="text" id="btitle" name="inventory"
-                                    value="<?php echo $row['stock'] ?>">
+                                <input class="form-control rounded" type="text" id="btitle" name="inventory" value="<?php echo $row['stock'] ?>">
                             </div>
                         </div>
 
                         <div class="row pb-3">
                             <div class="col-5">
                                 <p><b>Author</b></p>
-                                <input class="form-control rounded" type="text" id="btitle" name="author"
-                                    value="<?php echo $row['author'] ?>">
+                                <input class="form-control rounded" type="text" id="btitle" name="author" value="<?php echo $row['author'] ?>">
                             </div>
                             <div class="col-3">
                                 <p><b>Price</b></p>
-                                <p>$</p><input class="form-control rounded" type="text" id="btitle" name="price"
-                                    value="<?php echo $row['price'] ?>">
+                                <p>$</p><input class="form-control rounded" type="text" id="btitle" name="price" value="<?php echo $row['price'] ?>">
                             </div>
                         </div>
                         <div class="row pb-3">
                             <div class="col-5">
                                 <p><b>Genre</b></p>
-                                <input type="text" class="form-control rounded" name="genre"
-                                    value="<?php echo $row['genre'] ?>">
+                                <input type="text" class="form-control rounded" name="genre" value="<?php echo $row['genre'] ?>">
                             </div>
                             <div class="col-3">
                                 <p><b>ISBN</b></p>
-                                <input class="form-control rounded" type="text" id="btitle" name="ISBN"
-                                    value="<?php echo $row['ISBN'] ?>">
+                                <input class="form-control rounded" type="text" id="btitle" name="ISBN" value="<?php echo $row['ISBN'] ?>">
                             </div>
                         </div>
                         <div class="row float-right align-items-end pr-4 pt-4">
                             <div class="col-6">
-                                <button
-                                    style="background-color: transparent; color: black; text-decoration: underline; border: 0px;"
-                                    name="submitbutton" type="submit" class="btn btn-primary pr-6">Delete Book</button>
+                                <button style="background-color: transparent; color: black; text-decoration: underline; border: 0px;" name="submitbutton" type="submit" class="btn btn-primary pr-6">Delete Book</button>
                             </div>
                             <div class="col-6 justify-content-center">
-                                <button style="background-color: #2B6777; border: 0px;" name="submitButton"
-                                    type="submit" class="btn btn-primary pr-6 mt-5">Save Changes</button>
+                                <button style="background-color: #2B6777; border: 0px;" name="submitButton" type="submit" class="btn btn-primary pr-6 mt-5">Save Changes</button>
                             </div>
                         </div>
                     </div>

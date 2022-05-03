@@ -256,4 +256,22 @@ p {
     color: #FFFFFF;
 }
 
+.card {
+  background-color: #2B6777 !important;
+  height: 22rem;
+  width: 15rem;
+  border-radius: 1em !important;
+}
+
+.card-text, .card-title {
+  color: #fff !important;
+}
+
+.card:hover {
+  background-color: #3F3D56 !important;
+}
+
+.card:hover a, .card:hover p, .card:hover h4, .card:hover h5 {
+  color: #fff !important;
+}
 
