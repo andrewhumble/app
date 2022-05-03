@@ -25,7 +25,7 @@ isset($_POST['selectedBook']) ? $selectedBook = $_POST['selectedBook'] : $select
 
 echo $selectedBook;
 
-$getBooksQuery = "SELECT username, title, author, price, genre, ISBN, stock, image FROM book WHERE ISBN='$selectedBook';";
+$getBooksQuery = "SELECT username, title, author, price, genre, ISBN, stock, imgPath FROM book WHERE ISBN='$selectedBook';";
 $values = $conn->query($getBooksQuery);
 $row = mysqli_fetch_array($values);
 
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["save"])) {
         if (in_array($fileType, $allowTypes)) {
             $image = $_FILES['image']['tmp_name'];
             $imgContent = addslashes(file_get_contents($image));
-            $sql = "UPDATE book SET image='$imgContent' WHERE ISBN ='$selectedBook'";
+            $sql = "UPDATE book SET imgPath='$imgContent' WHERE ISBN ='$selectedBook'";
             $conn->query($sql);
         }
     } else {
@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["save"])) {
             <form method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class=col-lg-3>
-                        <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']); ?>" alt="Place Holder Book" style="width:210px;height:350px;">
+                        <img class="pic" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['imgPath']); ?>" alt="Place Holder Book" style="width:210px;height:350px;">
                         <input type="file" name="image">
                         <!-- <input type="file" name="image" value="Change Cover"> -->
                         <!-- <a href="#" class="Cover"><b>Change Cover</b></a> -->

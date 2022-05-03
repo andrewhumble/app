@@ -23,6 +23,21 @@ if (!isset($_SESSION['username'])) {
     $userType = $_SESSION['userType'];
 }
 
+$getValuesQuery = "SELECT firstName, lastName, password, email, birthday, strAddress, city, state, zip FROM userInfo WHERE username='" . $_SESSION['username'] . "';";
+
+$values = $conn->query($getValuesQuery);
+$row = $values->fetch_assoc();
+
+$firstName = isset($row['firstName']) ? htmlspecialchars($row['firstName']) : '';
+$lastName = isset($row['lastName']) ? htmlspecialchars($row['lastName']) : '';
+$password = $row['password'];
+$email = $row['email'];
+$birthday = $row['birthday'];
+$strAddress = isset($row['strAddress']) ? htmlspecialchars($row['strAddress']) : '';
+$city = isset($row['city']) ? htmlspecialchars($row['city']) : '';
+$state = $row['state'];
+$zip = $row['zip'];
+
 $getBooksQuery = "SELECT username, title, author, price, ISBN, quantity, stock, imgPath FROM cart WHERE username='$username';";
 $values = $conn->query($getBooksQuery);
 
@@ -148,7 +163,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="col-12">
                                 <div class="pt-2 form-group">
                                     <label for="firstName">Card Number</label>
-                                    <input type="text" placeholder="1111 1111 1111 1111" class="form-control" id="cardNum" name="cardNum" required>
+                                    <input type="text" placeholder="1234 1234 1234 1234" class="form-control" id="cardNum" name="cardNum" required minlength="19" maxlength="19">
                                 </div>
                             </div>
                         </div>
@@ -156,19 +171,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="col-4">
                                 <div class="pt-2 form-group">
                                     <label for="firstName">Exp. Date</label>
-                                    <input type="text" placeholder="11/24" class="form-control" id="exp" name="exp">
+                                    <input type="text" placeholder="00/00" class="form-control" id="exp" name="exp" required minlength="5" maxlength="5">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="pt-2 form-group">
                                     <label for="firstName">Security Code</label>
-                                    <input type="text" placeholder="111" class="form-control" id="sec" name="sec">
+                                    <input type="text" placeholder="111" class="form-control" id="sec" name="sec" required minlength="3" maxlength="3">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="pt-2 form-group">
                                     <label for="firstName">Zip Code</label>
-                                    <input type="text" placeholder="11111" class="form-control" id="zip" name="zip">
+                                    <input type="text" placeholder="11111" class="form-control" id="zip" name="zip" required minlength="5" maxlength="5">
                                 </div>
                             </div>
                         </div>
@@ -176,26 +191,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="pt-2 row justify-content-center">
                             <div class="col-12 t-2 form-group">
                                 <label for="address">Street Address</label>
-                                <input type="text" placeholder="Street Address" class="form-control" id="strAddress" name="strAddress">
+                                <input type="text" placeholder="Street Address" class="form-control" id="strAddress" name="strAddress"  value=<?php echo $strAddress ?> required>
                             </div>
                         </div>
                         <div class="pt-2 mb-4 row justify-content-center">
                             <div class="col-5">
                                 <div class="pt-2 form-group">
                                     <label for="city">City</label>
-                                    <input type="text" placeholder="City" class="form-control" id="city" name="city">
+                                    <input type="text" placeholder="City" class="form-control" id="city" name="city"  value=<?php echo $city ?> required>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="pt-2 form-group">
                                     <label for="state">State</label>
-                                    <input type="text" placeholder="GA" class="form-control" id="state" name="state">
+                                    <input type="text" placeholder="GA" class="form-control" id="state" name="state"  value=<?php echo $state ?> required minlength="2" maxlength="2">
                                 </div>
                             </div>
                             <div class="col-5">
                                 <div class="pl-2 pt-2 form-group">
                                     <label for="password">Zip Code</label>
-                                    <input type="text" placeholder="Zip" class="form-control" id="zip" name="zip">
+                                    <input type="text" placeholder="Zip" class="form-control" id="zip" name="zip" value=<?php echo $zip ?> required minlength="5" maxlength="5">
                                 </div>
                             </div>
                         </div>
