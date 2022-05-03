@@ -13,6 +13,8 @@ if ($_SESSION['userType'] != 1) {
     header("Location: home.php");
 }
 
+$promotion = "";
+
 $userType = $_SESSION['userType'];
 
 if (!isset($_SESSION['username'])) {
@@ -65,28 +67,21 @@ if ($remove != "") {
     header("Location: cart.php");
 }
 
-$promotion = "";
 $method = "card";
 
 $grandTotal = 0;
 
 $index = count($order) - 1;
 
-$promoAmt = 0;
-if ($promotion != "") {
-    $promoAmt = $promo['discount'];
-    $grandTotal = ((1 - $promo['discount']) * $sum['SUM(price*quantity)']) + $sum['SUM(price*quantity)'] * 0.07;
-} else {
-    $grandTotal = $sum['SUM(price*quantity)'] + $sum['SUM(price*quantity)'] * 0.07;
-}
+$promoVal = 0;
 
-$_SESSION['grandTotal'] = $grandTotal;
+$grandTotal = $sum['SUM(price*quantity)'] + $sum['SUM(price*quantity)'] * 0.07 - 3;
 
-$url = "placeOrder.php?" . http_build_query(array(
+$urlO = "placeOrder.php?" . http_build_query(array(
     "order" => $order
 ));
 
-$url = $url . "&length=" . $length . "&promoAmt=" . $promoAmt;
+$url = $urlO . "&length=" . $length . "&promoAmt=" . $promoVal;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -96,15 +91,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (isset($_POST['promotion'])) {
+
+
         $promotion = $_POST['promotion'];
 
         $promoQuery = "SELECT * FROM promotions WHERE name='$promotion';";
         $promoResult = $conn->query($promoQuery);
         $promo = mysqli_fetch_array($promoResult);
 
+        $promoAmt = $promo['discount'];
+        $grandTotal = ((1 - $promo['discount']) * $sum['SUM(price*quantity)']) + $sum['SUM(price*quantity)'] * 0.07;
+
         if (mysqli_num_rows($promoResult) != 0) {
             $promotion = $promo['discount'];
         }
+
+        $promoVal = number_format($promo['discount'] * ($sum['SUM(price*quantity)'] + $sum['SUM(price*quantity)'] * 0.07), 2);
+        $url = $urlO . "&length=" . $length . "&promoAmt=" . $promoVal;
     }
 
     
@@ -112,6 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['location'])) {
             header("Location: placeOrder.php?" . $url);   
     }
+} else {
 }
 
 ?>

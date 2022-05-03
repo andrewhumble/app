@@ -117,26 +117,26 @@ if (isset($_POST["submitbutton"])) {
                             <div class="col-sm-6">
                                 <label style="font-family: Nunito; color: #3F3D56" class="float-left">First Name</label>
                                 <input style="font-family: Nunito" type="text" name='firstName' class="form-control"
-                                    value="<?php echo $firstName ?>">
+                                    value="<?php echo $firstName ?>" required>
                             </div>
                             <div class="col-sm-6">
                                 <label style="font-family: Nunito; color: #3F3D56" class="float-left">Last Name</label>
                                 <input style="font-family: Nunito" type="text" name='lastName' class="form-control"
-                                    value="<?php echo $lastName ?>">
+                                    value="<?php echo $lastName ?>" required>
                             </div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-sm-12">
                                 <label style="font-family: Nunito; color: #3F3D56" class="float-left">Email</label>
                                 <input style="font-family: Nunito" type="text" name='email' class="form-control"
-                                    value="<?php echo $email ?>">
+                                    value="<?php echo $email ?>" required>
                             </div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-sm-4">
                                 <label style="font-family: Nunito; color: #3F3D56" class="float-left">Birthday</label>
                                 <input style="font-family: Nunito" type="text" name='birthday' class="form-control"
-                                    value="<?php echo $birthday ?>">
+                                    value="<?php echo $birthday ?>" required>
                             </div>
                         </div>
                         <div class="row mt-4">
@@ -149,24 +149,24 @@ if (isset($_POST["submitbutton"])) {
                                 <label style="font-family: Nunito; color: #3F3D56" class="float-left">Shipping
                                     Address</label>
                                 <input style="font-family: Nunito" type="text" name='strAddress' class="form-control"
-                                    value="<?php echo $strAddress ?>">
+                                    value="<?php echo $strAddress ?>" required>
                             </div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-sm-5">
                                 <label style="font-family: Nunito; color: #3F3D56" class="float-left">City</label>
                                 <input style="font-family: Nunito" type="text" name='city' class="form-control"
-                                    value="<?php echo $city ?>">
+                                    value="<?php echo $city ?>" required>
                             </div>
                             <div class="col-sm-2">
                                 <label style="font-family: Nunito; color: #3F3D56" class="float-left">State</label>
                                 <input style="font-family: Nunito" type="text" name='state' class="form-control"
-                                    value="<?php echo $state ?>">
+                                    value="<?php echo $state ?>" required>
                             </div>
                             <div class="col-sm-5">
                                 <label style="font-family: Nunito; color: #3F3D56" class="float-left">Zip Code</label>
                                 <input style="font-family: Nunito" type="text" name='zip' class="form-control"
-                                    value="<?php echo $zip ?>">
+                                    value="<?php echo $zip ?>" required>
                             </div>
                         </div>
                         <div class="row mt-5 justify-content-center">
