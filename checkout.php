@@ -1,9 +1,6 @@
 <?php
 session_start();
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
 
 //connect to database
 require_once('connDB.php');
@@ -110,42 +107,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    
+
     if (isset($_POST['location'])) {
-        $mail = new PHPMailer(true);
-
-        //Server settings
-        $mail->SMTPDebug = 1;                      //Enable verbose debug output
-        $mail->isSMTP();                                            //Send using SMTP
-        $mail->Host       = "smtp.gmail.com";                     //Set the SMTP server to send through
-        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
-        $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-        $mail->Username   = "OfficialLittyLit@gmail.com";                     //SMTP username
-        $mail->Password   = "mean1234";                               //SMTP password
-        $mail->Subject = "Stuff";
-
-        $mail->setFrom("OfficialLittyLit@gmail.com");
-
-            $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
-
-            $body = '<strong>Hello!</strong> Welcome to LittyLit. Here is your verification Code: ';
-
-            $mail->isHTML(true);
-            $mail->Body    = $body;
-
-            $mail->addAddress($email);
-
-            if ($mail->Send()) {
-                header("Location: placeOrder.php?" . $url);
-                
-            } else {
-                header("Location: checkout.php");
-                echo "Ur Stupid";
-            }
-
-            $mail->smtpClose();
-
-            
+            header("Location: placeOrder.php?" . $url);   
     }
 }
 

@@ -25,7 +25,7 @@ if (!isset($_SESSION['username'])) {
 
 isset($_POST['selectedBook']) ? $selectedBook = $_POST['selectedBook'] : $selectedBook = $_GET['selectedBook'];
 
-$getBooksQuery = "SELECT username, title, author, price, genre, ISBN, stock, imgPath FROM book WHERE ISBN=$selectedBook;";
+$getBooksQuery = "SELECT title, author, price, genre, ISBN, stock, imgPath, description FROM book WHERE ISBN=$selectedBook;";
 $values = $conn->query($getBooksQuery);
 $row = mysqli_fetch_array($values);
 
@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </a>
                     <div class="row pt-2 pr-2">
                         <div class="col text-left">
-                            <!-- <p><?php echo $row['description'] ?></p> -->
+                            <p><?php echo $row['description'] ?></p>
                         </div>
                     </div>
                 </div>
