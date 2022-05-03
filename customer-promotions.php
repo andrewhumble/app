@@ -16,6 +16,10 @@ if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+if ($_SESSION['userType'] != 1) {
+    header("Location: home.php");
+}
+
 if (!isset($_SESSION['username'])) {
 
     header("Location: home.php");
@@ -44,8 +48,7 @@ $zip = $row['zip'];
 if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['sub'])) {
     $sql = "UPDATE userInfo SET promotion='1' WHERE username='" . $_SESSION['username'] . "';";
     $conn->query($sql);
-}
-elseif ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['unsub'])) {
+} elseif ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['unsub'])) {
     $sql = "UPDATE userInfo SET promotion='0' WHERE username='" . $_SESSION['username'] . "';";
     $conn->query($sql);
 }
@@ -79,8 +82,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['unsub'])) {
                     <div class="row align-items-center bottom-margin">
                         <div class="avatarMargin col-1">
                             <div class="row align-items-center d-flex float-right">
-                                <img src="https://cdn-icons-png.flaticon.com/512/147/147142.png" width="45px"
-                                    height="45px" style="vertical-align: middle;">
+                                <img src="https://cdn-icons-png.flaticon.com/512/147/147142.png" width="45px" height="45px" style="vertical-align: middle;">
                             </div>
                         </div>
                         <div class="col-8 pl-2">
@@ -115,8 +117,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['unsub'])) {
                         <div class="row pt-2">
                             <div class="col-sm-6">
                                 <form method="post">
-                                    <button type="submit" value="1" class="btn btn-primary text-right"
-                                        name="sub">Subscribe</button>
+                                    <button type="submit" value="1" class="btn btn-primary text-right" name="sub">Subscribe</button>
                                 </form>
                             </div>
                         </div>
@@ -125,8 +126,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['unsub'])) {
                         <div class="row pt-2">
                             <div class="col-sm-6">
                                 <form method="post">
-                                    <button type="submit" value="0" class="btn btn-primary text-right"
-                                        name="unsub">Unsubscribe</button>
+                                    <button type="submit" value="0" class="btn btn-primary text-right" name="unsub">Unsubscribe</button>
                                 </form>
                             </div>
                         </div>

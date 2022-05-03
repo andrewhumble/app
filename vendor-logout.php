@@ -9,6 +9,10 @@ if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+if ($_SESSION['userType'] != 2) {
+    header("Location: home.php");
+}
+
 if (!isset($_SESSION['username'])) {
 
     header("Location: home.php");
@@ -39,7 +43,7 @@ $zip = $row['zip'];
 <head>
     <link href="userLogout.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <title>Welcome to LittyLit</title>
+    <title>LittyLit</title>
     <link href='https://fonts.googleapis.com/css?family=Nunito:400,700,400italic,700italic' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Girassol:400,700,400italic,700italic' rel='stylesheet'>
 </head>
