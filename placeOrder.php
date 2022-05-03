@@ -99,6 +99,7 @@ $confirmationID = $val['confirmation_id'];
 $orderID = $val['order_id'];
 $orderDate = $val['day_ordered'];
 $total = $val['quantity'] * $val['price'];
+$completeAdd = '' . $val['street'] . ', ' .  $val['city'] . ' ' . $val['state'] . ' ' . $val['zip'];
 
 
 $okay = "SELECT * FROM orders WHERE order_id= '$orderID';";
@@ -147,6 +148,7 @@ $body = '<strong>Hello ' . $firstName . '!</strong><p> Thank you so much for buy
         <b>Order ID: ' . $orderID . '</b><br>
         <b>Date Ordered: ' . $orderDate . '</b><br>
         <b># of Ordered Items: ' . $quantity . '</b><br>
+        <b>Shipping Address: ' . $completeAdd . '</b><br>
         <b>Total Cost: $' . $total . '</b><br>
 
         <h4>Have a great rest of your day!</h4><br><br>
