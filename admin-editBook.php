@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["submitButton"])) {
     echo $sql;
     $conn->query($sql);
 
-    //header("Location: admin-editBook.php?selectedBook=$selectedBook");
+    header("Location: admin-editBook.php?");
 }
 
 
