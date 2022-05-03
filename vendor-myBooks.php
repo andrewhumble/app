@@ -55,7 +55,9 @@ while ($row = mysqli_fetch_array($values)) {
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="mt-5">My Books</h1>
+                    <div class="row justify-content-center">
+                        <h1 class="mt-5" style="padding: 0.5rem 7rem;">My Books</h1>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-12">
