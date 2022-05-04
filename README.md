@@ -140,13 +140,15 @@ INSERT INTO `book` (`username`, `title`, `author`, `price`, `genre`, `ISBN`, `st
 INSERT INTO `promotions` (`id`, `discount`, `name`) VALUES ('10101', '0.5', 'HALFOFF');
 ```
 
+All of the above2 database queries can be found in the create_all_tables.sql file within the project folder.
 
 ***********
 
 ## Vendor and Customer Login
 Both vendor and customer users of LittyLit log into their accounts via /login.php, which is accessible through the welcome.html page. 
 
-## Vendor and Customer Login
+## Administrator Login
+Administrators must visit /adminLogin.php to access LittyLit admin UI. 
 
 
 ## Libraries/Frameworks Used
