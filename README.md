@@ -140,6 +140,7 @@ INSERT INTO `book` (`username`, `title`, `author`, `price`, `genre`, `ISBN`, `st
 INSERT INTO `promotions` (`id`, `discount`, `name`) VALUES ('10101', '0.5', 'HALFOFF');
 ```
 
+All of the above database queries can be found in the create_all_tables.sql file within the project folder.
 
 ***********
 
